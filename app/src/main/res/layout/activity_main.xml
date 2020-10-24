@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.activity.MainActivity">
+    tools:context=".views.activity.MainActivity"
+    android:background="@color/colorPrimaryDark">
 
     <include
         android:id="@+id/topbarHome"
@@ -18,10 +19,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:text="@string/app_name"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorGray"
             android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
     </RelativeLayout>
 
@@ -36,9 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            app:tabTextColor="@color/colorShadow"
-            app:tabSelectedTextColor="@color/colorWhite"
-            app:tabIndicatorColor="@color/colorWhite"
+            app:tabTextColor="@color/colorGray"
+            app:tabSelectedTextColor="@color/colorShadow"
+            app:tabIndicatorColor="@color/colorShadow"
             android:layout_gravity="top" />
     </androidx.viewpager.widget.ViewPager>
 </RelativeLayout>
