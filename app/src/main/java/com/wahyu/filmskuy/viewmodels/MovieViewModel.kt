@@ -1,9 +1,7 @@
 package com.wahyu.filmskuy.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.wahyu.filmskuy.models.FilmModel
 import com.wahyu.filmskuy.repository.MovieRepository
-import com.wahyu.filmskuy.utils.DataDummy
 
 /**
  * Created by wahyu_septiadi on 25, October 2020.
