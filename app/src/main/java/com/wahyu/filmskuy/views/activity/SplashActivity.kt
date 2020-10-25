@@ -13,12 +13,12 @@ import com.wahyu.filmskuy.R
 
 class SplashActivity : Activity() {
 
-    lateinit var handler: Handler
+    private lateinit var handler: Handler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splashscreen)
 
-        handler = Handler()
+        handler = Handler(mainLooper)
         handler.postDelayed({
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)

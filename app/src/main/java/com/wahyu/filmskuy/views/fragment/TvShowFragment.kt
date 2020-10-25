@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.FilmAdapter
 import com.wahyu.filmskuy.viewmodels.TvShowViewModel
-import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {

@@ -11,7 +11,7 @@ import com.wahyu.filmskuy.views.fragment.TvShowFragment
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MyPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
+class MyPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
 
     private val pages = listOf(
         MovieFragment(),
