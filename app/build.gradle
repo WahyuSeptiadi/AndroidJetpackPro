@@ -43,4 +43,14 @@ dependencies {
     implementation 'gr.pantrif:easy-android-splash-screen:0.0.1'
     implementation 'com.android.support:design:30.1.0'
 
+    //for UnitTest
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "junit:junit:$junitVersion"
+
+    //for instrumentedTest
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
+
+    //architecture component //for view model
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$archLifecycleVersion"
 }

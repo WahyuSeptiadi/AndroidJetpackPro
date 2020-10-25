@@ -5,10 +5,11 @@ package com.wahyu.filmskuy.models
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-data class FilmModel (
+data class MovieModel (
+    val moviesId: String,
+    val image: Int,
     val title: String,
-    val description: String,
-    val rating: Int,
-    val publish: String,
-    val actors: String
+    val overview: String,
+    val rating: String,
+    val release: String
 )
