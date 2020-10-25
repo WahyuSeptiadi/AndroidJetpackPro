@@ -15,7 +15,11 @@ import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_tv_show, container, false)
     }
 
@@ -23,7 +27,10 @@ class TvShowFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         if (activity != null) {
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvShowViewModel::class.java]
+            val viewModel = ViewModelProvider(
+                this,
+                ViewModelProvider.NewInstanceFactory()
+            )[TvShowViewModel::class.java]
             val tvshows = viewModel.getTvShows()
 
             val filmAdapter = FilmAdapter()
@@ -31,11 +38,13 @@ class TvShowFragment : Fragment() {
 
             val orientation = resources.configuration.orientation
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                rvTvShow.layoutManager = GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
+                rvTvShow.layoutManager =
+                    GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
                 rvTvShow.setHasFixedSize(true)
                 rvTvShow.adapter = filmAdapter
             } else {
-                rvTvShow.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                rvTvShow.layoutManager =
+                    GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                 rvTvShow.setHasFixedSize(true)
                 rvTvShow.adapter = filmAdapter
             }

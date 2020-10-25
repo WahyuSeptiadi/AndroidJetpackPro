@@ -11,7 +11,8 @@ import com.wahyu.filmskuy.views.fragment.TvShowFragment
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MyPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
+class MyPagerAdapter(fm: FragmentManager) :
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val pages = listOf(
         MovieFragment(),
@@ -27,7 +28,7 @@ class MyPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm, BEHAVIOR_RES
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when(position){
+        return when (position) {
             0 -> "Movie"
             else -> "Tv Show"
         }

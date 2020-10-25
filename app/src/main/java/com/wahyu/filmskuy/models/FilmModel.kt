@@ -5,7 +5,7 @@ package com.wahyu.filmskuy.models
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-data class FilmModel (
+data class FilmModel(
     val id: String,
     val image: Int,
     val title: String,

@@ -9,6 +9,6 @@ import com.wahyu.filmskuy.utils.DataDummy
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class TvShowViewModel: ViewModel() {
+class TvShowViewModel : ViewModel() {
     fun getTvShows(): List<FilmModel> = DataDummy.generateDummyTvShow()
 }

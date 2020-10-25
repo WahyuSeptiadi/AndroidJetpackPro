@@ -20,18 +20,18 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         val extras = intent.extras
-        if (extras != null){
+        if (extras != null) {
             val filmId = extras.getString(EXTRA_MOVIES)
-            if (filmId != null){
-                if (filmId.substring(0,1) == "m"){
+            if (filmId != null) {
+                if (filmId.substring(0, 1) == "m") {
                     for (film in DataDummy.generateDummyMovies()) {
-                        if (film.id == filmId){
+                        if (film.id == filmId) {
                             getDataFilm(film)
                         }
                     }
-                }else{
+                } else {
                     for (film in DataDummy.generateDummyTvShow()) {
-                        if (film.id == filmId){
+                        if (film.id == filmId) {
                             getDataFilm(film)
                         }
                     }

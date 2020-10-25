@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.activity.MainActivity">
 
     <include
@@ -18,10 +18,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:text="@string/app_name"
             android:textColor="@color/colorGray"
             android:textSize="20sp"
-            android:layout_marginStart="20dp"
             android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
     </RelativeLayout>
@@ -36,10 +36,10 @@
             android:id="@+id/tabsMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:background="@color/colorPrimary"
-            app:tabTextColor="@color/colorGray"
-            app:tabSelectedTextColor="@color/colorShadow"
             app:tabIndicatorColor="@color/colorShadow"
-            android:layout_gravity="top" />
+            app:tabSelectedTextColor="@color/colorShadow"
+            app:tabTextColor="@color/colorGray" />
     </androidx.viewpager.widget.ViewPager>
 </RelativeLayout>

@@ -20,9 +20,9 @@ import java.util.ArrayList
 class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
     private var listFilms = ArrayList<FilmModel>()
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(film: FilmModel) {
-            with(itemView){
+            with(itemView) {
                 Picasso.get().load(film.image).into(imageFilm)
                 titleFilm.text = film.title
                 yearFilm.text = film.year
@@ -44,7 +44,8 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_film, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_film, parent, false)
         return MovieViewHolder(view)
     }
 

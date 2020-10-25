@@ -13,5 +13,6 @@ class MainActivity : AppCompatActivity() {
 
         viewpagerMain.adapter = MyPagerAdapter(supportFragmentManager)
         tabsMain.setupWithViewPager(viewpagerMain)
+
     }
 }
