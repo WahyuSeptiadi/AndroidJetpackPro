@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.MovieModel
+import com.wahyu.filmskuy.models.FilmModel
 import com.wahyu.filmskuy.utils.DataDummy
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_MOVIES = "extra_movies"
+        const val EXTRA_MOVIES = "extra_films"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,11 +21,11 @@ class DetailActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null){
-            val movieId = extras.getString(EXTRA_MOVIES)
-            if (movieId != null){
-                for (movie in DataDummy.generateDummyMovies()) {
-                    if (movie.moviesId == movieId){
-                        getDataMovie(movie)
+            val filmId = extras.getString(EXTRA_MOVIES)
+            if (filmId != null){
+                for (film in DataDummy.generateDummyMovies()) {
+                    if (film.id == filmId){
+                        getDataMovie(film)
                     }
                 }
             }
@@ -36,14 +36,14 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDataMovie(movieModel: MovieModel) {
-        Picasso.get().load(movieModel.image).into(backgroundDetailFilm)
-        Picasso.get().load(movieModel.image).into(imageDetailFilm)
+    private fun getDataMovie(filmModel: FilmModel) {
+        Picasso.get().load(filmModel.image).into(backgroundDetailFilm)
+        Picasso.get().load(filmModel.image).into(imageDetailFilm)
 
-        titleDetailFilm.text = movieModel.title
-        releaseDetailFilm.text = movieModel.release
-        ratingDetailFilm.text = movieModel.rating
-        overviewDetailFilm.text = movieModel.overview
+        titleDetailFilm.text = filmModel.title
+        releaseDetailFilm.text = filmModel.release
+        ratingDetailFilm.text = filmModel.rating
+        overviewDetailFilm.text = filmModel.overview
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

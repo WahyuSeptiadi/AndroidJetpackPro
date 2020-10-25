@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.MovieModel
+import com.wahyu.filmskuy.models.FilmModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
 import java.util.ArrayList
@@ -18,29 +18,29 @@ import java.util.ArrayList
  */
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var listMovies = ArrayList<MovieModel>()
+    private var listMovies = ArrayList<FilmModel>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bind(movie: MovieModel) {
+        fun bind(film: FilmModel) {
             with(itemView){
-                Picasso.get().load(movie.image).into(imageFilm)
-                titleFilm.text = movie.title
-                releaseFilm.text = movie.release
-                ratingFilm.text = movie.rating
+                Picasso.get().load(film.image).into(imageFilm)
+                titleFilm.text = film.title
+                yearFilm.text = film.year
+                ratingFilm.text = film.rating
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_MOVIES, movie.moviesId)
+                    intent.putExtra(DetailActivity.EXTRA_MOVIES, film.id)
                     itemView.context.startActivity(intent)
                 }
             }
         }
     }
 
-    fun setMovies(movies: List<MovieModel>?) {
-        if (movies == null) return
+    fun setMovies(films: List<FilmModel>?) {
+        if (films == null) return
         this.listMovies.clear()
-        this.listMovies.addAll(movies)
+        this.listMovies.addAll(films)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
