@@ -1,5 +1,6 @@
 package com.wahyu.filmskuy.views.fragment
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,9 +32,16 @@ class MovieFragment : Fragment() {
             val academyAdapter = MovieAdapter()
             academyAdapter.setMovies(movies)
 
-            rvMovie.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-            rvMovie.setHasFixedSize(true)
-            rvMovie.adapter = academyAdapter
+            val orientation = resources.configuration.orientation
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                rvMovie.layoutManager = GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
+                rvMovie.setHasFixedSize(true)
+                rvMovie.adapter = academyAdapter
+            } else {
+                rvMovie.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                rvMovie.setHasFixedSize(true)
+                rvMovie.adapter = academyAdapter
+            }
 
             progressMovie.visibility = View.GONE
         }
