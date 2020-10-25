@@ -17,8 +17,8 @@ import java.util.ArrayList
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var listMovies = ArrayList<FilmModel>()
+class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
+    private var listFilms = ArrayList<FilmModel>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(film: FilmModel) {
@@ -37,10 +37,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         }
     }
 
-    fun setMovies(films: List<FilmModel>?) {
+    fun setFilm(films: List<FilmModel>?) {
         if (films == null) return
-        this.listMovies.clear()
-        this.listMovies.addAll(films)
+        this.listFilms.clear()
+        this.listFilms.addAll(films)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -49,10 +49,10 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = listMovies[position]
+        val movie = listFilms[position]
         holder.bind(movie)
     }
 
-    override fun getItemCount(): Int = listMovies.size
+    override fun getItemCount(): Int = listFilms.size
 
 }

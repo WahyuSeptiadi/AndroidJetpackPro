@@ -6,16 +6,15 @@
     tools:context=".views.fragment.MovieFragment"
     android:background="@color/colorPrimaryDark">
 
-    <ProgressBar
-        android:id="@+id/progressMovie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/list_item_film"/>
 
+    <ProgressBar
+        android:id="@+id/progressMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 </FrameLayout>

@@ -6,16 +6,15 @@
     tools:context=".views.fragment.TvShowFragment"
     android:background="@color/colorPrimaryDark">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTvShow"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="TV SHOW"
-        android:textColor="@color/colorWhite"/>
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/list_item_film"/>
 
     <ProgressBar
         android:id="@+id/progressTvShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
-
 </FrameLayout>

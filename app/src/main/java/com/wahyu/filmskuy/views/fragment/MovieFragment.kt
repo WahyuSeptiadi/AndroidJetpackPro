@@ -6,13 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.adapter.MovieAdapter
+import com.wahyu.filmskuy.adapter.FilmAdapter
 import com.wahyu.filmskuy.viewmodels.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 
@@ -29,18 +26,18 @@ class MovieFragment : Fragment() {
             val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
             val movies = viewModel.getMovies()
 
-            val academyAdapter = MovieAdapter()
-            academyAdapter.setMovies(movies)
+            val filmAdapter = FilmAdapter()
+            filmAdapter.setFilm(movies)
 
             val orientation = resources.configuration.orientation
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 rvMovie.layoutManager = GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
                 rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = academyAdapter
+                rvMovie.adapter = filmAdapter
             } else {
                 rvMovie.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                 rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = academyAdapter
+                rvMovie.adapter = filmAdapter
             }
 
             progressMovie.visibility = View.GONE

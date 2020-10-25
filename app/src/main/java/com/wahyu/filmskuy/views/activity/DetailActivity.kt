@@ -23,9 +23,17 @@ class DetailActivity : AppCompatActivity() {
         if (extras != null){
             val filmId = extras.getString(EXTRA_MOVIES)
             if (filmId != null){
-                for (film in DataDummy.generateDummyMovies()) {
-                    if (film.id == filmId){
-                        getDataMovie(film)
+                if (filmId.substring(0,1) == "m"){
+                    for (film in DataDummy.generateDummyMovies()) {
+                        if (film.id == filmId){
+                            getDataFilm(film)
+                        }
+                    }
+                }else{
+                    for (film in DataDummy.generateDummyTvShow()) {
+                        if (film.id == filmId){
+                            getDataFilm(film)
+                        }
                     }
                 }
             }
@@ -36,7 +44,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDataMovie(filmModel: FilmModel) {
+    private fun getDataFilm(filmModel: FilmModel) {
         Picasso.get().load(filmModel.image).into(backgroundDetailFilm)
         Picasso.get().load(filmModel.image).into(imageDetailFilm)
 
