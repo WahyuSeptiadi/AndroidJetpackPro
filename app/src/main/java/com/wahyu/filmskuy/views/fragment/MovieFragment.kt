@@ -28,7 +28,7 @@ class MovieFragment : Fragment() {
                 this,
                 ViewModelProvider.NewInstanceFactory()
             )[MovieViewModel::class.java]
-            val movies = viewModel.getMovies()
+            val movies = viewModel.movies
 
             val filmAdapter = FilmAdapter()
             filmAdapter.setFilm(movies)

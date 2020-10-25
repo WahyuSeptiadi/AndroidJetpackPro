@@ -2,6 +2,7 @@ package com.wahyu.filmskuy.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.wahyu.filmskuy.models.FilmModel
+import com.wahyu.filmskuy.repository.MovieRepository
 import com.wahyu.filmskuy.utils.DataDummy
 
 /**
@@ -10,5 +11,5 @@ import com.wahyu.filmskuy.utils.DataDummy
  */
 
 class MovieViewModel : ViewModel() {
-    fun getMovies(): List<FilmModel> = DataDummy.generateDummyMovies()
+    val movies = MovieRepository.getMovies()
 }

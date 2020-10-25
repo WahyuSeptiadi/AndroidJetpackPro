@@ -31,10 +31,10 @@ class TvShowFragment : Fragment() {
                 this,
                 ViewModelProvider.NewInstanceFactory()
             )[TvShowViewModel::class.java]
-            val tvshows = viewModel.getTvShows()
+            val tvShows = viewModel.tvShows
 
             val filmAdapter = FilmAdapter()
-            filmAdapter.setFilm(tvshows)
+            filmAdapter.setFilm(tvShows)
 
             val orientation = resources.configuration.orientation
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {

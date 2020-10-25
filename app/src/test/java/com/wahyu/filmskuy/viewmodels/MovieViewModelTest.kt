@@ -20,8 +20,8 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val filmModels = viewModel.getMovies()
-        assertNotNull(filmModels)
-        assertEquals(10, filmModels.size)
+        val movies = viewModel.movies
+        assertNotNull(movies)
+        assertEquals(10, movies.size)
     }
 }
