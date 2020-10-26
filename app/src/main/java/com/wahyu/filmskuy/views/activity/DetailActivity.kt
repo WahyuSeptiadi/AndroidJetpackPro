@@ -4,10 +4,11 @@ import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.models.FilmModel
-import com.wahyu.filmskuy.utils.DataDummy
+import com.wahyu.filmskuy.viewmodels.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -19,23 +20,14 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
+
         val extras = intent.extras
         if (extras != null) {
             val filmId = extras.getString(EXTRA_MOVIES)
             if (filmId != null) {
-                if (filmId.substring(0, 1) == "m") {
-                    for (film in DataDummy.generateDummyMovies()) {
-                        if (film.id == filmId) {
-                            getDataFilm(film)
-                        }
-                    }
-                } else {
-                    for (film in DataDummy.generateDummyTvShow()) {
-                        if (film.id == filmId) {
-                            getDataFilm(film)
-                        }
-                    }
-                }
+                viewModel.setSelectedFilm(filmId)
+                getDataFilm(viewModel.getDetailFilm())
             }
         }
 
