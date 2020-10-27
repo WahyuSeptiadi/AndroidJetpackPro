@@ -20,10 +20,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="@string/app_name"
-            android:textColor="@color/colorGray"
+            android:textColor="@color/colorWhite"
+            android:alpha="0.7"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/favoriteHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:alpha="0.7"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_round_favorite_white" />
     </RelativeLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -40,6 +51,6 @@
             android:background="@color/colorPrimary"
             app:tabIndicatorColor="@color/colorShadow"
             app:tabSelectedTextColor="@color/colorShadow"
-            app:tabTextColor="@color/colorGray" />
+            app:tabTextColor="@color/colorWhiteOp70"/>
     </androidx.viewpager.widget.ViewPager>
 </RelativeLayout>

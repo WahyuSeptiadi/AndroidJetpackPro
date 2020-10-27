@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def STRING = 'String'
+def TheMovieDb_ApiKey = '"' + APIKEY + '"' ?: '"Define your TheMovieDb API Key!"'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -14,6 +17,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        each { type ->
+            type.buildConfigField STRING, 'APIKEY', TheMovieDb_ApiKey
+        }
     }
 
     buildTypes {
