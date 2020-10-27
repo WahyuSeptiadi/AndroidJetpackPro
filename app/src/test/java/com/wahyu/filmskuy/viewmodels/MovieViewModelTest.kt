@@ -1,11 +1,11 @@
 package com.wahyu.filmskuy.viewmodels
 
-import org.junit.Assert.*
-import org.junit.Test
+import org.junit.Assert
 import org.junit.Before
+import org.junit.Test
 
 /**
- * Created by wahyu_septiadi on 25, October 2020.
+ * Created by wahyu_septiadi on 27, October 2020.
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
@@ -20,8 +20,8 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val movies = viewModel.movies
-        assertNotNull(movies)
-        assertEquals(10, movies.size)
+        val movies = viewModel.loadMovies()
+        Assert.assertNotNull(movies)
+        Assert.assertEquals(10, movies.size)
     }
 }

@@ -1,6 +1,9 @@
 package com.wahyu.filmskuy.viewmodels
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.wahyu.filmskuy.models.FilmModel
 import com.wahyu.filmskuy.repository.MovieRepository
 
 /**
@@ -9,19 +12,18 @@ import com.wahyu.filmskuy.repository.MovieRepository
  */
 
 class MovieViewModel : ViewModel() {
-    val movies = MovieRepository.getMovies()
+    var movies: MutableLiveData<List<FilmModel>>? = null
+        get() {
+            if (field == null) {
+                Log.d("MovieViewModel", "${loadMovies()}")
+                val data = MutableLiveData<List<FilmModel>>()
+                data.value = loadMovies()
+                field = data
+            }
+            return field
+        }
+        private set
 
-//    var movies: MutableLiveData<List<FilmModel>>? = null
-//        get() {
-//            if (field == null) {
-//                field = MutableLiveData<List<FilmModel>>()
-//                loadMovies()
-//            }
-//            return field
-//        }
-//        private set
-//
-//    private fun loadMovies() {
-//        MovieRepository.getMovies()
-//    }
+
+    fun loadMovies(): List<FilmModel> = MovieRepository.getMovies()
 }

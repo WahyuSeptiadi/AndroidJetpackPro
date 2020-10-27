@@ -6,7 +6,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.rule.ActivityTestRule
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.utils.DataDummy
 import org.junit.Rule
@@ -22,7 +22,7 @@ class MainActivityTest {
     private val dummyTvShow = DataDummy.generateDummyTvShow()
 
     @get:Rule
-    var activityRule = ActivityTestRule(MainActivity::class.java)
+    var activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun loadMovies() {

@@ -41,6 +41,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
         if (films == null) return
         this.listFilms.clear()
         this.listFilms.addAll(films)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

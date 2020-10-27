@@ -10,7 +10,7 @@ import com.wahyu.filmskuy.utils.DataDummy
  */
 
 class DetailViewModel : ViewModel() {
-    private  lateinit var filmId: String
+    private lateinit var filmId: String
 
     fun setSelectedFilm(id: String) {
         this.filmId = id

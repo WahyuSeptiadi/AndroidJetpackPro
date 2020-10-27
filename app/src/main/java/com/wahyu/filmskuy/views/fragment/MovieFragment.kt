@@ -24,12 +24,15 @@ class MovieFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MovieViewModel::class.java]
-
-            val movies = viewModel.movies
+            val viewModel = ViewModelProvider(
+                this,
+                ViewModelProvider.NewInstanceFactory()
+            )[MovieViewModel::class.java]
 
             val filmAdapter = FilmAdapter()
-            filmAdapter.setFilm(movies)
+            viewModel.movies?.observe(viewLifecycleOwner) {
+                filmAdapter.setFilm(it)
+            }
 
             val orientation = resources.configuration.orientation
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
