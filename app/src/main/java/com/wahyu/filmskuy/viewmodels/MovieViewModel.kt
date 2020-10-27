@@ -10,4 +10,18 @@ import com.wahyu.filmskuy.repository.MovieRepository
 
 class MovieViewModel : ViewModel() {
     val movies = MovieRepository.getMovies()
+
+//    var movies: MutableLiveData<List<FilmModel>>? = null
+//        get() {
+//            if (field == null) {
+//                field = MutableLiveData<List<FilmModel>>()
+//                loadMovies()
+//            }
+//            return field
+//        }
+//        private set
+//
+//    private fun loadMovies() {
+//        MovieRepository.getMovies()
+//    }
 }

@@ -1,8 +1,10 @@
 package com.wahyu.filmskuy.adapter
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.views.fragment.MovieFragment
 import com.wahyu.filmskuy.views.fragment.TvShowFragment
 
@@ -11,7 +13,8 @@ import com.wahyu.filmskuy.views.fragment.TvShowFragment
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MyPagerAdapter(fm: FragmentManager) :
+class MyPagerAdapter(private val context: Context, fm: FragmentManager) :
+
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val pages = listOf(
@@ -29,8 +32,8 @@ class MyPagerAdapter(fm: FragmentManager) :
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> "Movie"
-            else -> "Tv Show"
+            0 -> context.getString(R.string.movie)
+            else -> context.getString(R.string.tvshow)
         }
     }
 }
