@@ -9,6 +9,8 @@ import com.wahyu.filmskuy.utils.DataDummy
  */
 
 class MovieRepository {
+    //Sebaiknya kamu tidak mendeklarasikan fungsi mengambil data berikut pada Companion Object.
+    //Hal ini membuat fungsi tersebut menjadi static dan bukan merupakan sebuah instance dari objek.
     companion object {
         fun getMovies(): List<FilmModel> = DataDummy.generateDummyMovies()
     }
