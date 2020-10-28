@@ -24,6 +24,5 @@ class MovieViewModel : ViewModel() {
         }
         private set
 
-
-    fun loadMovies(): List<FilmModel> = MovieRepository.getMovies()
+    fun loadMovies(): List<FilmModel> = MovieRepository().getMovies()
 }

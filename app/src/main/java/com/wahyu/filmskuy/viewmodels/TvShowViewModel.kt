@@ -24,5 +24,5 @@ class TvShowViewModel : ViewModel() {
         }
         private set
 
-    fun loadTvShows(): List<FilmModel> = TvShowRepository.getTvShows()
+    fun loadTvShows(): List<FilmModel> = TvShowRepository().getTvShows()
 }

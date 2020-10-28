@@ -9,7 +9,5 @@ import com.wahyu.filmskuy.utils.DataDummy
  */
 
 class TvShowRepository {
-    companion object {
-        fun getTvShows(): List<FilmModel> = DataDummy.generateDummyTvShow()
-    }
+    fun getTvShows(): List<FilmModel> = DataDummy.generateDummyTvShow()
 }
