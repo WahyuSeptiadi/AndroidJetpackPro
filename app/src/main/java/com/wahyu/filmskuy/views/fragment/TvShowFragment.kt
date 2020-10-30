@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.FilmAdapter
+import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.viewmodels.TvShowViewModel
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
@@ -50,7 +54,21 @@ class TvShowFragment : Fragment() {
                 rvTvShow.adapter = filmAdapter
             }
 
-            progressTvShow.visibility = View.GONE
+            progressTvShow.gone()
+
+            etSearchTvShow.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchTvShow()
+                    hideKeyboard()
+                    return@setOnEditorActionListener true
+                }
+                false
+            }
         }
+    }
+
+    private fun searchTvShow() {
+        Toast.makeText(context, etSearchTvShow.text, Toast.LENGTH_SHORT).show()
+        etSearchTvShow.text.clear()
     }
 }

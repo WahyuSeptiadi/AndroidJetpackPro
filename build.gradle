@@ -25,6 +25,10 @@ task clean(type: Delete) {
 }
 
 ext {
+    //for room local database
+    roomVersion = '2.2.5'
+    //for retrofit
+    retrofitVersion = '2.9.0'
     //for unitTest
     junitVersion = '4.13'
     //for instrumentedTest

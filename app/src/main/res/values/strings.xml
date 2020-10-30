@@ -8,4 +8,7 @@
     <string name="sample_rate">0.0</string>
     <string name="movie">Movie</string>
     <string name="tvshow">Tv Show</string>
+    <string name="search">search</string>
+    <string name="search_movie">search movie</string>
+    <string name="search_tvshow">search tv show</string>
 </resources>
