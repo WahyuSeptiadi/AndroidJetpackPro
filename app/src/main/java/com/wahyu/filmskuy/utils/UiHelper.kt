@@ -10,14 +10,6 @@ import androidx.fragment.app.Fragment
  * Created by wahyu_septiadi on 30, October 2020.
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
- 
-fun View.invisible(){
-    this.visibility = View.INVISIBLE
-}
-
-fun View.visible(){
-    this.visibility = View.VISIBLE
-}
 
 fun View.gone(){
     this.visibility = View.GONE

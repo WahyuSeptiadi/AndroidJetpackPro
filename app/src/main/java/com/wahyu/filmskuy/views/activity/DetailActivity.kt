@@ -4,17 +4,14 @@ import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.models.FilmCatalogue
-import com.wahyu.filmskuy.viewmodels.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_MOVIES = "extra_movies"
-        const val EXTRA_TV_SHOW = "extra_tv_shows"
+        const val EXTRA_FILMS = "extra_films"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,15 +27,22 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getDataMovie() {
 
-        val movie: FilmCatalogue? = intent.getParcelableExtra(EXTRA_MOVIES)
+        val film = intent.getParcelableExtra<FilmCatalogue>(EXTRA_FILMS) as FilmCatalogue
 
-        Picasso.get().load(movie?.image).into(backgroundDetailFilm)
-        Picasso.get().load(movie?.image).into(imageDetailFilm)
+        if (film.image != null) {
+            val imageSize = "w500"
+            val urlImage = "https://image.tmdb.org/t/p/$imageSize${film.image}"
+            Picasso.get().load(urlImage).into(backgroundDetailFilm)
+            Picasso.get().load(urlImage).into(imageDetailFilm)
+        } else {
+            Picasso.get().load(R.drawable.img_notfound).into(backgroundDetailFilm)
+            Picasso.get().load(R.drawable.img_notfound).into(imageDetailFilm)
+        }
 
-        titleDetailFilm.text = movie?.title
-        releaseDetailFilm.text = movie?.release
-        ratingDetailFilm.text = movie?.vote.toString()
-        overviewDetailFilm.text = movie?.overview
+        titleDetailFilm.text = film.title
+        releaseDetailFilm.text = film.release
+        ratingDetailFilm.text = film.vote.toString()
+        overviewDetailFilm.text = film.overview
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

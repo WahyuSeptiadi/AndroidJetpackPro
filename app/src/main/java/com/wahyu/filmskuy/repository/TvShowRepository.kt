@@ -22,7 +22,7 @@ class TvShowRepository {
     private val listTvShows = MutableLiveData<ArrayList<FilmCatalogue>>()
 
     private fun getTvShowsMapper(): ArrayList<FilmCatalogue> {
-        ApiClient.create().getTvShow().enqueue(object : retrofit2.Callback<TvShowResponse> {
+        ApiClient.create().getTvShow().enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
                 val tvShow = response.body() as TvShowResponse
                 val tvShowResult = tvShow.results

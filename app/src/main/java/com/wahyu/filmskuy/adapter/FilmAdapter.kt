@@ -36,9 +36,18 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
                 }
                 ratingFilm.text = film.vote.toString()
 
+                val currentFilm = FilmCatalogue(
+                    film.id,
+                    film.image,
+                    film.title,
+                    film.overview,
+                    film.vote,
+                    film.release
+                )
+
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_MOVIES, film.id)
+                    intent.putExtra(DetailActivity.EXTRA_FILMS, currentFilm)
                     itemView.context.startActivity(intent)
                 }
             }

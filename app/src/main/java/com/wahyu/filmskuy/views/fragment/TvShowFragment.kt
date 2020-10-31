@@ -15,7 +15,6 @@ import com.wahyu.filmskuy.adapter.FilmAdapter
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.viewmodels.TvShowViewModel
-import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
