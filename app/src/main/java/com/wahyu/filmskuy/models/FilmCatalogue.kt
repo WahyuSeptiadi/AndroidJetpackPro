@@ -9,11 +9,11 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-data class MovieCatalogue(
-    val id: Int,
-    val image: String,
-    val title: String,
-    val overview: String,
-    val vote: Double,
-    val release: String
+data class FilmCatalogue(
+    val id: Int? = 0,
+    val image: String? = null,
+    val title: String? = null,
+    val overview: String? = null,
+    val vote: Double? = null,
+    val release: String? = null
 ) : Parcelable

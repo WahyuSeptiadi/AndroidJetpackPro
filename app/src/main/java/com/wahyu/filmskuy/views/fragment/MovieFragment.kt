@@ -34,8 +34,28 @@ class MovieFragment : Fragment() {
             )[MovieViewModel::class.java]
 
             val filmAdapter = FilmAdapter()
-            viewModel.movies?.observe(viewLifecycleOwner) {
+            viewModel.loadMovies().observe(viewLifecycleOwner) {
+                if (it != null) {
+                    progressMovie.gone()
+                }
                 filmAdapter.setFilm(it)
+            }
+
+            etSearchMovie.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val title = etSearchMovie.text
+                    viewModel.searchMovies(title.toString()).observe(viewLifecycleOwner) {
+                        if (it != null) {
+                            progressMovie.gone()
+                        }
+                        filmAdapter.setFilm(it)
+                    }
+                    Toast.makeText(context, title.toString(), Toast.LENGTH_SHORT).show()
+                    title.clear()
+                    hideKeyboard()
+                    return@setOnEditorActionListener true
+                }
+                false
             }
 
             val orientation = resources.configuration.orientation
@@ -50,22 +70,6 @@ class MovieFragment : Fragment() {
                 rvMovie.setHasFixedSize(true)
                 rvMovie.adapter = filmAdapter
             }
-
-            progressMovie.gone()
-
-            etSearchMovie.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    searchMovie()
-                    hideKeyboard()
-                    return@setOnEditorActionListener true
-                }
-                false
-            }
         }
-    }
-
-    private fun searchMovie() {
-        Toast.makeText(context, etSearchMovie.text, Toast.LENGTH_SHORT).show()
-        etSearchMovie.text.clear()
     }
 }

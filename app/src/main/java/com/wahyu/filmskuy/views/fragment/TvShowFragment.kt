@@ -15,6 +15,7 @@ import com.wahyu.filmskuy.adapter.FilmAdapter
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.viewmodels.TvShowViewModel
+import kotlinx.android.synthetic.main.fragment_movie.*
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
@@ -37,7 +38,10 @@ class TvShowFragment : Fragment() {
             )[TvShowViewModel::class.java]
 
             val filmAdapter = FilmAdapter()
-            viewModel.tvShows?.observe(viewLifecycleOwner) {
+            viewModel.loadTvShows().observe(viewLifecycleOwner) {
+                if (it != null) {
+                    progressTvShow.gone()
+                }
                 filmAdapter.setFilm(it)
             }
 
@@ -54,21 +58,22 @@ class TvShowFragment : Fragment() {
                 rvTvShow.adapter = filmAdapter
             }
 
-            progressTvShow.gone()
-
             etSearchTvShow.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    searchTvShow()
+                    val title = etSearchTvShow.text
+                    viewModel.searchTvShow(title.toString()).observe(viewLifecycleOwner) {
+                        if (it != null) {
+                            progressTvShow.gone()
+                        }
+                        filmAdapter.setFilm(it)
+                    }
+                    Toast.makeText(context, title.toString(), Toast.LENGTH_SHORT).show()
+                    title.clear()
                     hideKeyboard()
                     return@setOnEditorActionListener true
                 }
                 false
             }
         }
-    }
-
-    private fun searchTvShow() {
-        Toast.makeText(context, etSearchTvShow.text, Toast.LENGTH_SHORT).show()
-        etSearchTvShow.text.clear()
     }
 }

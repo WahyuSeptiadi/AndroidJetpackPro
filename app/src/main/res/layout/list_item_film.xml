@@ -52,6 +52,8 @@
                 android:layout_below="@+id/frameFilm"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
+                android:paddingStart="7dp"
+                android:paddingEnd="7dp"
                 android:text="@string/dot"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"

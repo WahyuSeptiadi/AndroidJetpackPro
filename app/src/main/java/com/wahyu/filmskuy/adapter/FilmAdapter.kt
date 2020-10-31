@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.FilmModel
+import com.wahyu.filmskuy.models.FilmCatalogue
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
 import java.util.ArrayList
@@ -18,15 +18,23 @@ import java.util.ArrayList
  */
 
 class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
-    private var listFilms = ArrayList<FilmModel>()
+    private var listFilms = ArrayList<FilmCatalogue>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(film: FilmModel) {
+        fun bind(film: FilmCatalogue) {
             with(itemView) {
-                Picasso.get().load(film.image).into(imageFilm)
+                if (film.image != null) {
+                    val imageSize = "w500"
+                    val urlImage = "https://image.tmdb.org/t/p/$imageSize${film.image}"
+                    Picasso.get().load(urlImage).into(imageFilm)
+                } else {
+                    Picasso.get().load(R.drawable.img_notfound).into(imageFilm)
+                }
                 titleFilm.text = film.title
-                yearFilm.text = film.year
-                ratingFilm.text = film.rating
+                if (film.release?.isNotEmpty()!!) {
+                    yearFilm.text = film.release.substring(0, 4)
+                }
+                ratingFilm.text = film.vote.toString()
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
@@ -37,7 +45,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
         }
     }
 
-    fun setFilm(films: List<FilmModel>?) {
+    fun setFilm(films: List<FilmCatalogue>?) {
         if (films == null) return
         this.listFilms.clear()
         this.listFilms.addAll(films)

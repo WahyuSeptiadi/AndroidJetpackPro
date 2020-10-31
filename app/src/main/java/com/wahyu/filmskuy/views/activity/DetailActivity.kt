@@ -7,46 +7,38 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.FilmModel
+import com.wahyu.filmskuy.models.FilmCatalogue
 import com.wahyu.filmskuy.viewmodels.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_MOVIES = "extra_films"
+        const val EXTRA_MOVIES = "extra_movies"
+        const val EXTRA_TV_SHOW = "extra_tv_shows"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[DetailViewModel::class.java]
-
-        val extras = intent.extras
-        if (extras != null) {
-            val filmId = extras.getString(EXTRA_MOVIES)
-            if (filmId != null) {
-                viewModel.setSelectedFilm(filmId)
-                getDataFilm(viewModel.getDetailFilm())
-            }
-        }
+        getDataMovie()
 
         btnBack.setOnClickListener {
             onBackPressed()
         }
     }
 
-    private fun getDataFilm(filmModel: FilmModel) {
-        Picasso.get().load(filmModel.image).into(backgroundDetailFilm)
-        Picasso.get().load(filmModel.image).into(imageDetailFilm)
+    private fun getDataMovie() {
 
-        titleDetailFilm.text = filmModel.title
-        releaseDetailFilm.text = filmModel.release
-        ratingDetailFilm.text = filmModel.rating
-        overviewDetailFilm.text = filmModel.overview
+        val movie: FilmCatalogue? = intent.getParcelableExtra(EXTRA_MOVIES)
+
+        Picasso.get().load(movie?.image).into(backgroundDetailFilm)
+        Picasso.get().load(movie?.image).into(imageDetailFilm)
+
+        titleDetailFilm.text = movie?.title
+        releaseDetailFilm.text = movie?.release
+        ratingDetailFilm.text = movie?.vote.toString()
+        overviewDetailFilm.text = movie?.overview
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

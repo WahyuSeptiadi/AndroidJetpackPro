@@ -1,10 +1,11 @@
 package com.wahyu.filmskuy.viewmodels
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.wahyu.filmskuy.models.FilmModel
+import com.wahyu.filmskuy.models.FilmCatalogue
 import com.wahyu.filmskuy.repository.TvShowRepository
+import java.util.ArrayList
 
 /**
  * Created by wahyu_septiadi on 25, October 2020.
@@ -12,17 +13,15 @@ import com.wahyu.filmskuy.repository.TvShowRepository
  */
 
 class TvShowViewModel : ViewModel() {
-    var tvShows: MutableLiveData<List<FilmModel>>? = null
-        get() {
-            if (field == null) {
-                Log.d("MovieViewModel", "${loadTvShows()}")
-                val data = MutableLiveData<List<FilmModel>>()
-                data.value = loadTvShows()
-                field = data
-            }
-            return field
-        }
-        private set
 
-    fun loadTvShows(): List<FilmModel> = TvShowRepository().getTvShows()
+    private var listSearchTvShows = MutableLiveData<ArrayList<FilmCatalogue>>()
+
+    fun loadTvShows(): LiveData<ArrayList<FilmCatalogue>> = TvShowRepository().getAllDataTvShows()
+
+    fun searchTvShow(title: String): LiveData<ArrayList<FilmCatalogue>> {
+        listSearchTvShows =
+            TvShowRepository().setTitleSearchTvShow(title) as MutableLiveData<ArrayList<FilmCatalogue>>
+
+        return listSearchTvShows
+    }
 }
