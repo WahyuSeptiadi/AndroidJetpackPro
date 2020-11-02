@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +13,7 @@ import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.FilmAdapter
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
+import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 
@@ -43,15 +43,22 @@ class MovieFragment : Fragment() {
 
             etSearchMovie.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    val title = etSearchMovie.text
-                    viewModel.searchMovies(title.toString()).observe(viewLifecycleOwner) {
-                        if (it != null) {
-                            progressMovie.gone()
+                    val titleKey = etSearchMovie.text
+
+                    progressMovie.visible()
+                    txtMovieNotFound.gone()
+
+                    viewModel.searchMovies(titleKey.toString()).observe(viewLifecycleOwner) {
+                        if (it.isNotEmpty()) {
+                            txtMovieNotFound.gone()
+                        } else {
+                            txtMovieNotFound.visible()
                         }
+                        progressMovie.gone()
                         filmAdapter.setFilm(it)
                     }
-                    Toast.makeText(context, title.toString(), Toast.LENGTH_SHORT).show()
-                    title.clear()
+
+                    titleKey.clear()
                     hideKeyboard()
                     return@setOnEditorActionListener true
                 }

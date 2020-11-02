@@ -11,7 +11,11 @@ import androidx.fragment.app.Fragment
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-fun View.gone(){
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.gone() {
     this.visibility = View.GONE
 }
 

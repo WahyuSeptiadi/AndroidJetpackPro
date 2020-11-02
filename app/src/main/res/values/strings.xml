@@ -7,8 +7,10 @@
     <string name="overview">Overview</string>
     <string name="sample_rate">0.0</string>
     <string name="movie">Movie</string>
-    <string name="tvshow">Tv Show</string>
+    <string name="tvShow">Tv Show</string>
     <string name="search">search</string>
     <string name="search_movie">search movie</string>
-    <string name="search_tvshow">search tv show</string>
+    <string name="search_tvShow">search tv show</string>
+    <string name="yourMovie_notFound">Your movie not found!</string>
+    <string name="yourTvShow_notFound">Your tv show not found!</string>
 </resources>

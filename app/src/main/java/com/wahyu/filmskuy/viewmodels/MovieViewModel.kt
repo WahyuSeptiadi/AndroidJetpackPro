@@ -12,7 +12,7 @@ import java.util.ArrayList
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel: ViewModel() {
 
     private var listSearchMovies = MutableLiveData<ArrayList<FilmCatalogue>>()
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
     tools:context=".views.fragment.TvShowFragment">
 
@@ -34,7 +34,7 @@
                 android:layout_marginBottom="8dp"
                 android:autofillHints=""
                 android:background="@drawable/bg_round_white"
-                android:hint="@string/search_tvshow"
+                android:hint="@string/search_tvShow"
                 android:imeOptions="actionSearch"
                 android:inputType="textAutoComplete"
                 android:padding="8dp"
@@ -73,4 +73,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/txtTvShowNotFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/yourTvShow_notFound"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

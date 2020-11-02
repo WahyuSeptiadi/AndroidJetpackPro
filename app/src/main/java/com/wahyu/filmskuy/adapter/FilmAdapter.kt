@@ -24,16 +24,19 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
         fun bind(film: FilmCatalogue) {
             with(itemView) {
                 if (film.image != null) {
-                    val imageSize = "w500"
+                    val imageSize = "w780"
                     val urlImage = "https://image.tmdb.org/t/p/$imageSize${film.image}"
                     Picasso.get().load(urlImage).into(imageFilm)
                 } else {
                     Picasso.get().load(R.drawable.img_notfound).into(imageFilm)
                 }
+
                 titleFilm.text = film.title
-                if (film.release?.isNotEmpty()!!) {
-                    yearFilm.text = film.release.substring(0, 4)
+
+                if (film.release != "") {
+                    yearFilm.text = film.release?.substring(0, 4) ?: "no date"
                 }
+
                 ratingFilm.text = film.vote.toString()
 
                 val currentFilm = FilmCatalogue(
@@ -73,5 +76,4 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
     }
 
     override fun getItemCount(): Int = listFilms.size
-
 }

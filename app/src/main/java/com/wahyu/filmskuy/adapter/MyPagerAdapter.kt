@@ -33,7 +33,7 @@ class MyPagerAdapter(private val context: Context, fm: FragmentManager) :
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
             0 -> context.getString(R.string.movie)
-            else -> context.getString(R.string.tvshow)
+            else -> context.getString(R.string.tvShow)
         }
     }
 }
