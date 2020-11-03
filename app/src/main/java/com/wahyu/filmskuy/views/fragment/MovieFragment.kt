@@ -13,6 +13,7 @@ import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.FilmAdapter
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
+import com.wahyu.filmskuy.utils.toast
 import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -48,14 +49,19 @@ class MovieFragment : Fragment() {
                     progressMovie.visible()
                     txtMovieNotFound.gone()
 
-                    viewModel.searchMovies(titleKey.toString()).observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty()) {
-                            txtMovieNotFound.gone()
-                        } else {
-                            txtMovieNotFound.visible()
+                    if (titleKey.isNotEmpty()) {
+                        viewModel.searchMovies(titleKey.toString()).observe(viewLifecycleOwner) {
+                            if (it.isNotEmpty()) {
+                                txtMovieNotFound.gone()
+                            } else {
+                                txtMovieNotFound.visible()
+                            }
+                            progressMovie.gone()
+                            filmAdapter.setFilm(it)
                         }
+                    } else {
+                        toast("Please, enter keyword!")
                         progressMovie.gone()
-                        filmAdapter.setFilm(it)
                     }
 
                     titleKey.clear()

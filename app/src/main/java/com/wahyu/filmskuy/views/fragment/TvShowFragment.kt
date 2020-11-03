@@ -13,6 +13,7 @@ import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.FilmAdapter
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
+import com.wahyu.filmskuy.utils.toast
 import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.TvShowViewModel
 import kotlinx.android.synthetic.main.fragment_tv_show.*
@@ -50,15 +51,19 @@ class TvShowFragment : Fragment() {
 
                     progressTvShow.visible()
                     txtTvShowNotFound.gone()
-
-                    viewModel.searchTvShow(titleKey.toString()).observe(viewLifecycleOwner) {
-                        if (it.isNotEmpty()) {
-                            txtTvShowNotFound.gone()
-                        } else {
-                            txtTvShowNotFound.visible()
+                    if (titleKey.isNotEmpty()) {
+                        viewModel.searchTvShow(titleKey.toString()).observe(viewLifecycleOwner) {
+                            if (it.isNotEmpty()) {
+                                txtTvShowNotFound.gone()
+                            } else {
+                                txtTvShowNotFound.visible()
+                            }
+                            progressTvShow.gone()
+                            filmAdapter.setFilm(it)
                         }
+                    } else {
+                        toast("Please, enter keyword!")
                         progressTvShow.gone()
-                        filmAdapter.setFilm(it)
                     }
                     titleKey.clear()
                     hideKeyboard()
