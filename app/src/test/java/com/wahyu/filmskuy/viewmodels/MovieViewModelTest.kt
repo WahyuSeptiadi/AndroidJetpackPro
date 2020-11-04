@@ -53,6 +53,6 @@ class MovieViewModelTest {
         Assert.assertNotNull(moviesEntities)
 
         viewModel.loadMovies().observeForever(observer)
-        verify(observer).onChanged(moviesEntities)
+        verify(observer).onChanged(listMovie)
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.models.FilmCatalogue
+import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -30,8 +31,8 @@ class DetailActivity : AppCompatActivity() {
         val film = intent.getParcelableExtra<FilmCatalogue>(EXTRA_FILMS) as FilmCatalogue
 
         if (film.image != null) {
-            val imageSize = "w500"
-            val urlImage = "https://image.tmdb.org/t/p/$imageSize${film.image}"
+            val imageSize = "/w500"
+            val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.image}"
             Picasso.get().load(urlImage).into(backgroundDetailFilm)
             Picasso.get().load(urlImage).into(imageDetailFilm)
         } else {

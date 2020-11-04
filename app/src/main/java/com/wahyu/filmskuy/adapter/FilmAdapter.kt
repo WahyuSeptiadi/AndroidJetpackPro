@@ -25,7 +25,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
         fun bind(film: FilmCatalogue) {
             with(itemView) {
                 if (film.image != null) {
-                    val imageSize = "w780"
+                    val imageSize = "/w780"
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.image}"
                     Picasso.get().load(urlImage).into(imageFilm)
                 } else {
