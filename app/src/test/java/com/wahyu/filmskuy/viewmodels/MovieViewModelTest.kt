@@ -13,7 +13,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
-import com.wahyu.filmskuy.utils.FakeDataDummy
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -42,7 +41,7 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val listMovie = FakeDataDummy.generateDummyMovies()
+        val listMovie = viewModel.loadMovies().value
         val liveDataMovie = MutableLiveData<List<FilmCatalogue>>()
 
         liveDataMovie.value = listMovie
