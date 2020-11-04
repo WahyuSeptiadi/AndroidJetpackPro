@@ -1,6 +1,7 @@
 package com.wahyu.filmskuy.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.wahyu.filmskuy.models.FilmCatalogue
 import com.wahyu.filmskuy.repository.MovieRepository
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
+import com.wahyu.filmskuy.utils.FakeDataDummy
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -31,7 +33,7 @@ class MovieViewModelTest {
     private val movieRepository: MovieRepository = mock(MovieRepository::class.java)
 
     @Mock
-    private lateinit var observer: Observer<MutableList<FilmCatalogue>>
+    private lateinit var observer: Observer<List<FilmCatalogue>>
 
     @Before
     fun setUp() {
@@ -40,14 +42,15 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummyMovies = movieRepository.getAllDataMovies()
+        val listMovie = FakeDataDummy.generateDummyMovies()
+        val liveDataMovie = MutableLiveData<List<FilmCatalogue>>()
 
-        `when`(movieRepository.getAllDataMovies()).thenReturn(dummyMovies)
+        liveDataMovie.value = listMovie
+
+        `when`(movieRepository.getAllDataMovies()).thenReturn(liveDataMovie)
         val moviesEntities = viewModel.loadMovies().value
         verify(movieRepository).getAllDataMovies()
-
         Assert.assertNotNull(moviesEntities)
-        Assert.assertEquals(20, moviesEntities?.size)
 
         viewModel.loadMovies().observeForever(observer)
         verify(observer).onChanged(moviesEntities)

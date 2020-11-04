@@ -10,3 +10,4 @@ import com.wahyu.filmskuy.BuildConfig.key
 const val API_BASE = "https://api.themoviedb.org/"
 const val API_URL_LAST = "?api_key=$key&language=en-US/"
 const val API_SEARCH_LAST = "?api_key=$key&language=en-US&"
+const val IMAGE_URL_BASE_PATH = "https://image.tmdb.org/t/p/"

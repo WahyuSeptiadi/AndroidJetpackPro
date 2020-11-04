@@ -1,11 +1,12 @@
 package com.wahyu.filmskuy.repository
 
+import android.os.Handler
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wahyu.filmskuy.data.network.ApiClient
 import com.wahyu.filmskuy.data.response.MovieResponse
 import com.wahyu.filmskuy.models.FilmCatalogue
+import com.wahyu.filmskuy.utils.EspressoIdlingResource
 import com.wahyu.filmskuy.utils.getMovieMapper
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,8 +20,13 @@ import java.util.ArrayList
 
 class MovieRepository {
 
+    companion object {
+        private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
+    }
+
     private var listItems = ArrayList<FilmCatalogue>()
-    private val listMovies = MutableLiveData<ArrayList<FilmCatalogue>>()
+    private val listMovies = MutableLiveData<List<FilmCatalogue>>()
+    private val handler = Handler()
 
     private fun getMoviesMapper(): ArrayList<FilmCatalogue> {
         ApiClient.create().getMovie().enqueue(object : Callback<MovieResponse> {
@@ -58,12 +64,19 @@ class MovieRepository {
         })
     }
 
-    fun getAllDataMovies(): LiveData<ArrayList<FilmCatalogue>> {
-        getMoviesMapper()
+    fun getAllDataMovies(): MutableLiveData<List<FilmCatalogue>> {
+
+        EspressoIdlingResource.increment()
+
+        handler.postDelayed({
+            getMoviesMapper()
+            EspressoIdlingResource.decrement()
+        }, SERVICE_LATENCY_IN_MILLIS)
+
         return listMovies
     }
 
-    fun setTitleSearchMovie(title: String): LiveData<ArrayList<FilmCatalogue>> {
+    fun setTitleSearchMovie(title: String): MutableLiveData<List<FilmCatalogue>> {
         searchMovie(title)
         return listMovies
     }
