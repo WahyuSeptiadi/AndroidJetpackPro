@@ -22,6 +22,7 @@ class TvShowRepository {
         private const val SERVICE_LATENCY_IN_MILLIS: Long = 5000
     }
 
+    @Suppress("DEPRECATION")
     private val handler = Handler()
 
     fun getAllTvShows(): MutableLiveData<MutableList<TvShowResult>> {

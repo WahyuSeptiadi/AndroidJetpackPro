@@ -43,7 +43,6 @@ class MainActivityTest {
 
     @Test
     fun loadMovies() {
-//        onView(withText("MOVIE")).perform(click())
         onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
         onView(withId(R.id.rvMovie)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
@@ -54,15 +53,13 @@ class MainActivityTest {
 
     @Test
     fun loadDetailMovies() {
-//        onView(withText("MOVIE")).perform(click())
-//        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rvMovie)).check(matches(isDisplayed()))
         onView(withId(R.id.rvMovie)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 click()
             )
         )
-        onView(withId(R.id.imageDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.titleDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.titleDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.title)))
         onView(withId(R.id.ratingDetailFilm)).check(matches(isDisplayed()))
@@ -71,7 +68,6 @@ class MainActivityTest {
         onView(withId(R.id.releaseDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.release_date)))
         onView(withId(R.id.overviewDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.overviewDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.overview)))
-        onView(withId(R.id.btnBack)).perform(click())
     }
 
     @Test
@@ -88,14 +84,13 @@ class MainActivityTest {
     @Test
     fun loadDetailTvShows() {
         onView(withText("TV SHOW")).perform(click())
-//        onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
+        onView(withId(R.id.rvTvShow)).check(matches(isDisplayed()))
         onView(withId(R.id.rvTvShow)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 click()
             )
         )
-        onView(withId(R.id.imageDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.titleDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.titleDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.name)))
         onView(withId(R.id.ratingDetailFilm)).check(matches(isDisplayed()))
@@ -104,7 +99,6 @@ class MainActivityTest {
         onView(withId(R.id.releaseDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.first_air_date)))
         onView(withId(R.id.overviewDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.overviewDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.overview)))
-        onView(withId(R.id.btnBack)).perform(click())
     }
 
 }
