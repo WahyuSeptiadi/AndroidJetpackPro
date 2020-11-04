@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.FilmCatalogue
+import com.wahyu.filmskuy.models.DetailFilmCatalogue
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getDataMovie() {
 
-        val film = intent.getParcelableExtra<FilmCatalogue>(EXTRA_FILMS) as FilmCatalogue
+        val film = intent.getParcelableExtra<DetailFilmCatalogue>(EXTRA_FILMS) as DetailFilmCatalogue
 
         if (film.image != null) {
             val imageSize = "/w500"

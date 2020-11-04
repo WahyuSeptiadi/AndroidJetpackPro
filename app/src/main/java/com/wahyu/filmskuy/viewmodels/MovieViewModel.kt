@@ -1,8 +1,8 @@
 package com.wahyu.filmskuy.viewmodels
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.wahyu.filmskuy.models.FilmCatalogue
+import com.wahyu.filmskuy.data.response.MovieResult
 import com.wahyu.filmskuy.repository.MovieRepository
 
 /**
@@ -10,14 +10,13 @@ import com.wahyu.filmskuy.repository.MovieRepository
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(private val data : MovieRepository) : ViewModel() {
 
-    private var listSearchMovies = MutableLiveData<List<FilmCatalogue>>()
+    fun getMovies() : LiveData<MutableList<MovieResult>>? {
+        return data.getAllMovies()
+    }
 
-    fun loadMovies(): MutableLiveData<List<FilmCatalogue>> = MovieRepository().getAllDataMovies()
-
-    fun searchMovies(title: String): MutableLiveData<List<FilmCatalogue>> {
-        listSearchMovies = MovieRepository().setTitleSearchMovie(title)
-        return listSearchMovies
+    fun setMovie(title: String) : LiveData<MutableList<MovieResult>> {
+        return data.searchMovie(title)
     }
 }

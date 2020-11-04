@@ -1,16 +1,15 @@
 package com.wahyu.filmskuy.repository
 
+import android.os.Handler
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wahyu.filmskuy.data.network.ApiClient
 import com.wahyu.filmskuy.data.response.TvShowResponse
-import com.wahyu.filmskuy.models.FilmCatalogue
-import com.wahyu.filmskuy.utils.getTvShowMapper
+import com.wahyu.filmskuy.data.response.TvShowResult
+import com.wahyu.filmskuy.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 /**
  * Created by wahyu_septiadi on 25, October 2020.
@@ -18,52 +17,57 @@ import java.util.ArrayList
  */
 
 class TvShowRepository {
-    private var listItems = ArrayList<FilmCatalogue>()
-    private val listTvShows = MutableLiveData<ArrayList<FilmCatalogue>>()
 
-    private fun getTvShowsMapper(): ArrayList<FilmCatalogue> {
+    companion object {
+        private const val SERVICE_LATENCY_IN_MILLIS: Long = 5000
+    }
+
+    private val handler = Handler()
+
+    fun getAllTvShows(): MutableLiveData<MutableList<TvShowResult>> {
+        val listData: MutableLiveData<MutableList<TvShowResult>> = MutableLiveData()
+
         ApiClient.create().getTvShow().enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
-                val tvShow = response.body() as TvShowResponse
-                val tvShowResult = tvShow.results
-                Log.d("MovieResult", "$tvShowResult")
-
-                listItems = getTvShowMapper(tvShowResult) as ArrayList<FilmCatalogue>
-                Log.d("MovieResultMapper", "$listItems")
-                listTvShows.postValue(listItems)
+                if (response.isSuccessful) {
+                    EspressoIdlingResource.increment()
+                    handler.postDelayed({
+                        listData.value = response.body()?.results as MutableList<TvShowResult>?
+                        EspressoIdlingResource.decrement()
+                    }, SERVICE_LATENCY_IN_MILLIS)
+                } else {
+                    Log.e("TvShowIsNotSuccessful", response.message())
+                }
             }
 
-            override fun onFailure(call: Call<TvShowResponse>, throwable: Throwable) {
-                Log.d("MovieResultFailed", "onFailure $throwable")
+            override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
+                Log.e("TvShowsFailure", t.message.toString())
             }
         })
-        return listItems
+
+        return listData
     }
 
-    private fun searchTvShow(title: String) {
+    fun searchTvShow(title: String): MutableLiveData<MutableList<TvShowResult>> {
+        val listData: MutableLiveData<MutableList<TvShowResult>> = MutableLiveData()
+
         ApiClient.create().searchTvShow(title).enqueue(object : Callback<TvShowResponse> {
-            override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
-                val tvShow = response.body() as TvShowResponse
-
-                val tvShowResult = tvShow.results
-                Log.d("SearchMovieResultMapper", "$tvShowResult")
-                listItems = getTvShowMapper(tvShowResult) as ArrayList<FilmCatalogue>
-                listTvShows.postValue(listItems)
+            override fun onResponse(
+                call: Call<TvShowResponse>,
+                response: Response<TvShowResponse>
+            ) {
+                if (response.isSuccessful) {
+                    listData.value = response.body()?.results as MutableList<TvShowResult>?
+                } else {
+                    Log.e("TvShowIsNotSuccessful", response.message())
+                }
             }
 
-            override fun onFailure(call: Call<TvShowResponse>, throwable: Throwable) {
-                Log.d("SearchMovieResultFailed", "onFailure $throwable")
+            override fun onFailure(call: Call<TvShowResponse>, t: Throwable) {
+                Log.e("TvShowsFailure", t.message.toString())
             }
         })
-    }
 
-    fun getAllDataTvShows(): LiveData<ArrayList<FilmCatalogue>> {
-        getTvShowsMapper()
-        return listTvShows
-    }
-
-    fun setTitleSearchTvShow(title: String): LiveData<ArrayList<FilmCatalogue>> {
-        searchTvShow(title)
-        return listTvShows
+        return listData
     }
 }

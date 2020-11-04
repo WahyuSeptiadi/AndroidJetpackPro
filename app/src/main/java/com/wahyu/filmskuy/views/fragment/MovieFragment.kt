@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.adapter.FilmAdapter
+import com.wahyu.filmskuy.adapter.MovieListAdapter
+import com.wahyu.filmskuy.repository.MovieRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.utils.toast
@@ -20,26 +20,26 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment() {
 
+    private lateinit var movieViewModel: MovieViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        movieViewModel = MovieViewModel(MovieRepository())
         return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-            val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-            )[MovieViewModel::class.java]
 
-            val filmAdapter = FilmAdapter()
-            viewModel.loadMovies().observe(viewLifecycleOwner) {
+            val movieListAdapter = MovieListAdapter()
+
+            movieViewModel.getMovies()?.observe(viewLifecycleOwner) {
                 if (it != null) {
                     progressMovie.gone()
                 }
-                filmAdapter.setFilm(it)
+                movieListAdapter.setFilm(it)
             }
 
             etSearchMovie.setOnEditorActionListener { _, actionId, _ ->
@@ -50,14 +50,14 @@ class MovieFragment : Fragment() {
                     txtMovieNotFound.gone()
 
                     if (titleKey.isNotEmpty()) {
-                        viewModel.searchMovies(titleKey.toString()).observe(viewLifecycleOwner) {
+                        movieViewModel.setMovie(titleKey.toString()).observe(viewLifecycleOwner) {
                             if (it.isNotEmpty()) {
                                 txtMovieNotFound.gone()
                             } else {
                                 txtMovieNotFound.visible()
                             }
                             progressMovie.gone()
-                            filmAdapter.setFilm(it)
+                            movieListAdapter.setFilm(it)
                         }
                     } else {
                         toast("Please, enter keyword!")
@@ -76,12 +76,12 @@ class MovieFragment : Fragment() {
                 rvMovie.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
                 rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = filmAdapter
+                rvMovie.adapter = movieListAdapter
             } else {
                 rvMovie.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                 rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = filmAdapter
+                rvMovie.adapter = movieListAdapter
             }
         }
     }

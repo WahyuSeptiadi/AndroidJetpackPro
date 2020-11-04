@@ -3,7 +3,6 @@ package com.wahyu.filmskuy.viewmodels
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.wahyu.filmskuy.models.FilmCatalogue
 import com.wahyu.filmskuy.repository.MovieRepository
 import org.junit.Assert
 import org.junit.Before
@@ -13,6 +12,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
+import com.wahyu.filmskuy.data.response.MovieResult
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -26,32 +26,30 @@ class MovieViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var viewModel: MovieViewModel
+    private lateinit var movieViewModel: MovieViewModel
 
     @Mock
     private val movieRepository: MovieRepository = mock(MovieRepository::class.java)
 
     @Mock
-    private lateinit var observer: Observer<List<FilmCatalogue>>
+    private lateinit var observer: Observer<List<MovieResult>>
 
     @Before
     fun setUp() {
-        viewModel = MovieViewModel()
+        movieViewModel = MovieViewModel(movieRepository)
     }
 
     @Test
     fun getMovies() {
-        val listMovie = viewModel.loadMovies().value
-        val liveDataMovie = MutableLiveData<List<FilmCatalogue>>()
+        val dataDummy : MutableLiveData<MutableList<MovieResult>> = MutableLiveData()
+        val dataList : MutableList<MovieResult>? = null
 
-        liveDataMovie.value = listMovie
+        dataDummy.value = dataList
 
-        `when`(movieRepository.getAllDataMovies()).thenReturn(liveDataMovie)
-        val moviesEntities = viewModel.loadMovies().value
-        verify(movieRepository).getAllDataMovies()
-        Assert.assertNotNull(moviesEntities)
+        `when`(movieViewModel.getMovies()).thenReturn(dataDummy)
 
-        viewModel.loadMovies().observeForever(observer)
-        verify(observer).onChanged(listMovie)
+        movieViewModel.getMovies()?.observeForever(observer)
+        verify(observer).onChanged(dataList)
+        Assert.assertNotNull(movieViewModel.getMovies())
     }
 }

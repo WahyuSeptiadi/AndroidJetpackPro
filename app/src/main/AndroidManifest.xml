@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.wahyu.filmskuy">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo_filmskuy_round"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_logo_filmskuy_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="stateAlwaysHidden"
         tools:ignore="AllowBackup"
         tools:targetApi="m">
         <activity android:name=".views.activity.DetailActivity" />

@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.FilmCatalogue
+import com.wahyu.filmskuy.data.response.MovieResult
+import com.wahyu.filmskuy.models.DetailFilmCatalogue
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
@@ -18,15 +19,15 @@ import java.util.ArrayList
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
-    private var listFilms = ArrayList<FilmCatalogue>()
+class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+    private var listFilms = ArrayList<MovieResult>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(film: FilmCatalogue) {
+        fun bind(film: MovieResult) {
             with(itemView) {
-                if (film.image != null) {
+                if (film.poster_path != null) {
                     val imageSize = "/w780"
-                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.image}"
+                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.poster_path}"
                     Picasso.get().load(urlImage).into(imageFilm)
                 } else {
                     Picasso.get().load(R.drawable.img_notfound).into(imageFilm)
@@ -34,19 +35,19 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
 
                 titleFilm.text = film.title
 
-                if (film.release != "") {
-                    yearFilm.text = film.release?.substring(0, 4) ?: "no date"
+                if (film.release_date != "") {
+                    yearFilm.text = film.release_date?.substring(0, 4)
                 }
 
-                ratingFilm.text = film.vote.toString()
+                ratingFilm.text = film.vote_average.toString()
 
-                val currentFilm = FilmCatalogue(
+                val currentFilm = DetailFilmCatalogue(
                     film.id,
-                    film.image,
+                    film.poster_path,
                     film.title,
                     film.overview,
-                    film.vote,
-                    film.release
+                    film.vote_average,
+                    film.release_date
                 )
 
                 itemView.setOnClickListener {
@@ -58,7 +59,7 @@ class FilmAdapter : RecyclerView.Adapter<FilmAdapter.MovieViewHolder>() {
         }
     }
 
-    fun setFilm(films: List<FilmCatalogue>?) {
+    fun setFilm(films: List<MovieResult>?) {
         if (films == null) return
         this.listFilms.clear()
         this.listFilms.addAll(films)

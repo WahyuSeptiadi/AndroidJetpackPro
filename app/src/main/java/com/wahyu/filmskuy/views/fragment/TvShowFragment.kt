@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.adapter.FilmAdapter
+import com.wahyu.filmskuy.adapter.TvShowListAdapter
+import com.wahyu.filmskuy.repository.TvShowRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.utils.toast
@@ -20,11 +20,14 @@ import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {
 
+    private lateinit var tvShowViewModel: TvShowViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        tvShowViewModel = TvShowViewModel(TvShowRepository())
         return inflater.inflate(R.layout.fragment_tv_show, container, false)
     }
 
@@ -32,17 +35,13 @@ class TvShowFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         if (activity != null) {
-            val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-            )[TvShowViewModel::class.java]
 
-            val filmAdapter = FilmAdapter()
-            viewModel.loadTvShows().observe(viewLifecycleOwner) {
+            val tvShowListAdapter = TvShowListAdapter()
+            tvShowViewModel.getTvShows().observe(viewLifecycleOwner) {
                 if (it != null) {
                     progressTvShow.gone()
                 }
-                filmAdapter.setFilm(it)
+                tvShowListAdapter.setFilm(it)
             }
 
             etSearchTvShow.setOnEditorActionListener { _, actionId, _ ->
@@ -52,14 +51,14 @@ class TvShowFragment : Fragment() {
                     progressTvShow.visible()
                     txtTvShowNotFound.gone()
                     if (titleKey.isNotEmpty()) {
-                        viewModel.searchTvShow(titleKey.toString()).observe(viewLifecycleOwner) {
+                        tvShowViewModel.setTvShow(titleKey.toString()).observe(viewLifecycleOwner) {
                             if (it.isNotEmpty()) {
                                 txtTvShowNotFound.gone()
                             } else {
                                 txtTvShowNotFound.visible()
                             }
                             progressTvShow.gone()
-                            filmAdapter.setFilm(it)
+                            tvShowListAdapter.setFilm(it)
                         }
                     } else {
                         toast("Please, enter keyword!")
@@ -77,12 +76,12 @@ class TvShowFragment : Fragment() {
                 rvTvShow.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
                 rvTvShow.setHasFixedSize(true)
-                rvTvShow.adapter = filmAdapter
+                rvTvShow.adapter = tvShowListAdapter
             } else {
                 rvTvShow.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                 rvTvShow.setHasFixedSize(true)
-                rvTvShow.adapter = filmAdapter
+                rvTvShow.adapter = tvShowListAdapter
             }
         }
     }

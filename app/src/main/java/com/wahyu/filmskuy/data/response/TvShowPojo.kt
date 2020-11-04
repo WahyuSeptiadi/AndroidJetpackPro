@@ -5,26 +5,25 @@ package com.wahyu.filmskuy.data.response
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-data class MovieResponse(
+data class TvShowResponse(
     val page: Int,
-    val results: List<MovieResult>,
+    val results: List<TvShowResult>,
     val total_pages: Int,
     val total_results: Int
 )
 
-data class MovieResult(
-    val adult: Boolean,
+data class TvShowResult(
     val backdrop_path: String,
+    val first_air_date: String? = null,
     val genre_ids: List<Int>,
     val id: Int,
+    val name: String,
+    val origin_country: List<String>,
     val original_language: String,
-    val original_title: String,
+    val original_name: String,
     val overview: String,
     val popularity: Double,
-    val poster_path: String,
-    val release_date: String,
-    val title: String,
-    val video: Boolean,
+    val poster_path: String? = null,
     val vote_average: Double,
     val vote_count: Int
 )

@@ -5,13 +5,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wahyu.filmskuy.data.network.ApiClient
 import com.wahyu.filmskuy.data.response.MovieResponse
-import com.wahyu.filmskuy.models.FilmCatalogue
+import com.wahyu.filmskuy.data.response.MovieResult
 import com.wahyu.filmskuy.utils.EspressoIdlingResource
-import com.wahyu.filmskuy.utils.getMovieMapper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 /**
  * Created by wahyu_septiadi on 25, October 2020.
@@ -21,64 +19,52 @@ import java.util.ArrayList
 class MovieRepository {
 
     companion object {
-        private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
+        private const val SERVICE_LATENCY_IN_MILLIS: Long = 5000
     }
 
-    private var listItems = ArrayList<FilmCatalogue>()
-    private val listMovies = MutableLiveData<List<FilmCatalogue>>()
     private val handler = Handler()
 
-    private fun getMoviesMapper(): ArrayList<FilmCatalogue> {
+    fun getAllMovies(): MutableLiveData<MutableList<MovieResult>> {
+        val listData: MutableLiveData<MutableList<MovieResult>> = MutableLiveData()
+
         ApiClient.create().getMovie().enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                val movie = response.body() as MovieResponse
-                val movieResult = movie.results
-                Log.d("MovieResult", "$movieResult")
-
-                listItems = getMovieMapper(movieResult) as ArrayList<FilmCatalogue>
-                Log.d("MovieResultMapper", "$listItems")
-                listMovies.postValue(listItems)
+                if (response.isSuccessful) {
+                    EspressoIdlingResource.increment()
+                    handler.postDelayed({
+                        listData.value = response.body()?.results as MutableList<MovieResult>?
+                        EspressoIdlingResource.decrement()
+                    }, SERVICE_LATENCY_IN_MILLIS)
+                } else {
+                    Log.e("MovieIsNotSuccessful", response.message())
+                }
             }
 
-            override fun onFailure(call: Call<MovieResponse>, throwable: Throwable) {
-                Log.d("MovieResultFailed", "onFailure $throwable")
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                Log.e("MoviesFailure", t.message.toString())
             }
         })
-        return listItems
+
+        return listData
     }
 
-    private fun searchMovie(title: String) {
+    fun searchMovie(title: String): MutableLiveData<MutableList<MovieResult>> {
+        val listData: MutableLiveData<MutableList<MovieResult>> = MutableLiveData()
+
         ApiClient.create().searchMovie(title).enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                val movie = response.body() as MovieResponse
-
-                val movieResult = movie.results
-                Log.d("SearchMovieResultMapper", "$movieResult")
-                listItems = getMovieMapper(movieResult) as ArrayList<FilmCatalogue>
-                listMovies.postValue(listItems)
+                if (response.isSuccessful) {
+                    listData.value = response.body()?.results as MutableList<MovieResult>?
+                } else {
+                    Log.e("MovieIsNotSuccessful", response.message())
+                }
             }
 
-            override fun onFailure(call: Call<MovieResponse>, throwable: Throwable) {
-                Log.d("SearchMovieResultFailed", "onFailure $throwable")
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                Log.e("MoviesFailure", t.message.toString())
             }
         })
+
+        return listData
     }
-
-    fun getAllDataMovies(): MutableLiveData<List<FilmCatalogue>> {
-
-        EspressoIdlingResource.increment()
-
-        handler.postDelayed({
-            getMoviesMapper()
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
-
-        return listMovies
-    }
-
-    fun setTitleSearchMovie(title: String): MutableLiveData<List<FilmCatalogue>> {
-        searchMovie(title)
-        return listMovies
-    }
-
 }

@@ -38,10 +38,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
 }
 
 dependencies {
@@ -69,7 +65,6 @@ dependencies {
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     //idle resource
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
@@ -86,4 +81,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test:rules:$androidXTestVersion"
+    androidTestImplementation "androidx.test:runner:$androidXTestVersion"
+}
+repositories {
+    mavenCentral()
 }
