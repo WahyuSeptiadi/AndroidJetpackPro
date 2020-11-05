@@ -1,6 +1,5 @@
 package com.wahyu.filmskuy.repository
 
-import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wahyu.filmskuy.data.network.ApiClient
@@ -17,25 +16,17 @@ import retrofit2.Response
  */
 
 class TvShowRepository {
-
-    companion object {
-        private const val SERVICE_LATENCY_IN_MILLIS: Long = 5000
-    }
-
-    @Suppress("DEPRECATION")
-    private val handler = Handler()
-
     fun getAllTvShows(): MutableLiveData<MutableList<TvShowResult>> {
         val listData: MutableLiveData<MutableList<TvShowResult>> = MutableLiveData()
 
+        EspressoIdlingResource.increment()
         ApiClient.create().getTvShow().enqueue(object : Callback<TvShowResponse> {
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
                 if (response.isSuccessful) {
-                    EspressoIdlingResource.increment()
-                    handler.postDelayed({
+                    if (!EspressoIdlingResource.getIdlingResource.isIdleNow) {
                         listData.value = response.body()?.results as MutableList<TvShowResult>?
                         EspressoIdlingResource.decrement()
-                    }, SERVICE_LATENCY_IN_MILLIS)
+                    }
                 } else {
                     Log.e("TvShowIsNotSuccessful", response.message())
                 }

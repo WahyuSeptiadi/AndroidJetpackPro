@@ -1,5 +1,6 @@
 package com.wahyu.filmskuy.utils
 
+import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.idling.CountingIdlingResource
 
 /**
@@ -9,7 +10,10 @@ import androidx.test.espresso.idling.CountingIdlingResource
 
 object EspressoIdlingResource {
     private const val RESOURCE = "GLOBAL"
-    val idlingResource = CountingIdlingResource(RESOURCE)
+    private val idlingResource = CountingIdlingResource(RESOURCE)
+
+    val getIdlingResource: IdlingResource
+        get() = idlingResource
 
     fun increment() {
         idlingResource.increment()

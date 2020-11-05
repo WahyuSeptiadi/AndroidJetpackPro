@@ -33,12 +33,12 @@ class MainActivityTest {
 
     @Before
     fun setUp() {
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getIdlingResource)
     }
 
     @After
     fun tearDown() {
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getIdlingResource)
     }
 
     @Test
