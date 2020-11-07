@@ -30,7 +30,7 @@ ext {
     //for retrofit
     retrofitVersion = '2.9.0'
     //for unitTest
-    junitVersion = '4.13'
+    junitVersion = '4.13.1'
     mockitoVersion = '3.0.0'
     mockitoKotlinVersion = '2.1.0'
     //for instrumentedTest
