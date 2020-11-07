@@ -1,25 +1,24 @@
-package com.wahyu.filmskuy.adapter
+package com.wahyu.filmskuy.adapter.favorite
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.views.fragment.MovieFragment
-import com.wahyu.filmskuy.views.fragment.TvShowFragment
+import com.wahyu.filmskuy.views.fragment.favorite.MovieFavoriteFragment
+import com.wahyu.filmskuy.views.fragment.favorite.TvShowFavoriteFragment
 
 /**
- * Created by wahyu_septiadi on 22, October 2020.
+ * Created by wahyu_septiadi on 07, November 2020.
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MyPagerAdapter(private val context: Context, fm: FragmentManager) :
-
+class MyPagerFavAdapter (private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val pages = listOf(
-        MovieFragment(),
-        TvShowFragment()
+        MovieFavoriteFragment(),
+        TvShowFavoriteFragment()
     )
 
     override fun getItem(position: Int): Fragment {

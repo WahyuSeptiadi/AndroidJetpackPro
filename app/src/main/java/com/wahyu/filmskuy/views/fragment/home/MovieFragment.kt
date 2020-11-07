@@ -1,4 +1,4 @@
-package com.wahyu.filmskuy.views.fragment
+package com.wahyu.filmskuy.views.fragment.home
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.adapter.MovieListAdapter
+import com.wahyu.filmskuy.adapter.home.MovieListAdapter
 import com.wahyu.filmskuy.repository.MovieRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard

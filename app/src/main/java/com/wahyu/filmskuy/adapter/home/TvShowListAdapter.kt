@@ -1,4 +1,4 @@
-package com.wahyu.filmskuy.adapter
+package com.wahyu.filmskuy.adapter.home
 
 import android.content.Intent
 import android.view.LayoutInflater

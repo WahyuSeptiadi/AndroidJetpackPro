@@ -16,6 +16,7 @@
         android:windowSoftInputMode="stateAlwaysHidden"
         tools:ignore="AllowBackup"
         tools:targetApi="m">
+        <activity android:name=".views.activity.FavoriteActivity" />
         <activity android:name=".views.activity.DetailActivity" />
         <activity android:name=".views.activity.MainActivity" />
         <activity android:name=".views.activity.SplashActivity">
