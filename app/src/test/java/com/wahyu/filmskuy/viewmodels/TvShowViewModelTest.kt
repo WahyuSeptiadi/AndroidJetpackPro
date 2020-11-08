@@ -41,8 +41,8 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShows() {
-        val dataDummy : MutableLiveData<MutableList<TvShowResult>> = MutableLiveData()
-        val dataList : MutableList<TvShowResult>? = null
+        val dataDummy: MutableLiveData<MutableList<TvShowResult>> = MutableLiveData()
+        val dataList = mock(MutableList::class.java) as MutableList<TvShowResult>?
 
         dataDummy.value = dataList
 
