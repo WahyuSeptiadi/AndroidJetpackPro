@@ -1,6 +1,5 @@
 package com.wahyu.filmskuy.views.fragment.favorite
 
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.favorite.MovieFavoriteAdapter
@@ -20,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_movie_favorite.*
 class MovieFavoriteFragment : Fragment() {
     private lateinit var movieFavoriteViewModel: MovieFavoriteViewModel
     private lateinit var movieFavoriteAdapter: MovieFavoriteAdapter
-//    private lateinit var movieViewModel: MovieViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +25,6 @@ class MovieFavoriteFragment : Fragment() {
     ): View? {
         movieFavoriteViewModel = MovieFavoriteViewModel(inflater.context)
         movieFavoriteAdapter = MovieFavoriteAdapter()
-//        movieViewModel = MovieViewModel(MovieRepository())
 
         return inflater.inflate(R.layout.fragment_movie_favorite, container, false)
     }
@@ -38,20 +34,13 @@ class MovieFavoriteFragment : Fragment() {
 
         if (activity != null) {
 //            val movieFavoriteAdapter = MovieFavoriteAdapter()
+
             movieFavoriteViewModel.getAll().observe(viewLifecycleOwner, movieObserver)
 
 //            movieFavoriteViewModel.getAll().observe(viewLifecycleOwner) {
 //                progressMovieFavorite.gone()
 //                movieFavoriteAdapter.submitList(it)
 //                movieFavoriteAdapter.notifyDataSetChanged()
-//            }
-//            val movieListAdapter = MovieListAdapter()
-//
-//            movieViewModel.getMovies()?.observe(viewLifecycleOwner) {
-//                if (it != null) {
-//                    progressMovieFavorite.gone()
-//                }
-//                movieListAdapter.setFilm(it)
 //            }
 
             rvFavMovie.layoutManager = LinearLayoutManager(context)
