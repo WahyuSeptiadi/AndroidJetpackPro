@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <FrameLayout
-                android:id="@+id/frameFilm"
+                android:id="@+id/frameFilmFavorite"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
 
                 <ImageView
-                    android:id="@+id/imageFilm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="255dp"
+                    android:id="@+id/imageFilmFavorite"
+                    android:layout_width="100dp"
+                    android:layout_height="155dp"
                     android:contentDescription="@string/todo"
                     android:src="@drawable/loading" />
 
@@ -37,7 +40,7 @@
                     app:civ_border_width="0.5dp" />
 
                 <TextView
-                    android:id="@+id/ratingFilm"
+                    android:id="@+id/ratingFilmFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -54,13 +57,13 @@
                         android:layout_height="28dp"
                         android:contentDescription="@string/todo"
                         android:src="@drawable/ic_round_favorite_filled_white"
-                        app:layout_constraintBottom_toBottomOf="@+id/toggleButton"
+                        app:layout_constraintBottom_toBottomOf="@+id/toggleButtonFavorite"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/toggleButton" />
+                        app:layout_constraintTop_toTopOf="@+id/toggleButtonFavorite" />
 
                     <ToggleButton
-                        android:id="@+id/toggleButton"
+                        android:id="@+id/toggleButtonFavorite"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:background="@drawable/bg_toggle_favorite"
@@ -73,26 +76,26 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/titleFilm"
+                android:id="@+id/titleFilmFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/frameFilm"
-                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
+                android:layout_toEndOf="@+id/frameFilmFavorite"
                 android:text="@string/dot"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/yearFilm"
+                android:id="@+id/yearFilmFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/titleFilm"
-                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/titleFilmFavorite"
+                android:layout_marginStart="20dp"
                 android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/frameFilmFavorite"
                 android:text="@string/dot"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"

@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.home.MovieListAdapter
-import com.wahyu.filmskuy.repository.MovieRepository
+import com.wahyu.filmskuy.repository.remote.MovieRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.utils.toast
 import com.wahyu.filmskuy.utils.visible
-import com.wahyu.filmskuy.viewmodels.MovieViewModel
+import com.wahyu.filmskuy.viewmodels.remote.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment() {

@@ -10,7 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.data.network.ApiClient
+import com.wahyu.filmskuy.data.remote.network.ApiClient
 import com.wahyu.filmskuy.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before

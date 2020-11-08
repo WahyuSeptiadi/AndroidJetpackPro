@@ -10,12 +10,12 @@ import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.home.TvShowListAdapter
-import com.wahyu.filmskuy.repository.TvShowRepository
+import com.wahyu.filmskuy.repository.remote.TvShowRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.utils.toast
 import com.wahyu.filmskuy.utils.visible
-import com.wahyu.filmskuy.viewmodels.TvShowViewModel
+import com.wahyu.filmskuy.viewmodels.remote.TvShowViewModel
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 
 class TvShowFragment : Fragment() {

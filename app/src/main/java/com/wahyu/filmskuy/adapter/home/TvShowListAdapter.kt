@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.data.response.TvShowResult
+import com.wahyu.filmskuy.data.remote.response.TvShowResult
 import com.wahyu.filmskuy.models.DetailFilmCatalogue
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.views.activity.DetailActivity
@@ -28,9 +28,9 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                 if (film.poster_path != null) {
                     val imageSize = "/w780"
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.poster_path}"
-                    Picasso.get().load(urlImage).into(imageFilm)
+                    Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
                 } else {
-                    Picasso.get().load(R.drawable.img_notfound).into(imageFilm)
+                    Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading).into(imageFilm)
                 }
 
                 titleFilm.text = film.name

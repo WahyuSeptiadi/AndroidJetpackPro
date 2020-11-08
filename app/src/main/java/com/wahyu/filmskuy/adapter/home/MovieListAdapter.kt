@@ -4,12 +4,15 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.data.response.MovieResult
+import com.wahyu.filmskuy.data.remote.response.MovieResult
 import com.wahyu.filmskuy.models.DetailFilmCatalogue
+import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
+import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
 import java.util.ArrayList
@@ -25,12 +28,14 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(film: MovieResult) {
             with(itemView) {
+                val viewModel = MovieFavoriteViewModel(context)
                 if (film.poster_path != null) {
                     val imageSize = "/w780"
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.poster_path}"
-                    Picasso.get().load(urlImage).into(imageFilm)
+                    Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
                 } else {
-                    Picasso.get().load(R.drawable.img_notfound).into(imageFilm)
+                    Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                        .into(imageFilm)
                 }
 
                 titleFilm.text = film.title
@@ -54,6 +59,33 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_FILMS, currentFilm)
                     itemView.context.startActivity(intent)
+                }
+
+                if (film.isFavorite) {
+                    toggleButton.isChecked
+                }
+
+                toggleButton.setOnClickListener {
+                    film.isFavorite = true
+                    viewModel.insert(
+                        MovieEntity(
+                            film.isFavorite,
+                            film.adult,
+                            film.backdrop_path,
+                            film.id,
+                            film.original_language,
+                            film.original_title,
+                            film.overview,
+                            film.popularity,
+                            film.poster_path,
+                            film.release_date,
+                            film.title,
+                            film.video,
+                            film.vote_average,
+                            film.vote_count
+                        )
+                    )
+                    Toast.makeText(context, "This movie has been added", Toast.LENGTH_SHORT).show()
                 }
             }
         }
