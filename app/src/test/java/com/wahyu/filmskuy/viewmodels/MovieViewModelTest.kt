@@ -43,7 +43,7 @@ class MovieViewModelTest {
     @Test
     fun getMovies() {
         val dataDummy : MutableLiveData<MutableList<MovieResult>> = MutableLiveData()
-        val dataList : MutableList<MovieResult>? = null
+        val dataList = mock(MutableList::class.java) as MutableList<MovieResult>?
 
         dataDummy.value = dataList
 
