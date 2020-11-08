@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 def STRING = 'String'
 def API_KEY = '"' + key + '"' ?: '"Define your TheMovieDB API KEY!"'
@@ -53,7 +54,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
 
-    //add dependencies
+    //add dependencies UI
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.android.support:recyclerview-v7:30.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -69,6 +70,13 @@ dependencies {
     //idle resource
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
 
+    //for room localDb
+    implementation 'androidx.room:room-runtime:2.2.5'
+    kapt 'androidx.room:room-compiler:2.2.5'
+
+    //for pagination
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
+
     //for jUnitTest
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:3.1.0"
@@ -82,4 +90,5 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test:rules:$androidXTestVersion"
     androidTestImplementation "androidx.test:runner:$androidXTestVersion"
+    androidTestImplementation 'androidx.room:room-testing:2.2.5'
 }

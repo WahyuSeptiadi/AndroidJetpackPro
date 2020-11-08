@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.activity.MainActivity">
+    tools:context=".views.activity.FavoriteActivity">
 
     <include
-        android:id="@+id/topBarHome"
+        android:id="@+id/topBarFavorite"
         layout="@layout/topbar_primary" />
 
     <RelativeLayout
@@ -15,35 +15,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
-        <TextView
+        <ImageView
+            android:id="@+id/btnBackFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:alpha="0.7"
-            android:text="@string/app_name"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:ignore="RelativeOverlap" />
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_round_back_white" />
 
-        <ImageView
-            android:id="@+id/favorite"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/ic_round_favorite_filled_white" />
+            android:layout_centerHorizontal="true"
+            android:text="@string/my_favorite"
+            android:textColor="@color/colorWhiteOp70"
+            android:textSize="18sp" />
+
     </RelativeLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpagerMain"
+        android:id="@+id/viewpagerFavorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topBarHome">
+        android:layout_below="@+id/topBarFavorite">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabsMain"
+            android:id="@+id/tabsFavorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"

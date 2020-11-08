@@ -3,7 +3,7 @@ package com.wahyu.filmskuy.viewmodels
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.wahyu.filmskuy.repository.MovieRepository
+import com.wahyu.filmskuy.repository.remote.MovieRepository
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -12,7 +12,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
-import com.wahyu.filmskuy.data.response.MovieResult
+import com.wahyu.filmskuy.data.remote.response.MovieResult
+import com.wahyu.filmskuy.viewmodels.remote.MovieViewModel
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
