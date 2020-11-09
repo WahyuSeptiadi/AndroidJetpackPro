@@ -28,16 +28,19 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getDataMovie() {
 
-        val film = intent.getParcelableExtra<DetailFilmCatalogue>(EXTRA_FILMS) as DetailFilmCatalogue
+        val film =
+            intent.getParcelableExtra<DetailFilmCatalogue>(EXTRA_FILMS) as DetailFilmCatalogue
 
         if (film.image != null) {
             val imageSize = "/w500"
             val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.image}"
-            Picasso.get().load(urlImage).into(backgroundDetailFilm)
-            Picasso.get().load(urlImage).into(imageDetailFilm)
+            Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(backgroundDetailFilm)
+            Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageDetailFilm)
         } else {
-            Picasso.get().load(R.drawable.img_notfound).into(backgroundDetailFilm)
-            Picasso.get().load(R.drawable.img_notfound).into(imageDetailFilm)
+            Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                .into(backgroundDetailFilm)
+            Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                .into(imageDetailFilm)
         }
 
         titleDetailFilm.text = film.title
