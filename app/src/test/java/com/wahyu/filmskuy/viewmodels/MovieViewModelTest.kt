@@ -44,13 +44,15 @@ class MovieViewModelTest {
     fun getMovies() {
         val dataDummy = ApiClient.create().getMovie().execute().body()?.results
         val dataList = MutableLiveData<MutableList<MovieResult>>()
-
         dataList.value = dataDummy as MutableList<MovieResult>?
 
+        Assert.assertNotNull(dataList)
         `when`(movieViewModel.getMovies()).thenReturn(dataList)
 
         movieViewModel.getMovies()?.observeForever(observer)
         verify(observer).onChanged(dataDummy)
+
         Assert.assertNotNull(movieViewModel.getMovies())
+        Assert.assertEquals(movieViewModel.getMovies(), dataList)
     }
 }

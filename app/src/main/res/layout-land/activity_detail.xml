@@ -24,7 +24,7 @@
                 android:alpha="0.6"
                 android:contentDescription="@string/todo"
                 android:scaleType="centerCrop"
-                android:src="@drawable/mposter_creed"
+                android:src="@color/colorWhiteOp70"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +77,7 @@
                     android:layout_width="133.5dp"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/todo"
-                    android:src="@drawable/mposter_creed" />
+                    android:src="@drawable/loading" />
             </androidx.cardview.widget.CardView>
 
             <TextView

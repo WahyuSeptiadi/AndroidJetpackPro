@@ -44,13 +44,15 @@ class TvShowViewModelTest {
     fun getTvShows() {
         val dataDummy = ApiClient.create().getTvShow().execute().body()?.results
         val dataList = MutableLiveData<MutableList<TvShowResult>>()
-
         dataList.value = dataDummy as MutableList<TvShowResult>?
 
+        Assert.assertNotNull(dataList)
         `when`(tvShowViewModel.getTvShows()).thenReturn(dataList)
 
         tvShowViewModel.getTvShows().observeForever(observer)
         verify(observer).onChanged(dataDummy)
+
         Assert.assertNotNull(tvShowViewModel.getTvShows())
+        Assert.assertEquals(tvShowViewModel.getTvShows(), dataList)
     }
 }
