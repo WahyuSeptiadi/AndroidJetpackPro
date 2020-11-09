@@ -28,9 +28,10 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 if (film.poster_path != null) {
                     val imageSize = "/w780"
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.poster_path}"
-                    Picasso.get().load(urlImage).into(imageFilm)
+                    Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
                 } else {
-                    Picasso.get().load(R.drawable.img_notfound).into(imageFilm)
+                    Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                        .into(imageFilm)
                 }
 
                 titleFilm.text = film.title

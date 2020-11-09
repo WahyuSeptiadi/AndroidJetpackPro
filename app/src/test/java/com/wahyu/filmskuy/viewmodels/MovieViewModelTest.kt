@@ -12,6 +12,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
+import com.wahyu.filmskuy.data.network.ApiClient
 import com.wahyu.filmskuy.data.response.MovieResult
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -41,15 +42,15 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val dataDummy: MutableLiveData<MutableList<MovieResult>> = MutableLiveData()
-        val dataList = mock(MutableList::class.java) as MutableList<MovieResult>?
+        val dataDummy = ApiClient.create().getMovie().execute().body()?.results
+        val dataList = MutableLiveData<MutableList<MovieResult>>()
 
-        dataDummy.value = dataList
+        dataList.value = dataDummy as MutableList<MovieResult>?
 
-        `when`(movieViewModel.getMovies()).thenReturn(dataDummy)
+        `when`(movieViewModel.getMovies()).thenReturn(dataList)
 
         movieViewModel.getMovies()?.observeForever(observer)
-        verify(observer).onChanged(dataList)
+        verify(observer).onChanged(dataDummy)
         Assert.assertNotNull(movieViewModel.getMovies())
     }
 }

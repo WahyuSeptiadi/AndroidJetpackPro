@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
+import com.wahyu.filmskuy.data.network.ApiClient
 import com.wahyu.filmskuy.data.response.TvShowResult
 import com.wahyu.filmskuy.repository.TvShowRepository
 import org.junit.Assert
@@ -41,15 +42,15 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShows() {
-        val dataDummy: MutableLiveData<MutableList<TvShowResult>> = MutableLiveData()
-        val dataList = mock(MutableList::class.java) as MutableList<TvShowResult>?
+        val dataDummy = ApiClient.create().getTvShow().execute().body()?.results
+        val dataList = MutableLiveData<MutableList<TvShowResult>>()
 
-        dataDummy.value = dataList
+        dataList.value = dataDummy as MutableList<TvShowResult>?
 
-        `when`(tvShowViewModel.getTvShows()).thenReturn(dataDummy)
+        `when`(tvShowViewModel.getTvShows()).thenReturn(dataList)
 
         tvShowViewModel.getTvShows().observeForever(observer)
-        verify(observer).onChanged(dataList)
+        verify(observer).onChanged(dataDummy)
         Assert.assertNotNull(tvShowViewModel.getTvShows())
     }
 }
