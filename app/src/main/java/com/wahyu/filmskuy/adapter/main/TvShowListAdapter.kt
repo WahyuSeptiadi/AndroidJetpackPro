@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.data.remote.response.TvShowResult
-import com.wahyu.filmskuy.models.DetailFilmCatalogue
+import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
@@ -35,9 +34,11 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                 if (film.posterPath != null) {
                     val imageSize = context.getString(R.string.size_url_image_list)
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.posterPath}"
-                    Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
+                    Glide.with(context).load(urlImage).placeholder(R.drawable.loading)
+                        .into(imageFilm)
                 } else {
-                    Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading).into(imageFilm)
+                    Glide.with(context).load(R.drawable.img_notfound)
+                        .placeholder(R.drawable.loading).into(imageFilm)
                 }
 
                 titleFilm.text = film.name
@@ -48,7 +49,7 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
 
                 ratingFilm.text = film.voteAverage.toString()
 
-                val currentFilm = DetailFilmCatalogue(
+                val currentFilm = FilmCatalogueModel(
                     film.id,
                     film.posterPath,
                     film.name,
@@ -79,7 +80,8 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                             film.voteCount
                         )
                     )
-                    Toast.makeText(context, "This tv show has been added", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "This tv show has been added", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

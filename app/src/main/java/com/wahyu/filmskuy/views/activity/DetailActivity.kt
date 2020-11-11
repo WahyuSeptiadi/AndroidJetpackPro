@@ -4,9 +4,9 @@ import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.DetailFilmCatalogue
+import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -29,17 +29,19 @@ class DetailActivity : AppCompatActivity() {
     private fun getDataMovie() {
 
         val film =
-            intent.getParcelableExtra<DetailFilmCatalogue>(EXTRA_FILMS) as DetailFilmCatalogue
+            intent.getParcelableExtra<FilmCatalogueModel>(EXTRA_FILMS) as FilmCatalogueModel
 
         if (film.image != null) {
             val imageSize = getString(R.string.size_url_image_detail)
             val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.image}"
-            Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(backgroundDetailFilm)
-            Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageDetailFilm)
-        } else {
-            Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+            Glide.with(this).load(urlImage).placeholder(R.drawable.loading)
                 .into(backgroundDetailFilm)
-            Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+            Glide.with(this).load(urlImage).placeholder(R.drawable.loading)
+                .into(imageDetailFilm)
+        } else {
+            Glide.with(this).load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                .into(backgroundDetailFilm)
+            Glide.with(this).load(R.drawable.img_notfound).placeholder(R.drawable.loading)
                 .into(imageDetailFilm)
         }
 

@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
-import com.wahyu.filmskuy.models.DetailFilmCatalogue
+import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
@@ -51,10 +51,10 @@ class MovieFavoriteAdapter :
                     Log.d("MovieDataFavoriteImage", "${movie.posterPath}")
                     val imageSize = context.getString(R.string.size_url_image_list)
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${movie.posterPath}"
-                    Picasso.get().load(urlImage).placeholder(R.drawable.loading)
+                    Glide.with(context).load(urlImage).placeholder(R.drawable.loading)
                         .into(imageFilm)
                 } else {
-                    Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                    Glide.with(context).load(R.drawable.img_notfound).placeholder(R.drawable.loading)
                         .into(imageFilm)
                 }
 
@@ -72,7 +72,7 @@ class MovieFavoriteAdapter :
 
                     movieIntent.putExtra(
                         DetailActivity.EXTRA_FILMS,
-                        DetailFilmCatalogue(
+                        FilmCatalogueModel(
                             movie.id,
                             movie.posterPath,
                             movie.title,
