@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.favorite.MovieFavoriteAdapter
 import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_movie_favorite.*
 
@@ -36,7 +37,10 @@ class MovieFavoriteFragment : Fragment() {
                 if (it != null && it.isNotEmpty()) {
                     progressMovieFavorite.gone()
                     Log.d("MovieDataFavorite", "$it")
-                    movieFavoriteAdapter.submitList(it)
+                    movieFavoriteAdapter.setFilms(it)
+                } else{
+                    movieFavoriteNotFound.visible()
+                    progressMovieFavorite.gone()
                 }
             }
 

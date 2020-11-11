@@ -19,4 +19,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
+    <TextView
+        android:id="@+id/tvShowFavoriteNotFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/your_tv_show_not_found"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:visibility="invisible" />
 </RelativeLayout>

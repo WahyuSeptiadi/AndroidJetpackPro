@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
@@ -23,29 +21,11 @@ import kotlinx.android.synthetic.main.list_item_film.view.*
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class TvShowFavoriteAdapter :
-    PagedListAdapter<TvShowEntity, TvShowFavoriteAdapter.TvShowFavoriteViewHolder>(DIFF_CALLBACK) {
+class TvShowFavoriteAdapter : RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowFavoriteViewHolder>() {
 
-    companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<TvShowEntity> =
-            object : DiffUtil.ItemCallback<TvShowEntity>() {
-                override fun areContentsTheSame(
-                    oldItem: TvShowEntity,
-                    newItem: TvShowEntity
-                ): Boolean {
-                    return oldItem.id == newItem.id
-                }
+    private var listFilms = ArrayList<TvShowEntity>()
 
-                override fun areItemsTheSame(
-                    oldItem: TvShowEntity,
-                    newItem: TvShowEntity
-                ): Boolean {
-                    return oldItem == newItem
-                }
-            }
-    }
-
-    inner class TvShowFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class TvShowFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(tvShow: TvShowEntity) {
             with(itemView) {
                 val tvShowFavoriteViewModel = TvShowFavoriteViewModel(context)
@@ -94,14 +74,26 @@ class TvShowFavoriteAdapter :
         }
     }
 
+    fun setFilms(films: List<TvShowEntity>?) {
+        if (films == null) return
+        this.listFilms.clear()
+        this.listFilms.addAll(films)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: TvShowFavoriteViewHolder, position: Int) {
-        holder.bind(getItem(position) as TvShowEntity)
+        val tvShow = listFilms[position]
+        holder.bind(tvShow)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowFavoriteViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_film, parent, false)
         return TvShowFavoriteViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return listFilms.size
     }
 
 }

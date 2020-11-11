@@ -2,9 +2,10 @@ package com.wahyu.filmskuy.repository.local
 
 import android.content.Context
 import android.util.Log
-import androidx.paging.DataSource
+import androidx.lifecycle.LiveData
 import com.wahyu.filmskuy.data.local.room.FilmCatalogueDatabase
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
+import com.wahyu.filmskuy.data.local.room.FilmCatalogueDao
 import java.util.concurrent.Executors
 
 /**
@@ -13,10 +14,15 @@ import java.util.concurrent.Executors
  */
 
 class MovieFavoriteRepository(val context: Context) {
-    private val filmCatalogueDao = FilmCatalogueDatabase.getDatabase(context).filmCatalogueDao()
+    private val filmCatalogueDao : FilmCatalogueDao
     private val executorService = Executors.newSingleThreadExecutor()
 
-    fun getAllMovie(): DataSource.Factory<Int, MovieEntity> = filmCatalogueDao.getAllMovie()
+    init {
+        val db = FilmCatalogueDatabase.getDatabase(context)
+        filmCatalogueDao = db.filmCatalogueDao()
+    }
+
+    fun getAllMovie(): LiveData<List<MovieEntity>> = filmCatalogueDao.getAllMovie()
 
     fun insertMovie(movieEntity: MovieEntity) {
         executorService.execute {

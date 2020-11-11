@@ -2,8 +2,9 @@ package com.wahyu.filmskuy.repository.local
 
 import android.content.Context
 import android.util.Log
-import androidx.paging.DataSource
+import androidx.lifecycle.LiveData
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
+import com.wahyu.filmskuy.data.local.room.FilmCatalogueDao
 import com.wahyu.filmskuy.data.local.room.FilmCatalogueDatabase
 import java.util.concurrent.Executors
 
@@ -13,10 +14,15 @@ import java.util.concurrent.Executors
  */
 
 class TvShowFavoriteRepository(val context: Context) {
-    private val filmCatalogueDao = FilmCatalogueDatabase.getDatabase(context).filmCatalogueDao()
+    private val filmCatalogueDao : FilmCatalogueDao
     private val executorService = Executors.newSingleThreadExecutor()
 
-    fun getAllTvShow(): DataSource.Factory<Int, TvShowEntity> = filmCatalogueDao.getAllTvShow()
+    init {
+        val db = FilmCatalogueDatabase.getDatabase(context)
+        filmCatalogueDao = db.filmCatalogueDao()
+    }
+
+    fun getAllTvShow(): LiveData<List<TvShowEntity>> = filmCatalogueDao.getAllTvShow()
 
     fun insertTvShow(tvShowEntity: TvShowEntity) {
         executorService.execute {

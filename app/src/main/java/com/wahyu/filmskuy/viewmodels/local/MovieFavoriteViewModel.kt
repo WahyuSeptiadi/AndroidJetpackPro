@@ -3,8 +3,6 @@ package com.wahyu.filmskuy.viewmodels.local
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.repository.local.MovieFavoriteRepository
 
@@ -16,8 +14,7 @@ import com.wahyu.filmskuy.repository.local.MovieFavoriteRepository
 class MovieFavoriteViewModel(context: Context) : ViewModel() {
     private val movieFavoriteRepository = MovieFavoriteRepository(context)
 
-    fun getAllMovie(): LiveData<PagedList<MovieEntity>> =
-        LivePagedListBuilder(movieFavoriteRepository.getAllMovie(), 20).build()
+    fun getAllMovie(): LiveData<List<MovieEntity>> = movieFavoriteRepository.getAllMovie()
 
 
     fun insertMovie(movieEntity: MovieEntity) {

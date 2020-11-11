@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.favorite.TvShowFavoriteAdapter
 import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_tv_show_favorite.*
 
@@ -36,7 +37,10 @@ class TvShowFavoriteFragment : Fragment() {
                 if (it != null && it.isNotEmpty()) {
                     progressTvShowFavorite.gone()
                     Log.d("TvDataFavorite", "$it")
-                    tvShowFavoriteAdapter.submitList(it)
+                    tvShowFavoriteAdapter.setFilms(it)
+                } else {
+                    progressTvShowFavorite.gone()
+                    tvShowFavoriteNotFound.visible()
                 }
             }
 

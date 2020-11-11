@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
@@ -23,27 +21,11 @@ import kotlinx.android.synthetic.main.list_item_film.view.*
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MovieFavoriteAdapter :
-    PagedListAdapter<MovieEntity, MovieFavoriteAdapter.MovieFavoriteViewHolder>(DIFF_CALLBACK) {
+class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavoriteViewHolder>() {
 
-    companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<MovieEntity> =
-            object : DiffUtil.ItemCallback<MovieEntity>() {
-                override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
-                    return oldItem.id == newItem.id
-                }
+    private var listFilms = ArrayList<MovieEntity>()
 
-                override fun areContentsTheSame(
-                    oldItem: MovieEntity,
-                    newItem: MovieEntity
-                ): Boolean {
-                    return oldItem == newItem
-                }
-
-            }
-    }
-
-    inner class MovieFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: MovieEntity) {
             with(itemView) {
                 val movieFavoriteViewModel = MovieFavoriteViewModel(context)
@@ -93,8 +75,16 @@ class MovieFavoriteAdapter :
         }
     }
 
+    fun setFilms(films: List<MovieEntity>?) {
+        if (films == null) return
+        this.listFilms.clear()
+        this.listFilms.addAll(films)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: MovieFavoriteViewHolder, position: Int) {
-        holder.bind(getItem(position) as MovieEntity)
+        val movie = listFilms[position]
+        holder.bind(movie)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieFavoriteViewHolder {
@@ -102,4 +92,9 @@ class MovieFavoriteAdapter :
             .inflate(R.layout.list_item_film, parent, false)
         return MovieFavoriteViewHolder(view)
     }
+
+    override fun getItemCount(): Int {
+        return listFilms.size
+    }
+
 }
