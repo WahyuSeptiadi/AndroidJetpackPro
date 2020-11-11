@@ -25,9 +25,9 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
     class TvShowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(film: TvShowResult) {
             with(itemView) {
-                if (film.poster_path != null) {
-                    val imageSize = "/w780"
-                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.poster_path}"
+                if (film.posterPath != null) {
+                    val imageSize = context.getString(R.string.size_url_image_list)
+                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.posterPath}"
                     Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
                 } else {
                     Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading).into(imageFilm)
@@ -35,19 +35,19 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
 
                 titleFilm.text = film.name
 
-                if (film.first_air_date != "") {
-                    yearFilm.text = film.first_air_date?.substring(0, 4)
+                if (film.firstAirDate != "") {
+                    yearFilm.text = film.firstAirDate?.substring(0, 4)
                 }
 
-                ratingFilm.text = film.vote_average.toString()
+                ratingFilm.text = film.voteAverage.toString()
 
                 val currentFilm = DetailFilmCatalogue(
                     film.id,
-                    film.poster_path,
+                    film.posterPath,
                     film.name,
                     film.overview,
-                    film.vote_average,
-                    film.first_air_date
+                    film.voteAverage,
+                    film.firstAirDate
                 )
 
                 itemView.setOnClickListener {

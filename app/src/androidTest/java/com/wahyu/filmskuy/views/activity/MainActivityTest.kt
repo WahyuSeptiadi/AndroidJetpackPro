@@ -63,9 +63,9 @@ class MainActivityTest {
         onView(withId(R.id.titleDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.titleDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.title)))
         onView(withId(R.id.ratingDetailFilm)).check(matches(isDisplayed()))
-        onView(withId(R.id.ratingDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.vote_average.toString())))
+        onView(withId(R.id.ratingDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.voteAverage.toString())))
         onView(withId(R.id.releaseDetailFilm)).check(matches(isDisplayed()))
-        onView(withId(R.id.releaseDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.release_date)))
+        onView(withId(R.id.releaseDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.releaseDate)))
         onView(withId(R.id.overviewDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.overviewDetailFilm)).check(matches(withText(dummyMovies?.get(0)?.overview)))
     }
@@ -94,9 +94,9 @@ class MainActivityTest {
         onView(withId(R.id.titleDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.titleDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.name)))
         onView(withId(R.id.ratingDetailFilm)).check(matches(isDisplayed()))
-        onView(withId(R.id.ratingDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.vote_average.toString())))
+        onView(withId(R.id.ratingDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.voteAverage.toString())))
         onView(withId(R.id.releaseDetailFilm)).check(matches(isDisplayed()))
-        onView(withId(R.id.releaseDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.first_air_date)))
+        onView(withId(R.id.releaseDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.firstAirDate)))
         onView(withId(R.id.overviewDetailFilm)).check(matches(isDisplayed()))
         onView(withId(R.id.overviewDetailFilm)).check(matches(withText(dummyTvShow?.get(0)?.overview)))
     }

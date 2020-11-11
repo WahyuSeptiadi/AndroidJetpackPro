@@ -12,6 +12,7 @@ import com.wahyu.filmskuy.repository.MovieRepository
 
 class MovieViewModel(private val data : MovieRepository) : ViewModel() {
 
+    //implementasi viewmodel masih belum tepat, seharusnya ketika device di rotate data masih ada (tidak memuat ulang)
     fun getMovies() : LiveData<MutableList<MovieResult>>? {
         return data.getAllMovies()
     }

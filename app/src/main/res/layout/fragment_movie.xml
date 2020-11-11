@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/yourMovie_notFound"
+        android:text="@string/your_movie_not_found"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:visibility="gone" />

@@ -25,9 +25,9 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(film: MovieResult) {
             with(itemView) {
-                if (film.poster_path != null) {
-                    val imageSize = "/w780"
-                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.poster_path}"
+                if (film.posterPath != null) {
+                    val imageSize = context.getString(R.string.size_url_image_list)
+                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.posterPath}"
                     Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
                 } else {
                     Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
@@ -36,19 +36,19 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
                 titleFilm.text = film.title
 
-                if (film.release_date != "") {
-                    yearFilm.text = film.release_date?.substring(0, 4)
+                if (film.releaseDate != "") {
+                    yearFilm.text = film.releaseDate?.substring(0, 4)
                 }
 
-                ratingFilm.text = film.vote_average.toString()
+                ratingFilm.text = film.voteAverage.toString()
 
                 val currentFilm = DetailFilmCatalogue(
                     film.id,
-                    film.poster_path,
+                    film.posterPath,
                     film.title,
                     film.overview,
-                    film.vote_average,
-                    film.release_date
+                    film.voteAverage,
+                    film.releaseDate
                 )
 
                 itemView.setOnClickListener {
