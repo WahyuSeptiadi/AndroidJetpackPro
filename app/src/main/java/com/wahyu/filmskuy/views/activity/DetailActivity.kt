@@ -32,7 +32,7 @@ class DetailActivity : AppCompatActivity() {
             intent.getParcelableExtra<DetailFilmCatalogue>(EXTRA_FILMS) as DetailFilmCatalogue
 
         if (film.image != null) {
-            val imageSize = "/w500"
+            val imageSize = getString(R.string.size_url_image_detail)
             val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.image}"
             Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(backgroundDetailFilm)
             Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageDetailFilm)

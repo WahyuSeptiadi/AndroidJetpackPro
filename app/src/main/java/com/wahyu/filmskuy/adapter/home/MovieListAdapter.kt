@@ -29,9 +29,9 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
         fun bind(film: MovieResult) {
             with(itemView) {
                 val viewModel = MovieFavoriteViewModel(context)
-                if (film.poster_path != null) {
-                    val imageSize = "/w780"
-                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.poster_path}"
+                if (film.posterPath != null) {
+                    val imageSize = context.getString(R.string.size_url_image_list)
+                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.posterPath}"
                     Picasso.get().load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
                 } else {
                     Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
@@ -40,19 +40,19 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
                 titleFilm.text = film.title
 
-                if (film.release_date != "") {
-                    yearFilm.text = film.release_date?.substring(0, 4)
+                if (film.releaseDate != "") {
+                    yearFilm.text = film.releaseDate?.substring(0, 4)
                 }
 
-                ratingFilm.text = film.vote_average.toString()
+                ratingFilm.text = film.voteAverage.toString()
 
                 val currentFilm = DetailFilmCatalogue(
                     film.id,
-                    film.poster_path,
+                    film.posterPath,
                     film.title,
                     film.overview,
-                    film.vote_average,
-                    film.release_date
+                    film.voteAverage,
+                    film.releaseDate
                 )
 
                 itemView.setOnClickListener {
@@ -71,18 +71,18 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                         MovieEntity(
                             film.isFavorite,
                             film.adult,
-                            film.backdrop_path,
+                            film.backdropPath,
                             film.id,
-                            film.original_language,
-                            film.original_title,
+                            film.originalLanguage,
+                            film.originalTitle,
                             film.overview,
                             film.popularity,
-                            film.poster_path,
-                            film.release_date,
+                            film.posterPath,
+                            film.releaseDate,
                             film.title,
                             film.video,
-                            film.vote_average,
-                            film.vote_count
+                            film.voteAverage,
+                            film.voteCount
                         )
                     )
                     Toast.makeText(context, "This movie has been added", Toast.LENGTH_SHORT).show()

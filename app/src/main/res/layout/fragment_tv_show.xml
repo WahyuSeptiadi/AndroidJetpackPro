@@ -34,7 +34,7 @@
                 android:layout_marginBottom="8dp"
                 android:autofillHints=""
                 android:background="@drawable/bg_round_white"
-                android:hint="@string/search_tvShow"
+                android:hint="@string/search_tv_show"
                 android:imeOptions="actionSearch"
                 android:inputType="textAutoComplete"
                 android:padding="8dp"
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/yourTvShow_notFound"
+        android:text="@string/your_tv_show_not_found"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         android:visibility="gone" />
