@@ -12,7 +12,6 @@ import com.wahyu.filmskuy.repository.remote.TvShowRepository
 
 class TvShowViewModel(private val data: TvShowRepository) : ViewModel() {
 
-    //implementasi viewmodel masih belum tepat, seharusnya ketika device di rotate data masih ada (tidak memuat ulang)
     fun getTvShows(): LiveData<MutableList<TvShowResult>> {
         return data.getAllTvShows()
     }

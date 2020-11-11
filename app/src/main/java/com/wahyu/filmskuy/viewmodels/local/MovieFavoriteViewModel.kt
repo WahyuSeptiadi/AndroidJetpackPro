@@ -14,16 +14,17 @@ import com.wahyu.filmskuy.repository.local.MovieFavoriteRepository
  */
 
 class MovieFavoriteViewModel(context: Context) : ViewModel() {
-    private val mMovieFavoriteRepository = MovieFavoriteRepository(context)
+    private val movieFavoriteRepository = MovieFavoriteRepository(context)
 
-    fun getAll(): LiveData<PagedList<MovieEntity>> =
-        LivePagedListBuilder(mMovieFavoriteRepository.getAll(), 20).build()
+    fun getAllMovie(): LiveData<PagedList<MovieEntity>> =
+        LivePagedListBuilder(movieFavoriteRepository.getAllMovie(), 20).build()
 
-    fun insert(movieEntity: MovieEntity) {
-        mMovieFavoriteRepository.insert(movieEntity)
+
+    fun insertMovie(movieEntity: MovieEntity) {
+        movieFavoriteRepository.insertMovie(movieEntity)
     }
 
-    fun delete(movieEntity: MovieEntity) {
-        mMovieFavoriteRepository.delete(movieEntity)
+    fun deleteMovie(movieEntity: MovieEntity) {
+        movieFavoriteRepository.deleteMovie(movieEntity)
     }
 }

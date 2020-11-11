@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.adapter.home.MyPagerAdapter
+import com.wahyu.filmskuy.adapter.main.MyPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

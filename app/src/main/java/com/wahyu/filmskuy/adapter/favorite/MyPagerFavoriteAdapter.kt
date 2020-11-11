@@ -13,7 +13,7 @@ import com.wahyu.filmskuy.views.fragment.favorite.TvShowFavoriteFragment
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MyPagerFavAdapter (private val context: Context, fm: FragmentManager) :
+class MyPagerFavoriteAdapter (private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val pages = listOf(

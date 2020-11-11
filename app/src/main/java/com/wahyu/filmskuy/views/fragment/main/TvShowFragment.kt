@@ -1,4 +1,4 @@
-package com.wahyu.filmskuy.views.fragment.home
+package com.wahyu.filmskuy.views.fragment.main
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.adapter.home.TvShowListAdapter
+import com.wahyu.filmskuy.adapter.main.TvShowListAdapter
 import com.wahyu.filmskuy.repository.remote.TvShowRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard

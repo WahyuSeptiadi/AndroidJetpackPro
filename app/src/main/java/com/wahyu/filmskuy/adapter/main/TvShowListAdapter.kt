@@ -1,15 +1,19 @@
-package com.wahyu.filmskuy.adapter.home
+package com.wahyu.filmskuy.adapter.main
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
+import com.wahyu.filmskuy.data.local.entity.MovieEntity
+import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.data.remote.response.TvShowResult
 import com.wahyu.filmskuy.models.DetailFilmCatalogue
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
+import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
 import java.util.ArrayList
@@ -25,6 +29,9 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
     class TvShowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(film: TvShowResult) {
             with(itemView) {
+
+                val tvShowFavoriteViewModel = TvShowFavoriteViewModel(context)
+
                 if (film.posterPath != null) {
                     val imageSize = context.getString(R.string.size_url_image_list)
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.posterPath}"
@@ -54,6 +61,25 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_FILMS, currentFilm)
                     itemView.context.startActivity(intent)
+                }
+
+                toggleButton.setOnClickListener {
+                    tvShowFavoriteViewModel.insertTvShow(
+                        TvShowEntity(
+                            film.backdropPath,
+                            film.firstAirDate,
+                            film.id,
+                            film.name,
+                            film.originalLanguage,
+                            film.originalName,
+                            film.overview,
+                            film.popularity,
+                            film.posterPath,
+                            film.voteAverage,
+                            film.voteCount
+                        )
+                    )
+                    Toast.makeText(context, "This tv show has been added", Toast.LENGTH_SHORT).show()
                 }
             }
         }

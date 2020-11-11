@@ -71,8 +71,8 @@ dependencies {
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
 
     //for room localDb
-    implementation 'androidx.room:room-runtime:2.2.5'
-    kapt 'androidx.room:room-compiler:2.2.5'
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
     //for pagination
     implementation 'androidx.paging:paging-runtime-ktx:2.1.2'
@@ -90,5 +90,9 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "androidx.test:rules:$androidXTestVersion"
     androidTestImplementation "androidx.test:runner:$androidXTestVersion"
-    androidTestImplementation 'androidx.room:room-testing:2.2.5'
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+}
+
+repositories {
+    mavenCentral()
 }

@@ -1,4 +1,4 @@
-package com.wahyu.filmskuy.adapter.home
+package com.wahyu.filmskuy.adapter.main
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -28,7 +28,9 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(film: MovieResult) {
             with(itemView) {
-                val viewModel = MovieFavoriteViewModel(context)
+
+                val movieFavoriteViewModel = MovieFavoriteViewModel(context)
+
                 if (film.posterPath != null) {
                     val imageSize = context.getString(R.string.size_url_image_list)
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.posterPath}"
@@ -67,7 +69,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
                 toggleButton.setOnClickListener {
                     film.isFavorite = true
-                    viewModel.insert(
+                    movieFavoriteViewModel.insertMovie(
                         MovieEntity(
                             film.isFavorite,
                             film.adult,

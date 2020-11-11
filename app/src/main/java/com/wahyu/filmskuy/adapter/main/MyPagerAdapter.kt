@@ -1,12 +1,12 @@
-package com.wahyu.filmskuy.adapter.home
+package com.wahyu.filmskuy.adapter.main
 
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.views.fragment.home.MovieFragment
-import com.wahyu.filmskuy.views.fragment.home.TvShowFragment
+import com.wahyu.filmskuy.views.fragment.main.MovieFragment
+import com.wahyu.filmskuy.views.fragment.main.TvShowFragment
 
 /**
  * Created by wahyu_septiadi on 22, October 2020.

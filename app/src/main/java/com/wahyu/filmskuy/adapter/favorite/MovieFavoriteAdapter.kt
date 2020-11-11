@@ -1,6 +1,7 @@
 package com.wahyu.filmskuy.adapter.favorite
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
-import com.wahyu.filmskuy.data.remote.response.MovieResult
+import com.wahyu.filmskuy.models.DetailFilmCatalogue
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
-import kotlinx.android.synthetic.main.list_item_film_favorite.view.*
+import kotlinx.android.synthetic.main.list_item_film.view.*
 
 /**
  * Created by wahyu_septiadi on 07, November 2020.
@@ -26,7 +27,7 @@ class MovieFavoriteAdapter :
     PagedListAdapter<MovieEntity, MovieFavoriteAdapter.MovieFavoriteViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK =
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<MovieEntity> =
             object : DiffUtil.ItemCallback<MovieEntity>() {
                 override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
                     return oldItem.id == newItem.id
@@ -45,54 +46,47 @@ class MovieFavoriteAdapter :
     inner class MovieFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: MovieEntity) {
             with(itemView) {
-                val viewModel = MovieFavoriteViewModel(context)
-                if (movie.poster_path != null) {
-                    val imageSize = "/w780"
-                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${movie.poster_path}"
+                val movieFavoriteViewModel = MovieFavoriteViewModel(context)
+                if (movie.posterPath != null) {
+                    Log.d("MovieDataFavoriteImage", "${movie.posterPath}")
+                    val imageSize = context.getString(R.string.size_url_image_list)
+                    val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${movie.posterPath}"
                     Picasso.get().load(urlImage).placeholder(R.drawable.loading)
-                        .into(imageFilmFavorite)
+                        .into(imageFilm)
                 } else {
                     Picasso.get().load(R.drawable.img_notfound).placeholder(R.drawable.loading)
-                        .into(imageFilmFavorite)
+                        .into(imageFilm)
                 }
 
-                titleFilmFavorite.text = movie.title
+                titleFilm.text = movie.title
 
-                if (movie.release_date != "") {
-                    yearFilmFavorite.text = movie.release_date?.substring(0, 4)
+                if (movie.releaseDate != "") {
+                    yearFilm.text = movie.releaseDate?.substring(0, 4)
+                    Log.d("MovieDataFavoriteData", "${movie.releaseDate}")
                 }
 
-                ratingFilmFavorite.text = movie.vote_average.toString()
+                ratingFilm.text = movie.voteAverage.toString()
 
                 itemView.setOnClickListener {
                     val movieIntent = Intent(context, DetailActivity::class.java)
 
                     movieIntent.putExtra(
                         DetailActivity.EXTRA_FILMS,
-                        MovieResult(
-                            movie.isFavorite,
-                            movie.adult,
-                            movie.backdrop_path,
-                            ArrayList(),
+                        DetailFilmCatalogue(
                             movie.id,
-                            movie.original_language,
-                            movie.original_title,
-                            movie.overview,
-                            movie.popularity,
-                            movie.poster_path,
-                            movie.release_date,
+                            movie.posterPath,
                             movie.title,
-                            movie.video,
-                            movie.vote_average,
-                            movie.vote_count
+                            movie.overview,
+                            movie.voteAverage,
+                            movie.releaseDate
                         )
                     )
 
                     context.startActivity(movieIntent)
                 }
 
-                toggleButtonFavorite.setOnClickListener {
-                    viewModel.delete(movie)
+                toggleButton.setOnClickListener {
+                    movieFavoriteViewModel.deleteMovie(movie)
                     Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -105,42 +99,7 @@ class MovieFavoriteAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieFavoriteViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_film_favorite, parent, false)
+            .inflate(R.layout.list_item_film, parent, false)
         return MovieFavoriteViewHolder(view)
-//        val view = MovieFavoriteViewHolder(
-//            LayoutInflater.from(parent.context)
-//                .inflate(R.layout.list_item_film_favorite, parent, false)
-//        )
-//
-//        view.itemView.setOnClickListener {
-//            val movieIntent = Intent(activity, DetailActivity::class.java)
-//            val movie = getItem(view.adapterPosition)
-//
-//            if (movie != null) {
-//                movieIntent.putExtra(
-//                    DetailActivity.EXTRA_FILMS,
-//                    MovieResult(
-//                        movie.adult,
-//                        movie.backdrop_path,
-//                        ArrayList(),
-//                        movie.id,
-//                        movie.original_language,
-//                        movie.original_title,
-//                        movie.overview,
-//                        movie.popularity,
-//                        movie.poster_path,
-//                        movie.release_date,
-//                        movie.title,
-//                        movie.video,
-//                        movie.vote_average,
-//                        movie.vote_count
-//                    )
-//                )
-//            }
-//
-//            activity.startActivity(movieIntent)
-//        }
-//
-//        return view
     }
 }

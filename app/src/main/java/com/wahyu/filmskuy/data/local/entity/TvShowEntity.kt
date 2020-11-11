@@ -1,5 +1,6 @@
 package com.wahyu.filmskuy.data.local.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,16 +11,23 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tv_shows_favorite")
 class TvShowEntity(
-    val backdrop_path: String?,
-    val first_air_date: String,
+    @ColumnInfo(name = "backdrop_path")
+    val backdropPath: String,
+    @ColumnInfo(name = "first_air_date")
+    val firstAirDate: String? = null,
     @PrimaryKey
     val id: Int,
     val name: String,
-    val original_language: String,
-    val original_name: String,
+    @ColumnInfo(name = "original_language")
+    val originalLanguage: String? = null,
+    @ColumnInfo(name = "original_name")
+    val originalName: String,
     val overview: String,
     val popularity: Double,
-    val poster_path: String,
-    val vote_average: Double,
-    val vote_count: Int
+    @ColumnInfo(name = "poster_path")
+    val posterPath: String? = null,
+    @ColumnInfo(name = "vote_average")
+    val voteAverage: Double,
+    @ColumnInfo(name = "vote_count")
+    val voteCount: Int
 )
