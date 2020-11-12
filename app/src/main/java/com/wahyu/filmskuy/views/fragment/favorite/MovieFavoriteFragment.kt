@@ -39,6 +39,7 @@ class MovieFavoriteFragment : Fragment() {
                     Log.d("MovieDataFavorite", "$it")
                     movieFavoriteAdapter.setFilms(it)
                 } else{
+                    movieFavoriteAdapter.setFilms(it)
                     movieFavoriteNotFound.visible()
                     progressMovieFavorite.gone()
                 }
@@ -50,13 +51,11 @@ class MovieFavoriteFragment : Fragment() {
                 rvFavMovie.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
                 rvFavMovie.adapter = movieFavoriteAdapter
-                movieFavoriteAdapter.notifyDataSetChanged()
             } else {
                 rvFavMovie.setHasFixedSize(true)
                 rvFavMovie.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                 rvFavMovie.adapter = movieFavoriteAdapter
-                movieFavoriteAdapter.notifyDataSetChanged()
             }
         }
     }

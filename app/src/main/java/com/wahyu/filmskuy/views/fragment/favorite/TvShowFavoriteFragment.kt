@@ -39,6 +39,7 @@ class TvShowFavoriteFragment : Fragment() {
                     Log.d("TvDataFavorite", "$it")
                     tvShowFavoriteAdapter.setFilms(it)
                 } else {
+                    tvShowFavoriteAdapter.setFilms(it)
                     progressTvShowFavorite.gone()
                     tvShowFavoriteNotFound.visible()
                 }
@@ -50,13 +51,11 @@ class TvShowFavoriteFragment : Fragment() {
                 rvFavTvShow.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
                 rvFavTvShow.adapter = tvShowFavoriteAdapter
-                tvShowFavoriteAdapter.notifyDataSetChanged()
             } else {
                 rvFavTvShow.setHasFixedSize(true)
                 rvFavTvShow.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                 rvFavTvShow.adapter = tvShowFavoriteAdapter
-                tvShowFavoriteAdapter.notifyDataSetChanged()
             }
         }
     }
