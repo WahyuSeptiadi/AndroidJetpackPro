@@ -34,7 +34,7 @@ class MovieFavoriteRepository(val context: Context) {
         }
     }
 
-    fun deleteMovie(movieEntity: MovieEntity) {
-        executorService.execute { filmCatalogueDao.deleteMovie(movieEntity) }
+    fun deleteMovieWithId(id: Int) {
+        executorService.execute { filmCatalogueDao.deleteMovieWithId(id) }
     }
 }

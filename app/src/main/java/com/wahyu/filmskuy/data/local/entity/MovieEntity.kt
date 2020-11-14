@@ -11,7 +11,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies_favorite")
 data class MovieEntity(
-    var isFavorite: Boolean = false,
     val adult: Boolean,
     @ColumnInfo(name = "backdrop_path")
     val backdropPath: String,

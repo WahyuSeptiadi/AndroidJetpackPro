@@ -1,7 +1,6 @@
 package com.wahyu.filmskuy.data.local.room
 
 import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.room.*
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
@@ -14,16 +13,16 @@ import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 @Dao
 interface FilmCatalogueDao {
     @Query("SELECT * FROM movies_favorite")
-    fun getAllMovie() : LiveData<List<MovieEntity>>
+    fun getAllMovie(): LiveData<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMovie(movieEntity: MovieEntity)
 
-    @Delete
-    fun deleteMovie(movieEntity: MovieEntity)
+    @Query("DELETE FROM movies_favorite WHERE id = :id")
+    fun deleteMovieWithId(id: Int)
 
     @Query("SELECT * FROM tv_shows_favorite")
-    fun getAllTvShow() : LiveData<List<TvShowEntity>>
+    fun getAllTvShow(): LiveData<List<TvShowEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTvShow(tvShowEntity: TvShowEntity)

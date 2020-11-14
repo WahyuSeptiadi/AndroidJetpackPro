@@ -12,6 +12,8 @@ import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
+import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
@@ -66,9 +68,12 @@ class TvShowFavoriteAdapter : RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowF
                     context.startActivity(tvShowIntent)
                 }
 
-                toggleButton.setOnClickListener {
+                insertToFavorite.gone()
+                deleteFromFavorite.visible()
+
+                deleteFromFavorite.setOnClickListener {
                     tvShowFavoriteViewModel.deleteTvShow(tvShow)
-                    Toast.makeText(context, "Tv Show has been deleted", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
         }

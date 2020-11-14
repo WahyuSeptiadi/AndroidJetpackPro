@@ -21,7 +21,7 @@ class MovieFavoriteViewModel(context: Context) : ViewModel() {
         movieFavoriteRepository.insertMovie(movieEntity)
     }
 
-    fun deleteMovie(movieEntity: MovieEntity) {
-        movieFavoriteRepository.deleteMovie(movieEntity)
+    fun deleteMovieWithId(id: Int) {
+        movieFavoriteRepository.deleteMovieWithId(id)
     }
 }

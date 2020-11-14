@@ -20,7 +20,6 @@ data class MovieResponse(
 
 @Parcelize
 data class MovieResult(
-    var isFavorite : Boolean = false,
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,

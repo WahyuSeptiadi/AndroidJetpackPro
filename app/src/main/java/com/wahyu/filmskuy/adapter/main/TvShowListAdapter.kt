@@ -12,6 +12,8 @@ import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.data.remote.response.TvShowResult
 import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
+import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
@@ -64,7 +66,9 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                     itemView.context.startActivity(intent)
                 }
 
-                toggleButton.setOnClickListener {
+                insertToFavorite.setOnClickListener {
+                    insertToFavorite.gone()
+                    deleteFromFavorite.visible()
                     tvShowFavoriteViewModel.insertTvShow(
                         TvShowEntity(
                             film.backdropPath,

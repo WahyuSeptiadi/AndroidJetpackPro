@@ -12,6 +12,8 @@ import com.wahyu.filmskuy.data.remote.response.MovieResult
 import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
+import com.wahyu.filmskuy.utils.invisible
+import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
@@ -34,9 +36,11 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 if (film.posterPath != null) {
                     val imageSize = context.getString(R.string.size_url_image_list)
                     val urlImage = "$IMAGE_URL_BASE_PATH$imageSize${film.posterPath}"
-                    Glide.with(context).load(urlImage).placeholder(R.drawable.loading).into(imageFilm)
+                    Glide.with(context).load(urlImage).placeholder(R.drawable.loading)
+                        .into(imageFilm)
                 } else {
-                    Glide.with(context).load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                    Glide.with(context).load(R.drawable.img_notfound)
+                        .placeholder(R.drawable.loading)
                         .into(imageFilm)
                 }
 
@@ -63,15 +67,12 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                     itemView.context.startActivity(intent)
                 }
 
-                if (film.isFavorite) {
-                    toggleButton.isChecked
-                }
+                insertToFavorite.setOnClickListener {
+                    insertToFavorite.invisible()
+                    deleteFromFavorite.visible()
 
-                toggleButton.setOnClickListener {
-                    film.isFavorite = true
                     movieFavoriteViewModel.insertMovie(
                         MovieEntity(
-                            film.isFavorite,
                             film.adult,
                             film.backdropPath,
                             film.id,
@@ -87,7 +88,15 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                             film.voteCount
                         )
                     )
+
                     Toast.makeText(context, "This movie has been added", Toast.LENGTH_SHORT).show()
+                }
+
+                deleteFromFavorite.setOnClickListener {
+                    deleteFromFavorite.invisible()
+                    insertToFavorite.visible()
+                    movieFavoriteViewModel.deleteMovieWithId(film.id)
+                    Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
         }

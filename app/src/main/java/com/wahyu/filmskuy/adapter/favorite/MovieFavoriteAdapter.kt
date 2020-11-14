@@ -12,6 +12,8 @@ import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
+import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
 import kotlinx.android.synthetic.main.list_item_film.view.*
@@ -67,8 +69,11 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
                     context.startActivity(movieIntent)
                 }
 
-                toggleButton.setOnClickListener {
-                    movieFavoriteViewModel.deleteMovie(movie)
+                insertToFavorite.gone()
+                deleteFromFavorite.visible()
+
+                deleteFromFavorite.setOnClickListener {
+                    movieFavoriteViewModel.deleteMovieWithId(movie.id)
                     Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
