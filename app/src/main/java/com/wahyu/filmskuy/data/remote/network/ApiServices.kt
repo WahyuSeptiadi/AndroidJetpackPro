@@ -15,9 +15,6 @@ import retrofit2.http.Query
 
 interface ApiServices {
     @GET("3/discover/movie/$API_URL_LAST")
-    fun getAllMovie(): MovieResponse
-
-    @GET("3/discover/movie/$API_URL_LAST")
     fun getMovie(): Call<MovieResponse>
 
     @GET("3/discover/tv/$API_URL_LAST")

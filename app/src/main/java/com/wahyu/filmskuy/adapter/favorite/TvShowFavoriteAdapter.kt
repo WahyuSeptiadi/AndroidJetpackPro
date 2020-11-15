@@ -72,7 +72,7 @@ class TvShowFavoriteAdapter : RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowF
                 deleteFromFavorite.visible()
 
                 deleteFromFavorite.setOnClickListener {
-                    tvShowFavoriteViewModel.deleteTvShow(tvShow)
+                    tvShowFavoriteViewModel.deleteTvShow(tvShow.id)
                     Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }

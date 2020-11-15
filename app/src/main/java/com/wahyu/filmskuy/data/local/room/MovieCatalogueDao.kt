@@ -16,9 +16,6 @@ interface MovieCatalogueDao {
     fun getAllMovie(): LiveData<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertMovieList(movieEntity: List<MovieEntity>)
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMovie(movieEntity: MovieEntity)
 
     @Query("DELETE FROM movies_favorite WHERE id = :id")
@@ -30,6 +27,6 @@ interface MovieCatalogueDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTvShow(tvShowEntity: TvShowEntity)
 
-    @Delete
-    fun deleteTvShow(tvShowEntity: TvShowEntity)
+    @Query("DELETE FROM tv_shows_favorite WHERE id = :id")
+    fun deleteTvShow(id: Int)
 }

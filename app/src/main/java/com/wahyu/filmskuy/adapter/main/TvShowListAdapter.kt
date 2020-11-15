@@ -12,7 +12,7 @@ import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.data.remote.models.TvShowResult
 import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
-import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
@@ -67,7 +67,7 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                 }
 
                 insertToFavorite.setOnClickListener {
-                    insertToFavorite.gone()
+                    insertToFavorite.invisible()
                     deleteFromFavorite.visible()
                     tvShowFavoriteViewModel.insertTvShow(
                         TvShowEntity(
@@ -86,6 +86,13 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                     )
                     Toast.makeText(context, "This tv show has been added", Toast.LENGTH_SHORT)
                         .show()
+                }
+
+                deleteFromFavorite.setOnClickListener {
+                    deleteFromFavorite.invisible()
+                    insertToFavorite.visible()
+                    tvShowFavoriteViewModel.deleteTvShow(film.id)
+                    Toast.makeText(context, "This tv show has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
         }

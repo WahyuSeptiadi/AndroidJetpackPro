@@ -34,7 +34,7 @@ class TvShowFavoriteRepository(val context: Context) {
         }
     }
 
-    fun deleteTvShow(tvShowEntity: TvShowEntity) {
-        executorService.execute { movieCatalogueDao.deleteTvShow(tvShowEntity) }
+    fun deleteTvShow(id: Int) {
+        executorService.execute { movieCatalogueDao.deleteTvShow(id) }
     }
 }

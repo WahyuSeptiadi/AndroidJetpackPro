@@ -20,7 +20,7 @@ class TvShowFavoriteViewModel(context: Context) : ViewModel() {
         tvShowFavoriteRepository.insertTvShow(tvShowEntity)
     }
 
-    fun deleteTvShow(tvShowEntity: TvShowEntity) {
-        tvShowFavoriteRepository.deleteTvShow(tvShowEntity)
+    fun deleteTvShow(id: Int) {
+        tvShowFavoriteRepository.deleteTvShow(id)
     }
 }
