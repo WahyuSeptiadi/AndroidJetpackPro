@@ -18,7 +18,7 @@ class MovieFavoriteRepository(val context: Context) {
     private val executorService = Executors.newSingleThreadExecutor()
 
     init {
-        val db = FilmCatalogueDatabase.getDatabase(context)
+        val db = FilmCatalogueDatabase.getInstance(context)
         filmCatalogueDao = db.filmCatalogueDao()
     }
 

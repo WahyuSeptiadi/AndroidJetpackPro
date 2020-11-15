@@ -21,7 +21,7 @@ abstract class FilmCatalogueDatabase : RoomDatabase() {
         private var INSTANCE: FilmCatalogueDatabase? = null
 
         @JvmStatic
-        fun getDatabase(context: Context): FilmCatalogueDatabase {
+        fun getInstance(context: Context): FilmCatalogueDatabase {
             if (INSTANCE == null) {
                 synchronized(FilmCatalogueDatabase::class.java) {
                     if (INSTANCE == null) {

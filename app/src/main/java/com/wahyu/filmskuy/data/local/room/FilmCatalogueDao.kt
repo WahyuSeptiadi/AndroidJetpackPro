@@ -16,6 +16,9 @@ interface FilmCatalogueDao {
     fun getAllMovie(): LiveData<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertMovieList(movieEntity: List<MovieEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMovie(movieEntity: MovieEntity)
 
     @Query("DELETE FROM movies_favorite WHERE id = :id")

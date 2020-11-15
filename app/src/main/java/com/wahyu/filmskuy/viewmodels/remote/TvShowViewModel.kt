@@ -2,7 +2,7 @@ package com.wahyu.filmskuy.viewmodels.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.wahyu.filmskuy.data.remote.response.TvShowResult
+import com.wahyu.filmskuy.data.remote.models.TvShowResult
 import com.wahyu.filmskuy.repository.remote.TvShowRepository
 
 /**

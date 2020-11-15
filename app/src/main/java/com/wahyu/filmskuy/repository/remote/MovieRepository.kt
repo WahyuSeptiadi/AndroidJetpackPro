@@ -3,8 +3,8 @@ package com.wahyu.filmskuy.repository.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.wahyu.filmskuy.data.remote.network.ApiClient
-import com.wahyu.filmskuy.data.remote.response.MovieResponse
-import com.wahyu.filmskuy.data.remote.response.MovieResult
+import com.wahyu.filmskuy.data.remote.models.MovieResponse
+import com.wahyu.filmskuy.data.remote.models.MovieResult
 import com.wahyu.filmskuy.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Callback

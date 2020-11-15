@@ -1,4 +1,4 @@
-package com.wahyu.filmskuy.data.remote.response
+package com.wahyu.filmskuy.data.remote.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

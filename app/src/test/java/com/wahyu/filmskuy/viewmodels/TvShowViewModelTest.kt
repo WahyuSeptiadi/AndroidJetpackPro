@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
+import com.wahyu.filmskuy.data.remote.models.TvShowResult
 import com.wahyu.filmskuy.data.remote.network.ApiClient
-import com.wahyu.filmskuy.data.remote.response.TvShowResult
 import com.wahyu.filmskuy.repository.remote.TvShowRepository
 import com.wahyu.filmskuy.viewmodels.remote.TvShowViewModel
 import org.junit.Assert

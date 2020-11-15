@@ -1,7 +1,7 @@
 package com.wahyu.filmskuy.data.remote.network
 
-import com.wahyu.filmskuy.data.remote.response.MovieResponse
-import com.wahyu.filmskuy.data.remote.response.TvShowResponse
+import com.wahyu.filmskuy.data.remote.models.MovieResponse
+import com.wahyu.filmskuy.data.remote.models.TvShowResponse
 import com.wahyu.filmskuy.utils.API_SEARCH_LAST
 import com.wahyu.filmskuy.utils.API_URL_LAST
 import retrofit2.Call
@@ -14,6 +14,9 @@ import retrofit2.http.Query
  */
 
 interface ApiServices {
+    @GET("3/discover/movie/$API_URL_LAST")
+    fun getAllMovie(): MovieResponse
+
     @GET("3/discover/movie/$API_URL_LAST")
     fun getMovie(): Call<MovieResponse>
 

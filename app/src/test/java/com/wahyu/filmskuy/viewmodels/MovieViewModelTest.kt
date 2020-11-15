@@ -12,8 +12,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
+import com.wahyu.filmskuy.data.remote.models.MovieResult
 import com.wahyu.filmskuy.data.remote.network.ApiClient
-import com.wahyu.filmskuy.data.remote.response.MovieResult
 import com.wahyu.filmskuy.viewmodels.remote.MovieViewModel
 import org.mockito.junit.MockitoJUnitRunner
 

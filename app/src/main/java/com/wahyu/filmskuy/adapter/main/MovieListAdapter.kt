@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.data.remote.response.MovieResult
 import com.wahyu.filmskuy.models.FilmCatalogueModel
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
@@ -25,10 +24,10 @@ import java.util.ArrayList
  */
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
-    private var listFilms = ArrayList<MovieResult>()
+    private var listFilms = ArrayList<MovieEntity>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(film: MovieResult) {
+        fun bind(film: MovieEntity) {
             with(itemView) {
 
                 val movieFavoriteViewModel = MovieFavoriteViewModel(context)
@@ -102,7 +101,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
         }
     }
 
-    fun setFilm(films: List<MovieResult>?) {
+    fun setFilm(films: List<MovieEntity>?) {
         if (films == null) return
         this.listFilms.clear()
         this.listFilms.addAll(films)
