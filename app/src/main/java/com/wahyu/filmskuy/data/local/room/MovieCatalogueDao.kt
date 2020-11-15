@@ -11,7 +11,7 @@ import com.wahyu.filmskuy.data.local.entity.TvShowEntity
  */
 
 @Dao
-interface FilmCatalogueDao {
+interface MovieCatalogueDao {
     @Query("SELECT * FROM movies_favorite")
     fun getAllMovie(): LiveData<List<MovieEntity>>
 

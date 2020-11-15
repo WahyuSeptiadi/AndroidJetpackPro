@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-data class FilmCatalogueModel(
+data class MovieCatalogueModel(
     val id: Int? = 0,
     val image: String? = null,
     val title: String? = null,

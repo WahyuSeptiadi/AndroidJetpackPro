@@ -13,28 +13,28 @@ import com.wahyu.filmskuy.data.local.entity.TvShowEntity
  */
 
 @Database(entities = [MovieEntity::class, TvShowEntity::class], version = 1, exportSchema = false)
-abstract class FilmCatalogueDatabase : RoomDatabase() {
-    abstract fun filmCatalogueDao(): FilmCatalogueDao
+abstract class MovieCatalogueDatabase : RoomDatabase() {
+    abstract fun filmCatalogueDao(): MovieCatalogueDao
 
     companion object {
         @Volatile
-        private var INSTANCE: FilmCatalogueDatabase? = null
+        private var INSTANCE: MovieCatalogueDatabase? = null
 
         @JvmStatic
-        fun getInstance(context: Context): FilmCatalogueDatabase {
+        fun getInstance(context: Context): MovieCatalogueDatabase {
             if (INSTANCE == null) {
-                synchronized(FilmCatalogueDatabase::class.java) {
+                synchronized(MovieCatalogueDatabase::class.java) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
-                            FilmCatalogueDatabase::class.java,
+                            MovieCatalogueDatabase::class.java,
                             "FilmCatalogue.db"
                         ).build()
                     }
                 }
             }
 
-            return INSTANCE as FilmCatalogueDatabase
+            return INSTANCE as MovieCatalogueDatabase
         }
     }
 }

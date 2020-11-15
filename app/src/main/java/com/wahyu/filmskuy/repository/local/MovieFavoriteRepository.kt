@@ -3,9 +3,9 @@ package com.wahyu.filmskuy.repository.local
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.wahyu.filmskuy.data.local.room.FilmCatalogueDatabase
+import com.wahyu.filmskuy.data.local.room.MovieCatalogueDatabase
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
-import com.wahyu.filmskuy.data.local.room.FilmCatalogueDao
+import com.wahyu.filmskuy.data.local.room.MovieCatalogueDao
 import java.util.concurrent.Executors
 
 /**
@@ -14,20 +14,20 @@ import java.util.concurrent.Executors
  */
 
 class MovieFavoriteRepository(val context: Context) {
-    private val filmCatalogueDao : FilmCatalogueDao
+    private val movieCatalogueDao : MovieCatalogueDao
     private val executorService = Executors.newSingleThreadExecutor()
 
     init {
-        val db = FilmCatalogueDatabase.getInstance(context)
-        filmCatalogueDao = db.filmCatalogueDao()
+        val db = MovieCatalogueDatabase.getInstance(context)
+        movieCatalogueDao = db.filmCatalogueDao()
     }
 
-    fun getAllMovie(): LiveData<List<MovieEntity>> = filmCatalogueDao.getAllMovie()
+    fun getAllMovie(): LiveData<List<MovieEntity>> = movieCatalogueDao.getAllMovie()
 
     fun insertMovie(movieEntity: MovieEntity) {
         executorService.execute {
             try {
-                filmCatalogueDao.insertMovie(movieEntity)
+                movieCatalogueDao.insertMovie(movieEntity)
             } catch (e: Exception) {
                 Log.e("INSERT FAILED", e.message.toString())
             }
@@ -35,6 +35,6 @@ class MovieFavoriteRepository(val context: Context) {
     }
 
     fun deleteMovieWithId(id: Int) {
-        executorService.execute { filmCatalogueDao.deleteMovieWithId(id) }
+        executorService.execute { movieCatalogueDao.deleteMovieWithId(id) }
     }
 }

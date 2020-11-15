@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
-import com.wahyu.filmskuy.models.FilmCatalogueModel
+import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.visible
@@ -56,7 +56,7 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
 
                     movieIntent.putExtra(
                         DetailActivity.EXTRA_FILMS,
-                        FilmCatalogueModel(
+                        MovieCatalogueModel(
                             movie.id,
                             movie.posterPath,
                             movie.title,

@@ -8,8 +8,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.FilmCatalogueModel
+import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
+import com.wahyu.filmskuy.data.remote.models.MovieResult
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
@@ -24,10 +25,10 @@ import java.util.ArrayList
  */
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
-    private var listFilms = ArrayList<MovieEntity>()
+    private var listFilms = ArrayList<MovieResult>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(film: MovieEntity) {
+        fun bind(film: MovieResult) {
             with(itemView) {
 
                 val movieFavoriteViewModel = MovieFavoriteViewModel(context)
@@ -51,7 +52,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
                 ratingFilm.text = film.voteAverage.toString()
 
-                val currentFilm = FilmCatalogueModel(
+                val currentFilm = MovieCatalogueModel(
                     film.id,
                     film.posterPath,
                     film.title,
@@ -101,7 +102,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
         }
     }
 
-    fun setFilm(films: List<MovieEntity>?) {
+    fun setFilm(films: MutableList<MovieResult>?) {
         if (films == null) return
         this.listFilms.clear()
         this.listFilms.addAll(films)

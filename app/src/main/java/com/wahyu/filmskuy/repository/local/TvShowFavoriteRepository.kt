@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
-import com.wahyu.filmskuy.data.local.room.FilmCatalogueDao
-import com.wahyu.filmskuy.data.local.room.FilmCatalogueDatabase
+import com.wahyu.filmskuy.data.local.room.MovieCatalogueDao
+import com.wahyu.filmskuy.data.local.room.MovieCatalogueDatabase
 import java.util.concurrent.Executors
 
 /**
@@ -14,20 +14,20 @@ import java.util.concurrent.Executors
  */
 
 class TvShowFavoriteRepository(val context: Context) {
-    private val filmCatalogueDao : FilmCatalogueDao
+    private val movieCatalogueDao : MovieCatalogueDao
     private val executorService = Executors.newSingleThreadExecutor()
 
     init {
-        val db = FilmCatalogueDatabase.getInstance(context)
-        filmCatalogueDao = db.filmCatalogueDao()
+        val db = MovieCatalogueDatabase.getInstance(context)
+        movieCatalogueDao = db.filmCatalogueDao()
     }
 
-    fun getAllTvShow(): LiveData<List<TvShowEntity>> = filmCatalogueDao.getAllTvShow()
+    fun getAllTvShow(): LiveData<List<TvShowEntity>> = movieCatalogueDao.getAllTvShow()
 
     fun insertTvShow(tvShowEntity: TvShowEntity) {
         executorService.execute {
             try {
-                filmCatalogueDao.insertTvShow(tvShowEntity)
+                movieCatalogueDao.insertTvShow(tvShowEntity)
             } catch (e: Exception) {
                 Log.e("INSERT FAILED", e.message.toString())
             }
@@ -35,6 +35,6 @@ class TvShowFavoriteRepository(val context: Context) {
     }
 
     fun deleteTvShow(tvShowEntity: TvShowEntity) {
-        executorService.execute { filmCatalogueDao.deleteTvShow(tvShowEntity) }
+        executorService.execute { movieCatalogueDao.deleteTvShow(tvShowEntity) }
     }
 }

@@ -13,22 +13,22 @@ import com.wahyu.filmskuy.vo.Resources
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class FilmCatalogueRepository private constructor(
+class MovieCatalogueRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
-) : FilmCatalogueDataSource {
+) : MovieCatalogueDataSource {
 
     companion object {
         @Volatile
-        private var instance: FilmCatalogueRepository? = null
+        private var instance: MovieCatalogueRepository? = null
 
         fun getInstance(
             remoteDataSource: RemoteDataSource,
             localDataSource: LocalDataSource,
             appExecutors: AppExecutors
-        ): FilmCatalogueRepository = instance ?: synchronized(this) {
-            instance ?: FilmCatalogueRepository(remoteDataSource, localDataSource, appExecutors)
+        ): MovieCatalogueRepository = instance ?: synchronized(this) {
+            instance ?: MovieCatalogueRepository(remoteDataSource, localDataSource, appExecutors)
         }
     }
 

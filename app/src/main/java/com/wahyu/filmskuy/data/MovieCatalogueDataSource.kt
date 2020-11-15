@@ -9,7 +9,7 @@ import com.wahyu.filmskuy.vo.Resources
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-interface FilmCatalogueDataSource {
+interface MovieCatalogueDataSource {
     fun getAllMovie(): LiveData<Resources<List<MovieEntity>>>
 
     fun searchMovie(title: String): LiveData<Resources<List<MovieEntity>>>

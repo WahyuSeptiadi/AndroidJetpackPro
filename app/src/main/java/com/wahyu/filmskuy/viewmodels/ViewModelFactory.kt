@@ -3,7 +3,7 @@ package com.wahyu.filmskuy.viewmodels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wahyu.filmskuy.data.FilmCatalogueRepository
+import com.wahyu.filmskuy.data.MovieCatalogueRepository
 import com.wahyu.filmskuy.di.Injection
 
 /**
@@ -11,7 +11,7 @@ import com.wahyu.filmskuy.di.Injection
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class ViewModelFactory private constructor(private val mAcademyRepository: FilmCatalogueRepository) :
+class ViewModelFactory private constructor(private val mAcademyRepository: MovieCatalogueRepository) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {

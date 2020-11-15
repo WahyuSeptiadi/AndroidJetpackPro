@@ -2,7 +2,7 @@ package com.wahyu.filmskuy.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.wahyu.filmskuy.data.FilmCatalogueRepository
+import com.wahyu.filmskuy.data.MovieCatalogueRepository
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.vo.Resources
 
@@ -11,6 +11,6 @@ import com.wahyu.filmskuy.vo.Resources
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MovieCatalogueViewModel (private val data : FilmCatalogueRepository): ViewModel(){
+class MovieCatalogueViewModel (private val data : MovieCatalogueRepository): ViewModel(){
     fun getAllMovies() : LiveData<Resources<List<MovieEntity>>> = data.getAllMovie()
 }

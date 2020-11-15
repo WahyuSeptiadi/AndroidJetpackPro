@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
-import com.wahyu.filmskuy.models.FilmCatalogueModel
+import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -29,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
     private fun getDataMovie() {
 
         val film =
-            intent.getParcelableExtra<FilmCatalogueModel>(EXTRA_FILMS) as FilmCatalogueModel
+            intent.getParcelableExtra<MovieCatalogueModel>(EXTRA_FILMS) as MovieCatalogueModel
 
         if (film.image != null) {
             val imageSize = getString(R.string.size_url_image_detail)
