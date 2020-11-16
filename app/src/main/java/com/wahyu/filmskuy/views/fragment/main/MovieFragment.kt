@@ -35,10 +35,6 @@ class MovieFragment : Fragment() {
 
             val movieListAdapter = MovieListAdapter()
 
-//            val factory = ViewModelFactory.getInstance(requireActivity())
-//            val movieViewModel =
-//                ViewModelProvider(this, factory)[MovieCatalogueViewModel::class.java]
-
             movieViewModel.getMovies()?.observe(viewLifecycleOwner) {
                 if (it != null) {
                     progressMovie.gone()
