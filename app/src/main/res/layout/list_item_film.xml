@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end">
 
+                    <!-- MAKE JUST LOVE AND DELETE -->
                     <ImageView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
