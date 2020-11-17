@@ -25,6 +25,7 @@ import java.util.concurrent.Executors
  */
 
 class MovieCatalogueRepository(val context: Context) {
+    // prepare implement the pagination
     private val movieCatalogueDao: MovieCatalogueDao
     private val executorService = Executors.newSingleThreadExecutor()
 
