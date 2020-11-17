@@ -67,7 +67,7 @@ class MovieCatalogueRepository(val context: Context) {
         }
     }
 
-    private fun getAllMovieFromAPI(): MutableLiveData<MutableList<MovieResult>> {
+    fun getAllMovieFromAPI(): MutableLiveData<MutableList<MovieResult>> {
         val listData: MutableLiveData<MutableList<MovieResult>> = MutableLiveData()
 
         EspressoIdlingResource.increment()
@@ -183,7 +183,7 @@ class MovieCatalogueRepository(val context: Context) {
         }
     }
 
-    private fun getAllTvShowsFromAPI(): MutableLiveData<MutableList<TvShowResult>> {
+    fun getAllTvShowsFromAPI(): MutableLiveData<MutableList<TvShowResult>> {
         val listData: MutableLiveData<MutableList<TvShowResult>> = MutableLiveData()
 
         EspressoIdlingResource.increment()

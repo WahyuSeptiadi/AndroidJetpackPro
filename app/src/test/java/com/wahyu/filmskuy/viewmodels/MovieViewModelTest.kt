@@ -3,7 +3,6 @@ package com.wahyu.filmskuy.viewmodels
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.wahyu.filmskuy.repository.remote.MovieRepository
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -14,6 +13,7 @@ import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
 import com.wahyu.filmskuy.data.remote.models.MovieResult
 import com.wahyu.filmskuy.data.remote.network.ApiClient
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.viewmodels.remote.MovieViewModel
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -31,14 +31,15 @@ class MovieViewModelTest {
     private lateinit var movieViewModel: MovieViewModel
 
     @Mock
-    private val movieRepository: MovieRepository = mock(MovieRepository::class.java)
+    private val movieCatalogueRepository: MovieCatalogueRepository =
+        mock(MovieCatalogueRepository::class.java)
 
     @Mock
     private lateinit var observer: Observer<List<MovieResult>>
 
     @Before
     fun setUp() {
-        movieViewModel = MovieViewModel(movieRepository)
+        movieViewModel = MovieViewModel(movieCatalogueRepository)
     }
 
     @Test
@@ -48,12 +49,12 @@ class MovieViewModelTest {
         dataList.value = dataDummy as MutableList<MovieResult>?
 
         Assert.assertNotNull(dataList)
-        `when`(movieViewModel.getMovies()).thenReturn(dataList)
+        `when`(movieViewModel.getAllMovieForTest()).thenReturn(dataList)
 
-        movieViewModel.getMovies()?.observeForever(observer)
+        movieViewModel.getAllMovieForTest().observeForever(observer)
         verify(observer).onChanged(dataDummy)
 
-        Assert.assertNotNull(movieViewModel.getMovies())
-        Assert.assertEquals(movieViewModel.getMovies(), dataList)
+        Assert.assertNotNull(movieViewModel.getAllMovieForTest())
+        Assert.assertEquals(movieViewModel.getAllMovieForTest(), dataList)
     }
 }

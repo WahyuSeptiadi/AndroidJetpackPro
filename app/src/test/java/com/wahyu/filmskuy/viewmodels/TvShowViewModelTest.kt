@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.verify
 import com.wahyu.filmskuy.data.remote.models.TvShowResult
 import com.wahyu.filmskuy.data.remote.network.ApiClient
-import com.wahyu.filmskuy.repository.remote.TvShowRepository
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.viewmodels.remote.TvShowViewModel
 import org.junit.Assert
 import org.junit.Test
@@ -31,14 +31,15 @@ class TvShowViewModelTest {
     private lateinit var tvShowViewModel: TvShowViewModel
 
     @Mock
-    private val tvShowRepository: TvShowRepository = mock(TvShowRepository::class.java)
+    private val movieCatalogueRepository: MovieCatalogueRepository =
+        mock(MovieCatalogueRepository::class.java)
 
     @Mock
     private lateinit var observer: Observer<List<TvShowResult>>
 
     @Before
     fun setUp() {
-        tvShowViewModel = TvShowViewModel(tvShowRepository)
+        tvShowViewModel = TvShowViewModel(movieCatalogueRepository)
     }
 
     @Test
@@ -48,12 +49,12 @@ class TvShowViewModelTest {
         dataList.value = dataDummy as MutableList<TvShowResult>?
 
         Assert.assertNotNull(dataList)
-        `when`(tvShowViewModel.getTvShows()).thenReturn(dataList)
+        `when`(tvShowViewModel.getAllTvShowForTest()).thenReturn(dataList)
 
-        tvShowViewModel.getTvShows().observeForever(observer)
+        tvShowViewModel.getAllTvShowForTest().observeForever(observer)
         verify(observer).onChanged(dataDummy)
 
-        Assert.assertNotNull(tvShowViewModel.getTvShows())
-        Assert.assertEquals(tvShowViewModel.getTvShows(), dataList)
+        Assert.assertNotNull(tvShowViewModel.getAllTvShowForTest())
+        Assert.assertEquals(tvShowViewModel.getAllTvShowForTest(), dataList)
     }
 }
