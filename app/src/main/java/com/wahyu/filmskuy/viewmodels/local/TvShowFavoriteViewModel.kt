@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
-import com.wahyu.filmskuy.repository.local.TvShowFavoriteRepository
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 
 /**
  * Created by wahyu_septiadi on 11, November 2020.
@@ -12,15 +12,12 @@ import com.wahyu.filmskuy.repository.local.TvShowFavoriteRepository
  */
 
 class TvShowFavoriteViewModel(context: Context) : ViewModel() {
-    private val tvShowFavoriteRepository = TvShowFavoriteRepository(context)
+    private val movieCatalogueRepository = MovieCatalogueRepository(context)
 
-    fun getAllTvShow(): LiveData<List<TvShowEntity>> = tvShowFavoriteRepository.getAllTvShow()
+    fun getOnlyTvShowFavorite(): LiveData<List<TvShowEntity>> =
+        movieCatalogueRepository.getOnlyTvShowFavorite()
 
-    fun insertTvShow(tvShowEntity: TvShowEntity) {
-        tvShowFavoriteRepository.insertTvShow(tvShowEntity)
-    }
-
-    fun deleteTvShow(id: Int) {
-        tvShowFavoriteRepository.deleteTvShow(id)
+    fun updateTvShowToFavorite(movieEntity: TvShowEntity) {
+        movieCatalogueRepository.updateTvShowFavorite(movieEntity)
     }
 }

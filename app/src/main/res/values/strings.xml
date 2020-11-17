@@ -12,8 +12,10 @@
     <string name="search_movie">search movie</string>
     <string name="my_favorite">My Favorite</string>
     <string name="search_tv_show">search tv show</string>
-    <string name="your_movie_not_found">Your movie not found!</string>
-    <string name="your_tv_show_not_found">Your tv show not found!</string>
+    <string name="your_movie_not_found">Your movie not found :(</string>
+    <string name="your_tv_show_not_found">Your tv show not found :(</string>
     <string name="size_url_image_detail">/w500</string>
     <string name="size_url_image_list">/w780</string>
+    <string name="not_yet_movie_favorite">Movie favorite not found :(</string>
+    <string name="not_yet_tv_show_favorite">Tv show favorite not found :(</string>
 </resources>

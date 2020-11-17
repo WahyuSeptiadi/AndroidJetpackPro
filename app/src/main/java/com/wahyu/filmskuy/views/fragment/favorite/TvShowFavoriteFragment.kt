@@ -16,7 +16,6 @@ import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_tv_show_favorite.*
 
 class TvShowFavoriteFragment : Fragment() {
-
     private lateinit var tvShowFavoriteViewModel: TvShowFavoriteViewModel
 
     override fun onCreateView(
@@ -33,7 +32,7 @@ class TvShowFavoriteFragment : Fragment() {
 
             val tvShowFavoriteAdapter = TvShowFavoriteAdapter()
 
-            tvShowFavoriteViewModel.getAllTvShow().observe(viewLifecycleOwner) {
+            tvShowFavoriteViewModel.getOnlyTvShowFavorite().observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     progressTvShowFavorite.gone()
                     Log.d("TvDataFavorite", "$it")

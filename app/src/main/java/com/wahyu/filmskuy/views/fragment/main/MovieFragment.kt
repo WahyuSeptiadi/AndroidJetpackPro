@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.main.MovieListAdapter
-import com.wahyu.filmskuy.repository.remote.MovieRepository
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.utils.toast
@@ -19,24 +19,24 @@ import com.wahyu.filmskuy.viewmodels.remote.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 
 class MovieFragment : Fragment() {
-
     private lateinit var movieViewModel: MovieViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        movieViewModel = MovieViewModel(MovieRepository())
+        movieViewModel = MovieViewModel(MovieCatalogueRepository(inflater.context))
         return inflater.inflate(R.layout.fragment_movie, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         if (activity != null) {
 
             val movieListAdapter = MovieListAdapter()
 
-            movieViewModel.getMovies()?.observe(viewLifecycleOwner) {
-                if (it != null) {
+            movieViewModel.getAllMoviePopular().observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
                     progressMovie.gone()
                 }
                 movieListAdapter.setFilm(it)
@@ -47,18 +47,15 @@ class MovieFragment : Fragment() {
                     val titleKey = etSearchMovie.text
 
                     progressMovie.visible()
-                    txtMovieNotFound.gone()
 
                     if (titleKey.isNotEmpty()) {
-                        movieViewModel.setMovie(titleKey.toString()).observe(viewLifecycleOwner) {
-                            if (it.isNotEmpty()) {
-                                txtMovieNotFound.gone()
-                            } else {
-                                txtMovieNotFound.visible()
+                        movieViewModel.getAllMovieByTitle(titleKey.toString())
+                            .observe(viewLifecycleOwner) {
+                                if (it.isNotEmpty()) {
+                                    progressMovie.gone()
+                                }
+                                movieListAdapter.setFilm(it)
                             }
-                            progressMovie.gone()
-                            movieListAdapter.setFilm(it)
-                        }
                     } else {
                         toast("Please, enter keyword!")
                         progressMovie.gone()

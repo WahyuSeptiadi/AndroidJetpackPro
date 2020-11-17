@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
-import com.wahyu.filmskuy.data.remote.models.TvShowResult
 import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.invisible
@@ -25,13 +24,13 @@ import java.util.ArrayList
  */
 
 class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolder>() {
-    private var listFilms = ArrayList<TvShowResult>()
+    private var listFilms = ArrayList<TvShowEntity>()
 
     class TvShowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(film: TvShowResult) {
+        fun bind(film: TvShowEntity) {
             with(itemView) {
 
-                val tvShowFavoriteViewModel = TvShowFavoriteViewModel(context)
+                val tvFavoriteViewModel = TvShowFavoriteViewModel(context)
 
                 if (film.posterPath != null) {
                     val imageSize = context.getString(R.string.size_url_image_list)
@@ -60,6 +59,14 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                     film.firstAirDate
                 )
 
+                if (film.favorite!!) {
+                    insertToFavorite.invisible()
+                    deleteFromFavorite.visible()
+                } else {
+                    deleteFromFavorite.invisible()
+                    insertToFavorite.visible()
+                }
+
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_FILMS, currentFilm)
@@ -67,21 +74,16 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                 }
 
                 insertToFavorite.setOnClickListener {
-                    insertToFavorite.invisible()
-                    deleteFromFavorite.visible()
-                    tvShowFavoriteViewModel.insertTvShow(
+                    tvFavoriteViewModel.updateTvShowToFavorite(
                         TvShowEntity(
-                            film.backdropPath,
-                            film.firstAirDate,
-                            film.id,
-                            film.name,
-                            film.originalLanguage,
-                            film.originalName,
-                            film.overview,
-                            film.popularity,
-                            film.posterPath,
-                            film.voteAverage,
-                            film.voteCount
+                            popular = film.popular,
+                            favorite = true,
+                            firstAirDate = film.firstAirDate,
+                            id = film.id,
+                            name = film.name,
+                            overview = film.overview,
+                            posterPath = film.posterPath,
+                            voteAverage = film.voteAverage
                         )
                     )
                     Toast.makeText(context, "This tv show has been added", Toast.LENGTH_SHORT)
@@ -89,16 +91,25 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                 }
 
                 deleteFromFavorite.setOnClickListener {
-                    deleteFromFavorite.invisible()
-                    insertToFavorite.visible()
-                    tvShowFavoriteViewModel.deleteTvShow(film.id)
+                    tvFavoriteViewModel.updateTvShowToFavorite(
+                        TvShowEntity(
+                            popular = film.popular,
+                            favorite = false,
+                            firstAirDate = film.firstAirDate,
+                            id = film.id,
+                            name = film.name,
+                            overview = film.overview,
+                            posterPath = film.posterPath,
+                            voteAverage = film.voteAverage
+                        )
+                    )
                     Toast.makeText(context, "This tv show has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    fun setFilm(films: List<TvShowResult>?) {
+    fun setFilm(films: List<TvShowEntity>?) {
         if (films == null) return
         this.listFilms.clear()
         this.listFilms.addAll(films)

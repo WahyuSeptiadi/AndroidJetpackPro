@@ -12,7 +12,7 @@ import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
-import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
@@ -30,7 +30,9 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
     class MovieFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: MovieEntity) {
             with(itemView) {
+
                 val movieFavoriteViewModel = MovieFavoriteViewModel(context)
+
                 if (movie.posterPath != null) {
                     Log.d("MovieDataFavoriteImage", "${movie.posterPath}")
                     val imageSize = context.getString(R.string.size_url_image_list)
@@ -38,7 +40,8 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
                     Glide.with(context).load(urlImage).placeholder(R.drawable.loading)
                         .into(imageFilm)
                 } else {
-                    Glide.with(context).load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                    Glide.with(context).load(R.drawable.img_notfound)
+                        .placeholder(R.drawable.loading)
                         .into(imageFilm)
                 }
 
@@ -69,11 +72,27 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
                     context.startActivity(movieIntent)
                 }
 
-                insertToFavorite.gone()
-                deleteFromFavorite.visible()
+                if (movie.favorite!!) {
+                    insertToFavorite.invisible()
+                    deleteFromFavorite.visible()
+                } else {
+                    deleteFromFavorite.invisible()
+                    insertToFavorite.visible()
+                }
 
                 deleteFromFavorite.setOnClickListener {
-                    movieFavoriteViewModel.deleteMovieWithId(movie.id)
+                    movieFavoriteViewModel.updateMovieToFavorite(
+                        MovieEntity(
+                            popular = movie.popular,
+                            favorite = false,
+                            id = movie.id,
+                            overview = movie.overview,
+                            posterPath = movie.posterPath,
+                            releaseDate = movie.releaseDate,
+                            title = movie.title,
+                            voteAverage = movie.voteAverage
+                        )
+                    )
                     Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }

@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
-import com.wahyu.filmskuy.data.remote.models.MovieResult
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
@@ -25,10 +24,10 @@ import java.util.ArrayList
  */
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
-    private var listFilms = ArrayList<MovieResult>()
+    private var listFilms = ArrayList<MovieEntity>()
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(film: MovieResult) {
+        fun bind(film: MovieEntity) {
             with(itemView) {
 
                 val movieFavoriteViewModel = MovieFavoriteViewModel(context)
@@ -61,6 +60,14 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                     film.releaseDate
                 )
 
+                if (film.favorite!!) {
+                    insertToFavorite.invisible()
+                    deleteFromFavorite.visible()
+                } else {
+                    deleteFromFavorite.invisible()
+                    insertToFavorite.visible()
+                }
+
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_FILMS, currentFilm)
@@ -68,24 +75,16 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 }
 
                 insertToFavorite.setOnClickListener {
-                    insertToFavorite.invisible()
-                    deleteFromFavorite.visible()
-
-                    movieFavoriteViewModel.insertMovie(
+                    movieFavoriteViewModel.updateMovieToFavorite(
                         MovieEntity(
-                            film.adult,
-                            film.backdropPath,
-                            film.id,
-                            film.originalLanguage,
-                            film.originalTitle,
-                            film.overview,
-                            film.popularity,
-                            film.posterPath,
-                            film.releaseDate,
-                            film.title,
-                            film.video,
-                            film.voteAverage,
-                            film.voteCount
+                            popular = film.popular,
+                            favorite = true,
+                            id = film.id,
+                            overview = film.overview,
+                            posterPath = film.posterPath,
+                            releaseDate = film.releaseDate,
+                            title = film.title,
+                            voteAverage = film.voteAverage
                         )
                     )
 
@@ -93,16 +92,25 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 }
 
                 deleteFromFavorite.setOnClickListener {
-                    deleteFromFavorite.invisible()
-                    insertToFavorite.visible()
-                    movieFavoriteViewModel.deleteMovieWithId(film.id)
+                    movieFavoriteViewModel.updateMovieToFavorite(
+                        MovieEntity(
+                            popular = film.popular,
+                            favorite = false,
+                            id = film.id,
+                            overview = film.overview,
+                            posterPath = film.posterPath,
+                            releaseDate = film.releaseDate,
+                            title = film.title,
+                            voteAverage = film.voteAverage
+                        )
+                    )
                     Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    fun setFilm(films: MutableList<MovieResult>?) {
+    fun setFilm(films: List<MovieEntity>?) {
         if (films == null) return
         this.listFilms.clear()
         this.listFilms.addAll(films)

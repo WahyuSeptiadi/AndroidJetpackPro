@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
-import com.wahyu.filmskuy.repository.local.MovieFavoriteRepository
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 
 /**
  * Created by wahyu_septiadi on 07, November 2020.
@@ -12,16 +12,12 @@ import com.wahyu.filmskuy.repository.local.MovieFavoriteRepository
  */
 
 class MovieFavoriteViewModel(context: Context) : ViewModel() {
-    private val movieFavoriteRepository = MovieFavoriteRepository(context)
+    private val movieCatalogueRepository = MovieCatalogueRepository(context)
 
-    fun getAllMovie(): LiveData<List<MovieEntity>> = movieFavoriteRepository.getAllMovie()
+    fun getOnlyMovieFavorite(): LiveData<List<MovieEntity>> =
+        movieCatalogueRepository.getOnlyMovieFavorite()
 
-
-    fun insertMovie(movieEntity: MovieEntity) {
-        movieFavoriteRepository.insertMovie(movieEntity)
-    }
-
-    fun deleteMovieWithId(id: Int) {
-        movieFavoriteRepository.deleteMovieWithId(id)
+    fun updateMovieToFavorite(movieEntity: MovieEntity) {
+        movieCatalogueRepository.updateMovieFavorite(movieEntity)
     }
 }

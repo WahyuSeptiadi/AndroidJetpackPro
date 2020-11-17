@@ -11,23 +11,16 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tv_shows_favorite")
 class TvShowEntity(
-    @ColumnInfo(name = "backdrop_path")
-    val backdropPath: String,
+    val popular: Boolean? = null,
+    val favorite: Boolean? = null,
     @ColumnInfo(name = "first_air_date")
     val firstAirDate: String? = null,
     @PrimaryKey
     val id: Int,
     val name: String,
-    @ColumnInfo(name = "original_language")
-    val originalLanguage: String? = null,
-    @ColumnInfo(name = "original_name")
-    val originalName: String,
     val overview: String,
-    val popularity: Double,
     @ColumnInfo(name = "poster_path")
     val posterPath: String? = null,
     @ColumnInfo(name = "vote_average")
-    val voteAverage: Double,
-    @ColumnInfo(name = "vote_count")
-    val voteCount: Int
+    val voteAverage: Double
 )

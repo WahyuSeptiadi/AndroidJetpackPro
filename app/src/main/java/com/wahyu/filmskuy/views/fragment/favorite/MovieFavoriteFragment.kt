@@ -16,14 +16,13 @@ import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_movie_favorite.*
 
 class MovieFavoriteFragment : Fragment() {
-
     private lateinit var movieFavoriteViewModel: MovieFavoriteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        movieFavoriteViewModel = MovieFavoriteViewModel(inflater.context)
+        movieFavoriteViewModel = MovieFavoriteViewModel((inflater.context))
         return inflater.inflate(R.layout.fragment_movie_favorite, container, false)
     }
 
@@ -33,7 +32,7 @@ class MovieFavoriteFragment : Fragment() {
 
             val movieFavoriteAdapter = MovieFavoriteAdapter()
 
-            movieFavoriteViewModel.getAllMovie().observe(viewLifecycleOwner) {
+            movieFavoriteViewModel.getOnlyMovieFavorite().observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     progressMovieFavorite.gone()
                     Log.d("MovieDataFavorite", "$it")

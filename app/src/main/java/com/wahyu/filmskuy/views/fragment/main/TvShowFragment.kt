@@ -10,7 +10,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.main.TvShowListAdapter
-import com.wahyu.filmskuy.repository.remote.TvShowRepository
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.hideKeyboard
 import com.wahyu.filmskuy.utils.toast
@@ -27,7 +27,7 @@ class TvShowFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        tvShowViewModel = TvShowViewModel(TvShowRepository())
+        tvShowViewModel = TvShowViewModel(MovieCatalogueRepository(inflater.context))
         return inflater.inflate(R.layout.fragment_tv_show, container, false)
     }
 
@@ -37,8 +37,9 @@ class TvShowFragment : Fragment() {
         if (activity != null) {
 
             val tvShowListAdapter = TvShowListAdapter()
-            tvShowViewModel.getTvShows().observe(viewLifecycleOwner) {
-                if (it != null) {
+
+            tvShowViewModel.getAllTvShowPopular().observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
                     progressTvShow.gone()
                 }
                 tvShowListAdapter.setFilm(it)
@@ -46,25 +47,23 @@ class TvShowFragment : Fragment() {
 
             etSearchTvShow.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    val titleKey = etSearchTvShow.text
+                    val nameKey = etSearchTvShow.text
 
                     progressTvShow.visible()
-                    txtTvShowNotFound.gone()
-                    if (titleKey.isNotEmpty()) {
-                        tvShowViewModel.setTvShow(titleKey.toString()).observe(viewLifecycleOwner) {
-                            if (it.isNotEmpty()) {
-                                txtTvShowNotFound.gone()
-                            } else {
-                                txtTvShowNotFound.visible()
+
+                    if (nameKey.isNotEmpty()) {
+                        tvShowViewModel.getAllTvShowByName(nameKey.toString())
+                            .observe(viewLifecycleOwner) {
+                                if (it.isNotEmpty()) {
+                                    progressTvShow.gone()
+                                }
+                                tvShowListAdapter.setFilm(it)
                             }
-                            progressTvShow.gone()
-                            tvShowListAdapter.setFilm(it)
-                        }
                     } else {
                         toast("Please, enter keyword!")
                         progressTvShow.gone()
                     }
-                    titleKey.clear()
+                    nameKey.clear()
                     hideKeyboard()
                     return@setOnEditorActionListener true
                 }

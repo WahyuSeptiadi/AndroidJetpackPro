@@ -12,7 +12,7 @@ import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
-import com.wahyu.filmskuy.utils.gone
+import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
 import com.wahyu.filmskuy.views.activity.DetailActivity
@@ -23,14 +23,17 @@ import kotlinx.android.synthetic.main.list_item_film.view.*
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class TvShowFavoriteAdapter : RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowFavoriteViewHolder>() {
+class TvShowFavoriteAdapter :
+    RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowFavoriteViewHolder>() {
 
     private var listFilms = ArrayList<TvShowEntity>()
 
     class TvShowFavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(tvShow: TvShowEntity) {
             with(itemView) {
-                val tvShowFavoriteViewModel = TvShowFavoriteViewModel(context)
+
+                val tvFavoriteViewModel = TvShowFavoriteViewModel(context)
+
                 if (tvShow.posterPath != null) {
                     Log.d("TvDataFavoriteImage", "${tvShow.posterPath}")
                     val imageSize = context.getString(R.string.size_url_image_list)
@@ -38,7 +41,8 @@ class TvShowFavoriteAdapter : RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowF
                     Glide.with(context).load(urlImage).placeholder(R.drawable.loading)
                         .into(imageFilm)
                 } else {
-                    Glide.with(context).load(R.drawable.img_notfound).placeholder(R.drawable.loading)
+                    Glide.with(context).load(R.drawable.img_notfound)
+                        .placeholder(R.drawable.loading)
                         .into(imageFilm)
                 }
 
@@ -50,6 +54,14 @@ class TvShowFavoriteAdapter : RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowF
                 }
 
                 ratingFilm.text = tvShow.voteAverage.toString()
+
+                if (tvShow.favorite!!) {
+                    insertToFavorite.invisible()
+                    deleteFromFavorite.visible()
+                } else {
+                    deleteFromFavorite.invisible()
+                    insertToFavorite.visible()
+                }
 
                 itemView.setOnClickListener {
                     val tvShowIntent = Intent(context, DetailActivity::class.java)
@@ -68,12 +80,20 @@ class TvShowFavoriteAdapter : RecyclerView.Adapter<TvShowFavoriteAdapter.TvShowF
                     context.startActivity(tvShowIntent)
                 }
 
-                insertToFavorite.gone()
-                deleteFromFavorite.visible()
-
                 deleteFromFavorite.setOnClickListener {
-                    tvShowFavoriteViewModel.deleteTvShow(tvShow.id)
-                    Toast.makeText(context, "Movie has been deleted", Toast.LENGTH_SHORT).show()
+                    tvFavoriteViewModel.updateTvShowToFavorite(
+                        TvShowEntity(
+                            popular = tvShow.popular,
+                            favorite = false,
+                            firstAirDate = tvShow.firstAirDate,
+                            id = tvShow.id,
+                            name = tvShow.name,
+                            overview = tvShow.overview,
+                            posterPath = tvShow.posterPath,
+                            voteAverage = tvShow.voteAverage
+                        )
+                    )
+                    Toast.makeText(context, "Tv Show has been deleted", Toast.LENGTH_SHORT).show()
                 }
             }
         }

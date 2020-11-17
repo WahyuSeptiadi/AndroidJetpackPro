@@ -12,21 +12,33 @@ import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 
 @Dao
 interface MovieCatalogueDao {
-    @Query("SELECT * FROM movies_favorite")
-    fun getAllMovie(): LiveData<List<MovieEntity>>
+    @Query("SELECT * FROM movies_favorite WHERE favorite = 1")
+    fun getAllMovieFavorite(): LiveData<List<MovieEntity>>
+
+    @Query("SELECT * FROM movies_favorite WHERE title LIKE :title")
+    fun getSearchMovieByTitle(title: String): LiveData<List<MovieEntity>>
+
+    @Query("SELECT * FROM movies_favorite WHERE popular = 1")
+    fun getAllMoviePopular(): LiveData<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertMovie(movieEntity: MovieEntity)
+    fun insertAllMovieFromAPI(movieEntity: ArrayList<MovieEntity>)
 
-    @Query("DELETE FROM movies_favorite WHERE id = :id")
-    fun deleteMovieWithId(id: Int)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun updateMovieDB(movieEntity: MovieEntity)
 
-    @Query("SELECT * FROM tv_shows_favorite")
-    fun getAllTvShow(): LiveData<List<TvShowEntity>>
+    @Query("SELECT * FROM tv_shows_favorite WHERE favorite = 1")
+    fun getAllTvShowFavorite(): LiveData<List<TvShowEntity>>
+
+    @Query("SELECT * FROM tv_shows_favorite WHERE name LIKE :name")
+    fun getSearchTvShowByName(name: String): LiveData<List<TvShowEntity>>
+
+    @Query("SELECT * FROM tv_shows_favorite WHERE popular = 1")
+    fun getAllTvShowPopular(): LiveData<List<TvShowEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertTvShow(tvShowEntity: TvShowEntity)
+    fun insertAllTvShowFromAPI(tvShowEntity: ArrayList<TvShowEntity>)
 
-    @Query("DELETE FROM tv_shows_favorite WHERE id = :id")
-    fun deleteTvShow(id: Int)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun updateTvShowDB(tvShowEntity: TvShowEntity)
 }
