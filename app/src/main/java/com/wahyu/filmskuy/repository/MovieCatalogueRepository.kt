@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.data.local.room.MovieCatalogueDao
@@ -25,27 +27,32 @@ import java.util.concurrent.Executors
  */
 
 class MovieCatalogueRepository(val context: Context) {
-    // prepare implement the pagination
     private val movieCatalogueDao: MovieCatalogueDao
     private val executorService = Executors.newSingleThreadExecutor()
+
+    private val config = PagedList.Config.Builder()
+        .setEnablePlaceholders(false)
+        .setInitialLoadSizeHint(10)
+        .setPageSize(10)
+        .build()
 
     init {
         val db = MovieCatalogueDatabase.getInstance(context)
         movieCatalogueDao = db.filmCatalogueDao()
     }
 
-    fun getOnlyMovieFavorite(): LiveData<List<MovieEntity>> {
-        return movieCatalogueDao.getAllMovieFavorite()
+    fun getOnlyMovieFavorite(): LiveData<PagedList<MovieEntity>> {
+        return LivePagedListBuilder(movieCatalogueDao.getAllMovieFavorite(), config).build()
     }
 
-    fun getAllMoviePopular(): LiveData<List<MovieEntity>> {
+    fun getAllMoviePopular(): LiveData<PagedList<MovieEntity>> {
         getAllMovieFromAPI()
-        return movieCatalogueDao.getAllMoviePopular()
+        return LivePagedListBuilder(movieCatalogueDao.getAllMoviePopular(), config).build()
     }
 
-    fun getSearchMovieByTitle(title: String): LiveData<List<MovieEntity>> {
+    fun getSearchMovieByTitle(title: String): LiveData<PagedList<MovieEntity>> {
         searchMovieFromAPI(title)
-        return movieCatalogueDao.getSearchMovieByTitle(title)
+        return LivePagedListBuilder(movieCatalogueDao.getSearchMovieByTitle(title), config).build()
     }
 
     fun updateMovieFavorite(movieEntity: MovieEntity) {
@@ -150,18 +157,18 @@ class MovieCatalogueRepository(val context: Context) {
         return listData
     }
 
-    fun getOnlyTvShowFavorite(): LiveData<List<TvShowEntity>> {
-        return movieCatalogueDao.getAllTvShowFavorite()
+    fun getOnlyTvShowFavorite(): LiveData<PagedList<TvShowEntity>> {
+        return LivePagedListBuilder(movieCatalogueDao.getAllTvShowFavorite(), config).build()
     }
 
-    fun getAllTvShowPopular(): LiveData<List<TvShowEntity>> {
+    fun getAllTvShowPopular(): LiveData<PagedList<TvShowEntity>> {
         getAllTvShowsFromAPI()
-        return movieCatalogueDao.getAllTvShowPopular()
+        return LivePagedListBuilder(movieCatalogueDao.getAllTvShowPopular(), config).build()
     }
 
-    fun getSearchTvShowByName(name: String): LiveData<List<TvShowEntity>> {
+    fun getSearchTvShowByName(name: String): LiveData<PagedList<TvShowEntity>> {
         searchTvShowFromAPI(name)
-        return movieCatalogueDao.getSearchTvShowByName(name)
+        return LivePagedListBuilder(movieCatalogueDao.getSearchTvShowByName(name), config).build()
     }
 
     fun updateTvShowFavorite(movieEntity: TvShowEntity) {

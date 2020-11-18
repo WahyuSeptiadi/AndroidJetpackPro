@@ -30,15 +30,18 @@ class MovieFavoriteFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
 
-            val movieFavoriteAdapter = MovieFavoriteAdapter()
+            val movieAdapter = MovieFavoriteAdapter()
+//            val movieAdapter = MoviePagedListAdapter()
 
             movieFavoriteViewModel.getOnlyMovieFavorite().observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     progressMovieFavorite.gone()
                     Log.d("MovieDataFavorite", "$it")
-                    movieFavoriteAdapter.setFilms(it)
+                    movieAdapter.setFilms(it)
+//                    movieAdapter.submitList(it)
                 } else{
-                    movieFavoriteAdapter.setFilms(it)
+                    movieAdapter.setFilms(it)
+//                    movieAdapter.submitList(it)
                     movieFavoriteNotFound.visible()
                     progressMovieFavorite.gone()
                 }
@@ -49,12 +52,12 @@ class MovieFavoriteFragment : Fragment() {
                 rvFavMovie.setHasFixedSize(true)
                 rvFavMovie.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
-                rvFavMovie.adapter = movieFavoriteAdapter
+                rvFavMovie.adapter = movieAdapter
             } else {
                 rvFavMovie.setHasFixedSize(true)
                 rvFavMovie.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                rvFavMovie.adapter = movieFavoriteAdapter
+                rvFavMovie.adapter = movieAdapter
             }
         }
     }

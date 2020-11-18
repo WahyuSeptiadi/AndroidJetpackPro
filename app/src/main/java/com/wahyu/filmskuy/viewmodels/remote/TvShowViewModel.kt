@@ -3,6 +3,7 @@ package com.wahyu.filmskuy.viewmodels.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.data.remote.models.TvShowResult
 import com.wahyu.filmskuy.repository.MovieCatalogueRepository
@@ -15,10 +16,10 @@ import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 class TvShowViewModel(private val data: MovieCatalogueRepository) : ViewModel() {
     private val percent = "%"
 
-    fun getAllTvShowPopular(): LiveData<List<TvShowEntity>> =
+    fun getAllTvShowPopular(): LiveData<PagedList<TvShowEntity>> =
         data.getAllTvShowPopular()
 
-    fun getAllTvShowByName(name: String): LiveData<List<TvShowEntity>> =
+    fun getAllTvShowByName(name: String): LiveData<PagedList<TvShowEntity>> =
         data.getSearchTvShowByName(percent + name + percent)
 
     fun getAllTvShowForTest(): MutableLiveData<MutableList<TvShowResult>> =

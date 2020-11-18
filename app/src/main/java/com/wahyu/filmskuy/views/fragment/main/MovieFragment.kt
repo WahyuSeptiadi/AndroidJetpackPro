@@ -33,13 +33,15 @@ class MovieFragment : Fragment() {
 
         if (activity != null) {
 
-            val movieListAdapter = MovieListAdapter()
+            val movieAdapter = MovieListAdapter()
+//            val movieAdapter = MoviePagedListAdapter()
 
             movieViewModel.getAllMoviePopular().observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     progressMovie.gone()
                 }
-                movieListAdapter.setFilm(it)
+                movieAdapter.setFilm(it)
+//                movieAdapter.submitList(it)
             }
 
             etSearchMovie.setOnEditorActionListener { _, actionId, _ ->
@@ -54,7 +56,8 @@ class MovieFragment : Fragment() {
                                 if (it.isNotEmpty()) {
                                     progressMovie.gone()
                                 }
-                                movieListAdapter.setFilm(it)
+                                movieAdapter.setFilm(it)
+//                                movieAdapter.submitList(it)
                             }
                     } else {
                         toast("Please, enter keyword!")
@@ -73,12 +76,12 @@ class MovieFragment : Fragment() {
                 rvMovie.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
                 rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = movieListAdapter
+                rvMovie.adapter = movieAdapter
             } else {
                 rvMovie.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                 rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = movieListAdapter
+                rvMovie.adapter = movieAdapter
             }
         }
     }

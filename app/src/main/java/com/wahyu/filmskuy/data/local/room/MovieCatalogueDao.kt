@@ -1,6 +1,7 @@
 package com.wahyu.filmskuy.data.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
@@ -13,13 +14,13 @@ import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 @Dao
 interface MovieCatalogueDao {
     @Query("SELECT * FROM movies_favorite WHERE favorite = 1")
-    fun getAllMovieFavorite(): LiveData<List<MovieEntity>>
+    fun getAllMovieFavorite(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movies_favorite WHERE title LIKE :title")
-    fun getSearchMovieByTitle(title: String): LiveData<List<MovieEntity>>
+    fun getSearchMovieByTitle(title: String): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movies_favorite WHERE popular = 1")
-    fun getAllMoviePopular(): LiveData<List<MovieEntity>>
+    fun getAllMoviePopular(): DataSource.Factory<Int, MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllMovieFromAPI(movieEntity: ArrayList<MovieEntity>)
@@ -28,13 +29,13 @@ interface MovieCatalogueDao {
     fun updateMovieDB(movieEntity: MovieEntity)
 
     @Query("SELECT * FROM tv_shows_favorite WHERE favorite = 1")
-    fun getAllTvShowFavorite(): LiveData<List<TvShowEntity>>
+    fun getAllTvShowFavorite(): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM tv_shows_favorite WHERE name LIKE :name")
-    fun getSearchTvShowByName(name: String): LiveData<List<TvShowEntity>>
+    fun getSearchTvShowByName(name: String): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM tv_shows_favorite WHERE popular = 1")
-    fun getAllTvShowPopular(): LiveData<List<TvShowEntity>>
+    fun getAllTvShowPopular(): DataSource.Factory<Int, TvShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllTvShowFromAPI(tvShowEntity: ArrayList<TvShowEntity>)
