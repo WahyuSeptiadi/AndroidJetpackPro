@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.models.MovieCatalogueModel
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
@@ -31,7 +32,8 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
         fun bind(movie: MovieEntity) {
             with(itemView) {
 
-                val movieFavoriteViewModel = MovieFavoriteViewModel(context)
+                val movieFavoriteViewModel =
+                    MovieFavoriteViewModel(MovieCatalogueRepository(context))
 
                 if (movie.posterPath != null) {
                     Log.d("MovieDataFavoriteImage", "${movie.posterPath}")

@@ -1,6 +1,5 @@
 package com.wahyu.filmskuy.data.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import com.wahyu.filmskuy.data.local.entity.MovieEntity

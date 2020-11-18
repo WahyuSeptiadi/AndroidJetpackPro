@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.models.MovieCatalogueModel
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
@@ -32,7 +33,7 @@ class TvShowFavoriteAdapter :
         fun bind(tvShow: TvShowEntity) {
             with(itemView) {
 
-                val tvFavoriteViewModel = TvShowFavoriteViewModel(context)
+                val tvFavoriteViewModel = TvShowFavoriteViewModel(MovieCatalogueRepository(context))
 
                 if (tvShow.posterPath != null) {
                     Log.d("TvDataFavoriteImage", "${tvShow.posterPath}")

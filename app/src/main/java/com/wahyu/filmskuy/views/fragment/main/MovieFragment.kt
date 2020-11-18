@@ -34,14 +34,12 @@ class MovieFragment : Fragment() {
         if (activity != null) {
 
             val movieAdapter = MovieListAdapter()
-//            val movieAdapter = MoviePagedListAdapter()
 
             movieViewModel.getAllMoviePopular().observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     progressMovie.gone()
                 }
                 movieAdapter.setFilm(it)
-//                movieAdapter.submitList(it)
             }
 
             etSearchMovie.setOnEditorActionListener { _, actionId, _ ->
@@ -57,7 +55,6 @@ class MovieFragment : Fragment() {
                                     progressMovie.gone()
                                 }
                                 movieAdapter.setFilm(it)
-//                                movieAdapter.submitList(it)
                             }
                     } else {
                         toast("Please, enter keyword!")

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.favorite.TvShowFavoriteAdapter
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.TvShowFavoriteViewModel
@@ -22,7 +23,8 @@ class TvShowFavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        tvShowFavoriteViewModel = TvShowFavoriteViewModel(inflater.context)
+        tvShowFavoriteViewModel =
+            TvShowFavoriteViewModel(MovieCatalogueRepository(inflater.context))
         return inflater.inflate(R.layout.fragment_tv_show_favorite, container, false)
     }
 

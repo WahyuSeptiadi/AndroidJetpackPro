@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.adapter.favorite.MovieFavoriteAdapter
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.gone
 import com.wahyu.filmskuy.utils.visible
 import com.wahyu.filmskuy.viewmodels.local.MovieFavoriteViewModel
@@ -22,7 +23,7 @@ class MovieFavoriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        movieFavoriteViewModel = MovieFavoriteViewModel((inflater.context))
+        movieFavoriteViewModel = MovieFavoriteViewModel(MovieCatalogueRepository(inflater.context))
         return inflater.inflate(R.layout.fragment_movie_favorite, container, false)
     }
 
@@ -31,17 +32,14 @@ class MovieFavoriteFragment : Fragment() {
         if (activity != null) {
 
             val movieAdapter = MovieFavoriteAdapter()
-//            val movieAdapter = MoviePagedListAdapter()
 
             movieFavoriteViewModel.getOnlyMovieFavorite().observe(viewLifecycleOwner) {
                 if (it != null && it.isNotEmpty()) {
                     progressMovieFavorite.gone()
                     Log.d("MovieDataFavorite", "$it")
                     movieAdapter.setFilms(it)
-//                    movieAdapter.submitList(it)
-                } else{
+                } else {
                     movieAdapter.setFilms(it)
-//                    movieAdapter.submitList(it)
                     movieFavoriteNotFound.visible()
                     progressMovieFavorite.gone()
                 }

@@ -1,13 +1,12 @@
-package com.wahyu.filmskuy.viewmodels
+package com.wahyu.filmskuy.viewmodels.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.nhaarman.mockitokotlin2.verify
-import com.wahyu.filmskuy.data.remote.models.TvShowResult
-import com.wahyu.filmskuy.data.remote.network.ApiClient
+import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.repository.MovieCatalogueRepository
-import com.wahyu.filmskuy.viewmodels.remote.TvShowViewModel
 import org.junit.Assert
 import org.junit.Test
 import org.junit.Before
@@ -35,7 +34,10 @@ class TvShowViewModelTest {
         mock(MovieCatalogueRepository::class.java)
 
     @Mock
-    private lateinit var observer: Observer<List<TvShowResult>>
+    private lateinit var observer: Observer<PagedList<TvShowEntity>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -43,18 +45,18 @@ class TvShowViewModelTest {
     }
 
     @Test
-    fun getTvShows() {
-        val dataDummy = ApiClient.create().getTvShow().execute().body()?.results
-        val dataList = MutableLiveData<MutableList<TvShowResult>>()
-        dataList.value = dataDummy as MutableList<TvShowResult>?
+    fun getTvShowsPopularPagedList() {
+        val dataDummy = pagedList
+        val dataList = MutableLiveData<PagedList<TvShowEntity>>()
+        dataList.value = dataDummy
 
         Assert.assertNotNull(dataList)
-        `when`(tvShowViewModel.getAllTvShowForTest()).thenReturn(dataList)
+        `when`(tvShowViewModel.getAllTvShowPopular()).thenReturn(dataList)
 
-        tvShowViewModel.getAllTvShowForTest().observeForever(observer)
+        tvShowViewModel.getAllTvShowPopular().observeForever(observer)
         verify(observer).onChanged(dataDummy)
 
-        Assert.assertNotNull(tvShowViewModel.getAllTvShowForTest())
-        Assert.assertEquals(tvShowViewModel.getAllTvShowForTest(), dataList)
+        Assert.assertNotNull(tvShowViewModel.getAllTvShowPopular())
+        Assert.assertEquals(tvShowViewModel.getAllTvShowPopular(), dataList)
     }
 }

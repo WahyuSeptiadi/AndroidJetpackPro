@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.models.MovieCatalogueModel
 import com.wahyu.filmskuy.data.local.entity.MovieEntity
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
@@ -30,7 +31,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
         fun bind(film: MovieEntity) {
             with(itemView) {
 
-                val movieFavoriteViewModel = MovieFavoriteViewModel(context)
+                val movieFavoriteViewModel =
+                    MovieFavoriteViewModel(MovieCatalogueRepository(context))
 
                 if (film.posterPath != null) {
                     val imageSize = context.getString(R.string.size_url_image_list)
@@ -51,15 +53,6 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
                 ratingFilm.text = film.voteAverage.toString()
 
-                val currentFilm = MovieCatalogueModel(
-                    film.id,
-                    film.posterPath,
-                    film.title,
-                    film.overview,
-                    film.voteAverage,
-                    film.releaseDate
-                )
-
                 if (film.favorite!!) {
                     insertToFavorite.invisible()
                     deleteFromFavorite.visible()
@@ -70,7 +63,16 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_FILMS, currentFilm)
+                    intent.putExtra(
+                        DetailActivity.EXTRA_FILMS, MovieCatalogueModel(
+                            film.id,
+                            film.posterPath,
+                            film.title,
+                            film.overview,
+                            film.voteAverage,
+                            film.releaseDate
+                        )
+                    )
                     itemView.context.startActivity(intent)
                 }
 

@@ -1,6 +1,5 @@
 package com.wahyu.filmskuy.viewmodels.local
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
@@ -12,8 +11,8 @@ import com.wahyu.filmskuy.repository.MovieCatalogueRepository
  * Visit My GitHub --> https://github.com/WahyuSeptiadi
  */
 
-class MovieFavoriteViewModel(context: Context) : ViewModel() {
-    private val movieCatalogueRepository = MovieCatalogueRepository(context)
+class MovieFavoriteViewModel(private val movieCatalogueRepository: MovieCatalogueRepository) :
+    ViewModel() {
 
     fun getOnlyMovieFavorite(): LiveData<PagedList<MovieEntity>> =
         movieCatalogueRepository.getOnlyMovieFavorite()

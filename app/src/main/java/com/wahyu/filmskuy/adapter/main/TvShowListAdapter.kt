@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.wahyu.filmskuy.R
 import com.wahyu.filmskuy.data.local.entity.TvShowEntity
 import com.wahyu.filmskuy.models.MovieCatalogueModel
+import com.wahyu.filmskuy.repository.MovieCatalogueRepository
 import com.wahyu.filmskuy.utils.IMAGE_URL_BASE_PATH
 import com.wahyu.filmskuy.utils.invisible
 import com.wahyu.filmskuy.utils.visible
@@ -30,7 +31,7 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
         fun bind(film: TvShowEntity) {
             with(itemView) {
 
-                val tvFavoriteViewModel = TvShowFavoriteViewModel(context)
+                val tvFavoriteViewModel = TvShowFavoriteViewModel(MovieCatalogueRepository(context))
 
                 if (film.posterPath != null) {
                     val imageSize = context.getString(R.string.size_url_image_list)
@@ -50,15 +51,6 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
 
                 ratingFilm.text = film.voteAverage.toString()
 
-                val currentFilm = MovieCatalogueModel(
-                    film.id,
-                    film.posterPath,
-                    film.name,
-                    film.overview,
-                    film.voteAverage,
-                    film.firstAirDate
-                )
-
                 if (film.favorite!!) {
                     insertToFavorite.invisible()
                     deleteFromFavorite.visible()
@@ -69,7 +61,16 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_FILMS, currentFilm)
+                    intent.putExtra(
+                        DetailActivity.EXTRA_FILMS, MovieCatalogueModel(
+                            film.id,
+                            film.posterPath,
+                            film.name,
+                            film.overview,
+                            film.voteAverage,
+                            film.firstAirDate
+                        )
+                    )
                     itemView.context.startActivity(intent)
                 }
 
@@ -103,7 +104,8 @@ class TvShowListAdapter : RecyclerView.Adapter<TvShowListAdapter.TvShowViewHolde
                             voteAverage = film.voteAverage
                         )
                     )
-                    Toast.makeText(context, "This tv show has been deleted", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "This tv show has been deleted", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

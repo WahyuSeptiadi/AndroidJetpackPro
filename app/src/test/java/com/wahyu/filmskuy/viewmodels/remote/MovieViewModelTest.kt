@@ -1,8 +1,9 @@
-package com.wahyu.filmskuy.viewmodels
+package com.wahyu.filmskuy.viewmodels.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -11,10 +12,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.Mock
 import com.nhaarman.mockitokotlin2.verify
-import com.wahyu.filmskuy.data.remote.models.MovieResult
-import com.wahyu.filmskuy.data.remote.network.ApiClient
+import com.wahyu.filmskuy.data.local.entity.MovieEntity
 import com.wahyu.filmskuy.repository.MovieCatalogueRepository
-import com.wahyu.filmskuy.viewmodels.remote.MovieViewModel
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -35,7 +34,10 @@ class MovieViewModelTest {
         mock(MovieCatalogueRepository::class.java)
 
     @Mock
-    private lateinit var observer: Observer<List<MovieResult>>
+    private lateinit var observer: Observer<PagedList<MovieEntity>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -43,18 +45,18 @@ class MovieViewModelTest {
     }
 
     @Test
-    fun getMovies() {
-        val dataDummy = ApiClient.create().getMovie().execute().body()?.results
-        val dataList = MutableLiveData<MutableList<MovieResult>>()
-        dataList.value = dataDummy as MutableList<MovieResult>?
+    fun getMoviesPopularPagedList() {
+        val dataDummy = pagedList
+        val dataList = MutableLiveData<PagedList<MovieEntity>>()
+        dataList.value = dataDummy
 
         Assert.assertNotNull(dataList)
-        `when`(movieViewModel.getAllMovieForTest()).thenReturn(dataList)
+        `when`(movieViewModel.getAllMoviePopular()).thenReturn(dataList)
 
-        movieViewModel.getAllMovieForTest().observeForever(observer)
+        movieViewModel.getAllMoviePopular().observeForever(observer)
         verify(observer).onChanged(dataDummy)
 
-        Assert.assertNotNull(movieViewModel.getAllMovieForTest())
-        Assert.assertEquals(movieViewModel.getAllMovieForTest(), dataList)
+        Assert.assertNotNull(movieViewModel.getAllMoviePopular())
+        Assert.assertEquals(movieViewModel.getAllMoviePopular(), dataList)
     }
 }
