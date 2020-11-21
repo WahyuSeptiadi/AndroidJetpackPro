@@ -26,7 +26,7 @@ Please use as a reference guys :) </br>
   <img src="asset/favorite.jpg" alt="NotFound" width="250">
 </div>
 <div>
-  <img src="asset/land_home.jpg" alt="NotFound" width="750">
-  <img src="asset/land_detail.jpg" alt="NotFound" width="750">
-  <img src="asset/land_favorite.jpg" alt="NotFound" width="750">
+  <img src="asset/land_home.jpg" alt="NotFound" width="760">
+  <img src="asset/land_detail.jpg" alt="NotFound" width="760">
+  <img src="asset/land_favorite.jpg" alt="NotFound" width="760">
 </div>
