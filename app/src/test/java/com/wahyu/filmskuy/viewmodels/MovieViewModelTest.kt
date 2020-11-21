@@ -44,6 +44,7 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
+        // pagination test has not been implemented
         val dataDummy = ApiClient.create().getMovie().execute().body()?.results
         val dataList = MutableLiveData<MutableList<MovieResult>>()
         dataList.value = dataDummy as MutableList<MovieResult>?
