@@ -5,19 +5,23 @@ Please use as a reference guys :) </br>
 ### Submission 1 (Achitecture Component): 
 * Android Jetpack (Foundation, Architecture, Behavior, UI)
 * Architecture Component (Architecture Pattern, ViewModel and Lifecycle)
-* Unit testing and Instrument testing
+* Unit testing (JUnit)
+* Instrument testing (Espresso)
 
 ### Submission 2 (Repository and LiveData):
 * Repository and LiveData
-* Dependencies Injection (DI)
+* <strike>Dependencies Injection (DI)</strike>
 * Retrofit
 * Idling Resources
-* Unit testing and Instrument testing
+* Unit testing (JUnit and Mockito)
+* Instrument testing (Espresso)
 
 ### Submission 3 (Manage Data):
 * Room
 * Pagination
-* RawQuery
+* <strike>RawQuery</strike>
+* Unit testing (JUnit and Mockito)
+* Instrument testing (Espresso)
 
 ## Screenshot Apps
 <div>
