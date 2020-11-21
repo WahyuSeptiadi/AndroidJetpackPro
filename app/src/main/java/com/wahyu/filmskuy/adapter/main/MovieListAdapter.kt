@@ -53,7 +53,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
                 ratingFilm.text = film.voteAverage.toString()
 
-                if (film.favorite!!) {
+                if (film.favorite) {
                     insertToFavorite.invisible()
                     deleteFromFavorite.visible()
                 } else {

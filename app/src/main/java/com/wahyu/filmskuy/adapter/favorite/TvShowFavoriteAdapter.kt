@@ -56,7 +56,7 @@ class TvShowFavoriteAdapter :
 
                 ratingFilm.text = tvShow.voteAverage.toString()
 
-                if (tvShow.favorite!!) {
+                if (tvShow.favorite) {
                     insertToFavorite.invisible()
                     deleteFromFavorite.visible()
                 } else {
@@ -118,8 +118,5 @@ class TvShowFavoriteAdapter :
         return TvShowFavoriteViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listFilms.size
-    }
-
+    override fun getItemCount(): Int = listFilms.size
 }

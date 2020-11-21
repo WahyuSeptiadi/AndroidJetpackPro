@@ -2,6 +2,7 @@ package com.wahyu.filmskuy.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
@@ -60,7 +61,11 @@ class MovieCatalogueRepository(val context: Context) {
             try {
                 movieCatalogueDao.updateMovieDB(movieEntity)
             } catch (e: Exception) {
-                Log.e("INSERT FAILED", e.message.toString())
+                Toast.makeText(
+                    context,
+                    "Update Movie Favorite FAILED!\n${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -70,7 +75,11 @@ class MovieCatalogueRepository(val context: Context) {
             try {
                 movieCatalogueDao.insertAllMovieFromAPI(movieEntity)
             } catch (e: Exception) {
-                Log.e("INSERT FAILED", e.message.toString())
+                Toast.makeText(
+                    context,
+                    "Insert Movie FAILED!\n${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -176,7 +185,11 @@ class MovieCatalogueRepository(val context: Context) {
             try {
                 movieCatalogueDao.updateTvShowDB(movieEntity)
             } catch (e: Exception) {
-                Log.e("INSERT FAILED", e.message.toString())
+                Toast.makeText(
+                    context,
+                    "Update Tv Show Favorite FAILED!\n${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -186,7 +199,11 @@ class MovieCatalogueRepository(val context: Context) {
             try {
                 movieCatalogueDao.insertAllTvShowFromAPI(tvShowEntity)
             } catch (e: Exception) {
-                Log.e("INSERT FAILED", e.message.toString())
+                Toast.makeText(
+                    context,
+                    "Insert Tv Show FAILED! ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

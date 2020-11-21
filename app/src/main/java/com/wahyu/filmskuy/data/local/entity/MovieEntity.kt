@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "movies_favorite")
 data class MovieEntity(
     val popular: Boolean? = null,
-    val favorite: Boolean? = null,
+    val favorite: Boolean,
     @PrimaryKey
     val id: Int,
     val overview: String,

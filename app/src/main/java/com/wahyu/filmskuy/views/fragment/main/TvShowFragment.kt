@@ -74,14 +74,12 @@ class TvShowFragment : Fragment() {
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 rvTvShow.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
-                rvTvShow.setHasFixedSize(true)
-                rvTvShow.adapter = tvShowListAdapter
             } else {
                 rvTvShow.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                rvTvShow.setHasFixedSize(true)
-                rvTvShow.adapter = tvShowListAdapter
             }
+            rvTvShow.setHasFixedSize(true)
+            rvTvShow.adapter = tvShowListAdapter
         }
     }
 }

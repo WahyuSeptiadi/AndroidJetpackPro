@@ -28,8 +28,8 @@ class TvShowFavoriteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_tv_show_favorite, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 
             val tvShowFavoriteAdapter = TvShowFavoriteAdapter()
@@ -38,26 +38,23 @@ class TvShowFavoriteFragment : Fragment() {
                 if (it != null && it.isNotEmpty()) {
                     progressTvShowFavorite.gone()
                     Log.d("TvDataFavorite", "$it")
-                    tvShowFavoriteAdapter.setFilms(it)
                 } else {
-                    tvShowFavoriteAdapter.setFilms(it)
                     progressTvShowFavorite.gone()
                     tvShowFavoriteNotFound.visible()
                 }
+                tvShowFavoriteAdapter.setFilms(it)
             }
 
             val orientation = resources.configuration.orientation
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                rvFavTvShow.setHasFixedSize(true)
                 rvFavTvShow.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
-                rvFavTvShow.adapter = tvShowFavoriteAdapter
             } else {
-                rvFavTvShow.setHasFixedSize(true)
                 rvFavTvShow.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                rvFavTvShow.adapter = tvShowFavoriteAdapter
             }
+            rvFavTvShow.setHasFixedSize(true)
+            rvFavTvShow.adapter = tvShowFavoriteAdapter
         }
     }
 }

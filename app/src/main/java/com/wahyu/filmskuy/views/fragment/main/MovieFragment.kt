@@ -72,14 +72,12 @@ class MovieFragment : Fragment() {
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 rvMovie.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
-                rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = movieAdapter
             } else {
                 rvMovie.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                rvMovie.setHasFixedSize(true)
-                rvMovie.adapter = movieAdapter
             }
+            rvMovie.setHasFixedSize(true)
+            rvMovie.adapter = movieAdapter
         }
     }
 }

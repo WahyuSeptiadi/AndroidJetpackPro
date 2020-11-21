@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tv_shows_favorite")
 class TvShowEntity(
     val popular: Boolean? = null,
-    val favorite: Boolean? = null,
+    val favorite: Boolean,
     @ColumnInfo(name = "first_air_date")
     val firstAirDate: String? = null,
     @PrimaryKey

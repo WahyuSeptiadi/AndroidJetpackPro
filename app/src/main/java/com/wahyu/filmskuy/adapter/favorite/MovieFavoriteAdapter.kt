@@ -74,7 +74,7 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
                     context.startActivity(movieIntent)
                 }
 
-                if (movie.favorite!!) {
+                if (movie.favorite) {
                     insertToFavorite.invisible()
                     deleteFromFavorite.visible()
                 } else {
@@ -119,8 +119,5 @@ class MovieFavoriteAdapter : RecyclerView.Adapter<MovieFavoriteAdapter.MovieFavo
         return MovieFavoriteViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listFilms.size
-    }
-
+    override fun getItemCount(): Int = listFilms.size
 }

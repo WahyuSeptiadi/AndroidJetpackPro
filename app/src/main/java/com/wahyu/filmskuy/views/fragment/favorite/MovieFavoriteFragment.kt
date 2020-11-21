@@ -27,8 +27,8 @@ class MovieFavoriteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_movie_favorite, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 
             val movieAdapter = MovieFavoriteAdapter()
@@ -37,26 +37,23 @@ class MovieFavoriteFragment : Fragment() {
                 if (it != null && it.isNotEmpty()) {
                     progressMovieFavorite.gone()
                     Log.d("MovieDataFavorite", "$it")
-                    movieAdapter.setFilms(it)
                 } else {
-                    movieAdapter.setFilms(it)
                     movieFavoriteNotFound.visible()
                     progressMovieFavorite.gone()
                 }
+                movieAdapter.setFilms(it)
             }
 
             val orientation = resources.configuration.orientation
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                rvFavMovie.setHasFixedSize(true)
                 rvFavMovie.layoutManager =
                     GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
-                rvFavMovie.adapter = movieAdapter
             } else {
-                rvFavMovie.setHasFixedSize(true)
                 rvFavMovie.layoutManager =
                     GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                rvFavMovie.adapter = movieAdapter
             }
+            rvFavMovie.setHasFixedSize(true)
+            rvFavMovie.adapter = movieAdapter
         }
     }
 }

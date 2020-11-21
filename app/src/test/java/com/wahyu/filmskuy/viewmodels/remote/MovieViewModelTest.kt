@@ -58,5 +58,8 @@ class MovieViewModelTest {
 
         Assert.assertNotNull(movieViewModel.getAllMoviePopular())
         Assert.assertEquals(movieViewModel.getAllMoviePopular(), dataList)
+
+        // Expected 10 Actual 0 wkwk (unit testing yang lain juga sama belum di benerin)
+        Assert.assertEquals(10, movieViewModel.getAllMoviePopular().value?.size)
     }
 }
