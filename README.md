@@ -20,4 +20,13 @@ Please use as a reference guys :) </br>
 * RawQuery
 
 ## Screenshot Apps
-<img src="screenshot/display1.jpeg" alt="NotFound" width="450">
+<div>
+  <img src="asset/home.jpg" alt="NotFound" width="250">
+  <img src="asset/detail.jpg" alt="NotFound" width="250">
+  <img src="asset/favorite.jpg" alt="NotFound" width="250">
+</div>
+<div>
+  <img src="asset/land_home.jpg" alt="NotFound" width="750">
+  <img src="asset/land_detail.jpg" alt="NotFound" width="750">
+  <img src="asset/land_favorite.jpg" alt="NotFound" width="750">
+</div>
