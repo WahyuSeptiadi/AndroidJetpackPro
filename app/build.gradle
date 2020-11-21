@@ -79,7 +79,7 @@ dependencies {
 
     //for jUnitTest
     testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:3.1.0"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
